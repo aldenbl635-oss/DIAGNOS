@@ -1,0 +1,360 @@
+import React, { useEffect, useState } from 'react';
+import { api } from '../api/client';
+import Loader from '../components/Common/Loader';
+import { 
+  Award, 
+  TrendingUp, 
+  CheckCircle, 
+  XCircle, 
+  AlertCircle, 
+  ArrowRight, 
+  Clock, 
+  Activity,
+  History,
+  CornerDownRight,
+  ShieldCheck
+} from 'lucide-react';
+
+export default function Results({ sessionId, onNavigate }) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchResults() {
+      try {
+        const res = await api.getResults(sessionId);
+        setData(res);
+      } catch (err) {
+        setError(err.message || 'Failed to retrieve assessment results.');
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchResults();
+  }, [sessionId]);
+
+  if (loading) return <Loader text="Analyzing clinical action logs and compiling evaluation report..." />;
+  if (error) return (
+    <div className="max-w-md mx-auto my-12 text-center p-6 bg-red-50 border border-red-100 rounded-xl space-y-4">
+      <AlertCircle className="w-12 h-12 text-red-500 mx-auto" />
+      <h3 className="font-bold text-red-800">Results Error</h3>
+      <p className="text-sm text-red-650">{error}</p>
+      <button onClick={() => onNavigate('dashboard')} className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-sm font-semibold">
+        Back to Dashboard
+      </button>
+    </div>
+  );
+
+  const { session, evaluation, actions } = data;
+
+  const scoreCategories = [
+    { name: 'History Taking', score: evaluation.history_score, max: 20, desc: 'Question relevance and risk factors identification' },
+    { name: 'Differential Diagnosis', score: evaluation.differential_score ?? 0, max: 15, desc: 'Hypothesis updates as evidence emerged' },
+    { name: 'Investigation Selection', score: evaluation.investigation_score, max: 20, desc: 'Appropriate diagnostic selection' },
+    { name: 'Evidence Interpretation', score: evaluation.evidence_interpretation_score, max: 20, desc: 'Lab & ECG findings comprehension' },
+    { name: 'Clinical Reasoning', score: evaluation.reasoning_score, max: 15, desc: 'Hypothesis updates and diagnostics sequence flow' },
+    { name: 'Decision Making', score: evaluation.decision_score, max: 5, desc: 'Final diagnosis accuracy' },
+    { name: 'Resource Efficiency', score: evaluation.resource_efficiency_score, max: 5, desc: 'Avoidance of unnecessary high-cost tests' }
+  ];
+
+  // Helper to format timestamps to relative duration
+  const getRelativeTimeStr = (actionTime, startTime) => {
+    const act = new Date(actionTime);
+    const start = new Date(startTime);
+    const diffMs = act - start;
+    const diffSecs = Math.max(0, Math.floor(diffMs / 1000));
+    const mins = Math.floor(diffSecs / 60);
+    const secs = diffSecs % 60;
+    return `+${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  // Determine path nodes for comparison
+  const expectedPath = [
+    { label: "Meet Robert (Discomfort Brief)", type: "system" },
+    { label: "Interview Pain & Risk Factors", type: "question" },
+    { label: "Order 12-Lead ECG (Primary Screen)", type: "investigation" },
+    { label: "Order Cardiac Troponin (Injury Confirm)", type: "investigation" },
+    { label: "Diagnose Acute Coronary Syndrome", type: "decision" }
+  ];
+
+  // Format student actions for pathway nodes
+  const getStudentPathNodes = () => {
+    const nodes = [];
+    nodes.push({ label: "Brief Review", type: "system" });
+    
+    let askedQuestions = false;
+    let orderedEcg = false;
+    let orderedTroponin = false;
+    let orderedCt = false;
+
+    actions.forEach(act => {
+      if (act.action_type === 'question') askedQuestions = true;
+      if (act.action_type === 'investigation') {
+        const name = (act.content || '').toLowerCase();
+        if (name.includes('ecg') || name.includes('electrocardiogram')) orderedEcg = true;
+        if (name.includes('troponin')) orderedTroponin = true;
+        if (name.includes('ct') || name.includes('angio')) orderedCt = true;
+      }
+    });
+
+    if (askedQuestions) nodes.push({ label: "Progressive Patient Interview", type: "question" });
+    if (orderedCt) nodes.push({ label: "Wasted Cost: ordered advanced CT Scan", type: "unnecessary" });
+    if (orderedEcg) nodes.push({ label: "Ordered 12-Lead ECG", type: "investigation" });
+    if (orderedTroponin) nodes.push({ label: "Ordered Cardiac Troponin", type: "investigation" });
+    nodes.push({ label: `Submit: ${session.final_diagnosis || "Incomplete"}`, type: "decision" });
+
+    return nodes;
+  };
+
+  const studentPath = getStudentPathNodes();
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fade-in">
+      
+      {/* Top Header Card */}
+      <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="space-y-2">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-lg text-xs font-semibold">
+            <CheckCircle className="w-4 h-4 text-emerald-600" />
+            <span>Simulation Evaluated Successfully</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Clinical Reasoning Report</h1>
+          <p className="text-xs text-slate-500 font-semibold">
+            Session: {session.id} • Date: {new Date(evaluation.created_at).toLocaleString()}
+          </p>
+        </div>
+
+        {/* Score Ring / Badge */}
+        <div className="flex items-center gap-4 bg-slate-50 border border-slate-200/60 p-4 rounded-2xl shrink-0">
+          <div className="w-16 h-16 bg-medical-500 text-white rounded-full flex flex-col items-center justify-center shadow-lg shadow-medical-100 shrink-0">
+            <span className="text-2xl font-black leading-none">{evaluation.final_score}</span>
+            <span className="text-[9px] font-bold uppercase tracking-wide opacity-80 mt-0.5">score</span>
+          </div>
+          <div className="space-y-0.5">
+            <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest block">Performance Rating</span>
+            <h4 className="text-base font-extrabold text-slate-800">
+              {evaluation.final_score >= 90 ? 'Excellent Clinical Competency' : evaluation.final_score >= 80 ? 'Good Clinical reasoning' : 'Requires Focused Practice'}
+            </h4>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Grid: Category scores & feedback lists */}
+      <div className="grid lg:grid-cols-12 gap-8">
+        
+        {/* Category Scores breakdown (7 cols) */}
+        <div className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm lg:col-span-7 space-y-6">
+          <div className="border-b border-slate-100 pb-3 flex items-center gap-2">
+            <Award className="w-5 h-5 text-medical-600" />
+            <h3 className="font-bold text-slate-800">Scoring Dimension Analysis</h3>
+          </div>
+
+          <div className="space-y-5">
+            {scoreCategories.map((cat, idx) => (
+              <div key={idx} className="space-y-1.5">
+                <div className="flex justify-between items-baseline text-xs font-bold">
+                  <span className="text-slate-800">{cat.name}</span>
+                  <span className="text-slate-500">
+                    <strong className="text-slate-800">{cat.score}</strong> / {cat.max}
+                  </span>
+                </div>
+                <div className="w-full bg-slate-100 rounded-full h-2">
+                  <div 
+                    className={`h-2 rounded-full transition-all duration-500 ${
+                      (cat.score / cat.max) >= 0.85 
+                        ? 'bg-emerald-500' 
+                        : (cat.score / cat.max) >= 0.70 
+                        ? 'bg-medical-500' 
+                        : 'bg-amber-500'
+                    }`} 
+                    style={{ width: `${(cat.score / cat.max) * 100}%` }} 
+                  />
+                </div>
+                <span className="text-[10px] font-semibold text-slate-400 block">{cat.desc}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Qualitative AI Summary & Strengths (5 cols) */}
+        <div className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm lg:col-span-5 flex flex-col justify-between space-y-6">
+          <div className="space-y-4">
+            <div className="border-b border-slate-100 pb-3 flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-medical-600" />
+              <h3 className="font-bold text-slate-800">Evaluator Synthesis</h3>
+            </div>
+            
+            <p className="text-xs font-semibold text-slate-650 leading-relaxed italic bg-slate-50 border border-slate-100 p-4 rounded-xl">
+              "{evaluation.summary}"
+            </p>
+          </div>
+
+          {/* Critical mistakes warning if any */}
+          {evaluation.critical_mistakes.length > 0 && (
+            <div className="bg-red-50 border border-red-150 p-4 rounded-xl space-y-2">
+              <div className="flex items-center gap-1.5 text-red-750 font-bold text-xs">
+                <AlertCircle className="w-4.5 h-4.5 text-red-650 shrink-0" />
+                <span>Critical Mistakes Identified:</span>
+              </div>
+              <ul className="list-disc pl-4 text-[11px] font-semibold text-red-700 space-y-1">
+                {evaluation.critical_mistakes.map((mistake, idx) => (
+                  <li key={idx}>{mistake}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+      </div>
+
+      {/* Strengths & Improvements checklists */}
+      <div className="grid md:grid-cols-2 gap-8">
+        <div className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm space-y-4">
+          <h4 className="font-bold text-slate-800 text-sm border-b border-slate-100 pb-2">Demonstrated Strengths</h4>
+          <div className="space-y-3">
+            {evaluation.strengths.length > 0 ? (
+              evaluation.strengths.map((s, idx) => (
+                <div key={idx} className="flex gap-2.5 items-start text-xs font-semibold text-emerald-800">
+                  <CheckCircle className="w-4.5 h-4.5 text-emerald-600 shrink-0 mt-0.5" />
+                  <span>{s}</span>
+                </div>
+              ))
+            ) : (
+              <span className="text-xs text-slate-400">No major strengths highlighted in logs.</span>
+            )}
+          </div>
+        </div>
+
+        <div className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm space-y-4">
+          <h4 className="font-bold text-slate-800 text-sm border-b border-slate-100 pb-2">Areas for Improvement</h4>
+          <div className="space-y-3">
+            {evaluation.weaknesses.length > 0 ? (
+              evaluation.weaknesses.map((w, idx) => (
+                <div key={idx} className="flex gap-2.5 items-start text-xs font-semibold text-amber-900">
+                  <AlertCircle className="w-4.5 h-4.5 text-amber-500 shrink-0 mt-0.5" />
+                  <span>{w}</span>
+                </div>
+              ))
+            ) : (
+              <span className="text-xs text-slate-400">Excellent performance. No weaknesses identified.</span>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Expected vs Actual Pathways block */}
+      <div className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm space-y-6">
+        <div className="border-b border-slate-100 pb-3">
+          <h3 className="font-bold text-slate-800 text-base">Diagnostic Pathway Alignment</h3>
+          <p className="text-xs text-slate-500 font-semibold mt-0.5">
+            Compare the guidelines-based optimal sequence with your actual simulation sequence.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Expected path card */}
+          <div className="border border-slate-200/70 p-4.5 rounded-xl bg-slate-50/50 space-y-4">
+            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Expected High-Value Pathway</h4>
+            <div className="relative pl-5 border-l-2 border-slate-200 space-y-5 py-2">
+              {expectedPath.map((node, idx) => (
+                <div key={idx} className="relative">
+                  {/* Dot */}
+                  <div className="absolute -left-[26px] top-1 w-3 h-3 bg-medical-500 border-2 border-white rounded-full" />
+                  <span className="text-xs font-bold text-slate-800">{node.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Student actual path card */}
+          <div className="border border-slate-200/70 p-4.5 rounded-xl bg-slate-50/50 space-y-4">
+            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Your Diagnostic Actions</h4>
+            <div className="relative pl-5 border-l-2 border-slate-200 space-y-5 py-2">
+              {studentPath.map((node, idx) => {
+                const colors = {
+                  system: 'bg-slate-400',
+                  question: 'bg-emerald-500',
+                  investigation: 'bg-medical-500',
+                  decision: 'bg-red-500',
+                  unnecessary: 'bg-amber-500'
+                };
+                return (
+                  <div key={idx} className="relative">
+                    {/* Dot */}
+                    <div className={`absolute -left-[26px] top-1 w-3 h-3 ${colors[node.type] || 'bg-slate-400'} border-2 border-white rounded-full`} />
+                    <span className="text-xs font-bold text-slate-800">{node.label}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Reasoning timeline */}
+      <div className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm space-y-4">
+        <div className="border-b border-slate-100 pb-3 flex items-center gap-2">
+          <History className="w-5 h-5 text-medical-600" />
+          <h3 className="font-bold text-slate-800">Detailed Action Chronology</h3>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs font-medium text-slate-600">
+            <thead>
+              <tr className="border-b border-slate-100 font-bold text-[10px] text-slate-400 uppercase tracking-wider">
+                <th className="py-2.5">Relative Time</th>
+                <th className="py-2.5">Action Category</th>
+                <th className="py-2.5">Description</th>
+                <th className="py-2.5 text-right">Cost (Credits)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {actions.map((act, idx) => (
+                <tr key={idx} className="border-b border-slate-100/60 hover:bg-slate-50/50">
+                  <td className="py-3 font-mono font-bold text-slate-500">
+                    {getRelativeTimeStr(act.timestamp, session.created_at)}
+                  </td>
+                  <td className="py-3">
+                    <span className={`px-2 py-0.5 rounded font-bold text-[9px] uppercase tracking-wider ${
+                      act.action_type === 'question' 
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' 
+                        : act.action_type === 'investigation' 
+                        ? 'bg-medical-50 text-medical-700 border border-medical-100' 
+                        : act.action_type === 'examination' 
+                        ? 'bg-purple-50 text-purple-700 border border-purple-100'
+                        : 'bg-slate-100 text-slate-650'
+                    }`}>
+                      {act.action_type}
+                    </span>
+                  </td>
+                  <td className="py-3 font-bold text-slate-750">{act.content}</td>
+                  <td className="py-3 text-right font-mono font-extrabold text-slate-800">
+                    {act.cost > 0 ? `-${act.cost} cr` : '—'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Disclaimers & CTAs */}
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4">
+        <div className="flex items-center gap-2.5 text-amber-800 bg-amber-50/60 p-3 rounded-xl border border-amber-250/50 max-w-2xl text-[10px] leading-relaxed">
+          <ShieldCheck className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+          <span>
+            <strong>Disclaimer:</strong> Feedback generated above is simulated based on rules and standard clinical criteria definitions. This assessment is purely for medical training simulator demonstrations and hackathon presentation.
+          </span>
+        </div>
+        <button
+          onClick={() => onNavigate('dashboard')}
+          className="w-full sm:w-auto px-6 py-3 bg-medical-500 hover:bg-medical-750 text-white font-bold text-sm rounded-xl shadow-md shadow-medical-100 transition-all duration-200 shrink-0"
+        >
+          Return to Dashboard
+        </button>
+      </div>
+
+    </div>
+  );
+}
