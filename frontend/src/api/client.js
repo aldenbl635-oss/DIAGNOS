@@ -16,7 +16,7 @@ class ApiClient {
 
   async request(endpoint, options = {}) {
     const url = `${API_BASE}${endpoint}`;
-    
+
     const headers = {
       'Content-Type': 'application/json',
       ...options.headers,
@@ -62,6 +62,12 @@ class ApiClient {
         } else if (data && data.message) {
           errorMessage = data.message;
         }
+
+        if (response.status === 401) {
+          this.logout();
+          window.dispatchEvent(new Event('diagnos-unauthorized'));
+        }
+
         throw new Error(errorMessage);
       }
 
@@ -164,6 +170,12 @@ class ApiClient {
 
   async getResults(sessionId) {
     return await this.request(`/simulation/${sessionId}/results`);
+  }
+
+  async resetHistory() {
+    return await this.request('/simulation/reset-history', {
+      method: 'POST'
+    });
   }
 
   // Dashboard endpoints

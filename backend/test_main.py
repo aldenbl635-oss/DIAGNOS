@@ -72,7 +72,7 @@ def client(db_session):
 def test_case_engine_loaded():
     # Verify cases are loaded by engine
     assert "chest_pain_001" in case_engine.cases
-    assert case_engine.cases["chest_pain_001"]["title"] == "Atypical Chest Pain"
+    assert case_engine.cases["chest_pain_001"]["title"] == "Chest Discomfort — Emergency Presentation"
 
 def test_register_login(client):
     email = "test_student@diagnos.org"
@@ -157,7 +157,7 @@ def test_get_session_restore(client):
     assert data["session"]["remaining_resources"] == 900
     assert len(data["chat_messages"]) >= 3
     assert "ecg" in data["investigations_ordered"]
-    assert data["case"]["patient_name"] == "Robert Miller"
+    assert data["case"]["patient_name"] == "Daniel Thomas"
     assert len(data["case"]["investigations"]) > 0
 
 def test_case_detail_includes_metadata(client):
@@ -169,7 +169,7 @@ def test_case_detail_includes_metadata(client):
     res = client.get("/api/cases/chest_pain_001", headers=headers)
     assert res.status_code == 200
     data = res.json()
-    assert data["patient_name"] == "Robert Miller"
+    assert data["patient_name"] == "Daniel Thomas"
     assert len(data["examinations"]) >= 5
     assert len(data["investigations"]) >= 5
     assert "vitals" in data

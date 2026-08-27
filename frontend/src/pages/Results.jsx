@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../api/client';
 import Loader from '../components/Common/Loader';
-import { 
-  Award, 
-  TrendingUp, 
-  CheckCircle, 
-  XCircle, 
-  AlertCircle, 
-  ArrowRight, 
-  Clock, 
+import {
+  Award,
+  TrendingUp,
+  CheckCircle,
+  XCircle,
+  AlertCircle,
+  ArrowRight,
+  Clock,
   Activity,
   History,
   CornerDownRight,
-  ShieldCheck
+  ShieldCheck,
+  Heart,
+  MessageSquare
 } from 'lucide-react';
 
 export default function Results({ sessionId, onNavigate }) {
@@ -82,7 +84,7 @@ export default function Results({ sessionId, onNavigate }) {
   const getStudentPathNodes = () => {
     const nodes = [];
     nodes.push({ label: "Brief Review", type: "system" });
-    
+
     let askedQuestions = false;
     let orderedEcg = false;
     let orderedTroponin = false;
@@ -111,30 +113,30 @@ export default function Results({ sessionId, onNavigate }) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fade-in">
-      
+
       {/* Top Header Card */}
       <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="space-y-2">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-lg text-xs font-semibold">
             <CheckCircle className="w-4 h-4 text-emerald-600" />
-            <span>Simulation Evaluated Successfully</span>
+            <span>Encounter Complete</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Clinical Reasoning Report</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Patient Encounter Performance Report</h1>
           <p className="text-xs text-slate-500 font-semibold">
-            Session: {session.id} • Date: {new Date(evaluation.created_at).toLocaleString()}
+            Encounter Session: {session.id} • Evaluated: {new Date(evaluation.created_at).toLocaleString()}
           </p>
         </div>
 
         {/* Score Ring / Badge */}
         <div className="flex items-center gap-4 bg-slate-50 border border-slate-200/60 p-4 rounded-2xl shrink-0">
-          <div className="w-16 h-16 bg-medical-500 text-white rounded-full flex flex-col items-center justify-center shadow-lg shadow-medical-100 shrink-0">
+          <div className="w-16 h-16 bg-teal-600 text-white rounded-full flex flex-col items-center justify-center shadow-lg shadow-teal-100 shrink-0">
             <span className="text-2xl font-black leading-none">{evaluation.final_score}</span>
             <span className="text-[9px] font-bold uppercase tracking-wide opacity-80 mt-0.5">score</span>
           </div>
           <div className="space-y-0.5">
-            <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest block">Performance Rating</span>
+            <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest block">Encounter Rating</span>
             <h4 className="text-base font-extrabold text-slate-800">
-              {evaluation.final_score >= 90 ? 'Excellent Clinical Competency' : evaluation.final_score >= 80 ? 'Good Clinical reasoning' : 'Requires Focused Practice'}
+              {evaluation.final_score >= 90 ? 'Excellent Patient Encounter' : evaluation.final_score >= 80 ? 'Good Clinical Competency' : 'Requires Focused Practice'}
             </h4>
           </div>
         </div>
@@ -142,7 +144,7 @@ export default function Results({ sessionId, onNavigate }) {
 
       {/* Main Grid: Category scores & feedback lists */}
       <div className="grid lg:grid-cols-12 gap-8">
-        
+
         {/* Category Scores breakdown (7 cols) */}
         <div className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm lg:col-span-7 space-y-6">
           <div className="border-b border-slate-100 pb-3 flex items-center gap-2">
@@ -160,15 +162,14 @@ export default function Results({ sessionId, onNavigate }) {
                   </span>
                 </div>
                 <div className="w-full bg-slate-100 rounded-full h-2">
-                  <div 
-                    className={`h-2 rounded-full transition-all duration-500 ${
-                      (cat.score / cat.max) >= 0.85 
-                        ? 'bg-emerald-500' 
-                        : (cat.score / cat.max) >= 0.70 
-                        ? 'bg-medical-500' 
-                        : 'bg-amber-500'
-                    }`} 
-                    style={{ width: `${(cat.score / cat.max) * 100}%` }} 
+                  <div
+                    className={`h-2 rounded-full transition-all duration-500 ${(cat.score / cat.max) >= 0.85
+                        ? 'bg-emerald-500'
+                        : (cat.score / cat.max) >= 0.70
+                          ? 'bg-medical-500'
+                          : 'bg-amber-500'
+                      }`}
+                    style={{ width: `${(cat.score / cat.max) * 100}%` }}
                   />
                 </div>
                 <span className="text-[10px] font-semibold text-slate-400 block">{cat.desc}</span>
@@ -184,7 +185,7 @@ export default function Results({ sessionId, onNavigate }) {
               <TrendingUp className="w-5 h-5 text-medical-600" />
               <h3 className="font-bold text-slate-800">Evaluator Synthesis</h3>
             </div>
-            
+
             <p className="text-xs font-semibold text-slate-650 leading-relaxed italic bg-slate-50 border border-slate-100 p-4 rounded-xl">
               "{evaluation.summary}"
             </p>
@@ -206,6 +207,109 @@ export default function Results({ sessionId, onNavigate }) {
           )}
         </div>
 
+      </div>
+
+      {/* Therapeutic Communication & Empathy Card */}
+      <div className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm space-y-6">
+        <div className="border-b border-slate-100 pb-3 flex items-center gap-2">
+          <MessageSquare className="w-5 h-5 text-teal-650" />
+          <div>
+            <h3 className="font-bold text-slate-800">Bedside Manner & Therapeutic Communication Report</h3>
+            <p className="text-xs text-slate-500 font-semibold mt-0.5">
+              Assessing patient-centered professionalism, bedside manner stability, and therapeutic rapport.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {/* Professionalism & Tone progress */}
+          <div className="space-y-2 bg-slate-50/50 p-4 border border-slate-100 rounded-xl">
+            <div className="flex justify-between items-center text-xs font-bold">
+              <span className="text-slate-700 flex items-center gap-1">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" /> Professionalism & Tone
+              </span>
+              <span className="text-slate-800 font-extrabold">{evaluation.communication_score ?? 0} / 100</span>
+            </div>
+            <div className="w-full bg-slate-200/70 rounded-full h-2">
+              <div
+                className={`h-2 rounded-full transition-all duration-500 ${(evaluation.communication_score ?? 0) >= 80 ? 'bg-emerald-500' : (evaluation.communication_score ?? 0) >= 50 ? 'bg-teal-500' : 'bg-amber-500'
+                  }`}
+                style={{ width: `${evaluation.communication_score ?? 0}%` }}
+              />
+            </div>
+            <span className="text-[10px] font-semibold text-slate-400 block">Respectful language, medical ethics support, and demeanor compliance.</span>
+          </div>
+
+          {/* Empathy Score progress */}
+          <div className="space-y-2 bg-slate-50/50 p-4 border border-slate-100 rounded-xl">
+            <div className="flex justify-between items-center text-xs font-bold">
+              <span className="text-slate-700 flex items-center gap-1">
+                <Heart className="w-4 h-4 text-rose-500" /> Empathy & Social Support
+              </span>
+              <span className="text-slate-800 font-extrabold">{evaluation.empathy_score ?? 0} / 100</span>
+            </div>
+            <div className="w-full bg-slate-200/70 rounded-full h-2">
+              <div
+                className={`h-2 rounded-full transition-all duration-500 ${(evaluation.empathy_score ?? 0) >= 80 ? 'bg-emerald-500' : (evaluation.empathy_score ?? 0) >= 50 ? 'bg-teal-500' : 'bg-rose-500'
+                  }`}
+                style={{ width: `${evaluation.empathy_score ?? 0}%` }}
+              />
+            </div>
+            <span className="text-[10px] font-semibold text-slate-400 block">Patient emotional recognition and active validating reassuring comments.</span>
+          </div>
+
+          {/* Patient Interaction Score progress */}
+          <div className="space-y-2 bg-slate-50/50 p-4 border border-slate-100 rounded-xl">
+            <div className="flex justify-between items-center text-xs font-bold">
+              <span className="text-slate-700 flex items-center gap-1">
+                <Activity className="w-4 h-4 text-teal-500" /> Bedside Manner Stability
+              </span>
+              <span className="text-slate-800 font-extrabold">{evaluation.patient_interaction_score ?? 0} / 100</span>
+            </div>
+            <div className="w-full bg-slate-200/70 rounded-full h-2">
+              <div
+                className={`h-2 rounded-full transition-all duration-500 ${(evaluation.patient_interaction_score ?? 0) >= 80 ? 'bg-emerald-500' : (evaluation.patient_interaction_score ?? 0) >= 50 ? 'bg-teal-500' : 'bg-amber-500'
+                  }`}
+                style={{ width: `${evaluation.patient_interaction_score ?? 0}%` }}
+              />
+            </div>
+            <span className="text-[10px] font-semibold text-slate-400 block">Maintained bedside stability, avoided distress spikes, and corrected failures.</span>
+          </div>
+        </div>
+
+        {/* Chronological Timeline */}
+        {evaluation.emotional_timeline && evaluation.emotional_timeline.length > 0 && (
+          <div className="pt-4 border-t border-slate-100 space-y-3">
+            <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest block font-mono">Patient Emotional Journey Log</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+              {evaluation.emotional_timeline.map((event, index) => {
+                const labelColors = {
+                  Shocked: 'bg-amber-50/80 text-amber-800 border-amber-200',
+                  Frightened: 'bg-red-50/80 text-red-800 border-red-200',
+                  Distressed: 'bg-purple-50/80 text-purple-800 border-purple-200',
+                  Anxious: 'bg-orange-50/80 text-orange-900 border-orange-200',
+                  Concerned: 'bg-yellow-50 text-yellow-800 border-yellow-205',
+                  Reassured: 'bg-emerald-50/80 text-emerald-800 border-emerald-200',
+                  Angry: 'bg-rose-50/80 text-rose-800 border-rose-200',
+                  Confused: 'bg-blue-50/80 text-blue-800 border-blue-200',
+                  Calm: 'bg-slate-50/80 text-slate-800 border-slate-200'
+                };
+                const colorClass = labelColors[event.emotion_label] || 'bg-slate-50 text-slate-700 border-slate-200';
+                return (
+                  <div key={index} className={`flex items-start gap-2.5 p-3 rounded-xl border ${colorClass} text-xs font-semibold transition-all hover:shadow-sm`}>
+                    <div className="w-5 h-5 bg-white/90 border border-slate-100 rounded-full flex items-center justify-center shrink-0 font-mono text-[10px] font-black shadow-sm">
+                      {event.turn}
+                    </div>
+                    <div className="space-y-0.5">
+                      <div className="font-extrabold uppercase text-[9px] tracking-wide opacity-80">{event.emotion_label}</div>
+                      <div className="text-[10px] leading-tight font-medium opacity-90">{event.description}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Strengths & Improvements checklists */}
@@ -316,15 +420,14 @@ export default function Results({ sessionId, onNavigate }) {
                     {getRelativeTimeStr(act.timestamp, session.created_at)}
                   </td>
                   <td className="py-3">
-                    <span className={`px-2 py-0.5 rounded font-bold text-[9px] uppercase tracking-wider ${
-                      act.action_type === 'question' 
-                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' 
-                        : act.action_type === 'investigation' 
-                        ? 'bg-medical-50 text-medical-700 border border-medical-100' 
-                        : act.action_type === 'examination' 
-                        ? 'bg-purple-50 text-purple-700 border border-purple-100'
-                        : 'bg-slate-100 text-slate-650'
-                    }`}>
+                    <span className={`px-2 py-0.5 rounded font-bold text-[9px] uppercase tracking-wider ${act.action_type === 'question'
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-100'
+                        : act.action_type === 'investigation'
+                          ? 'bg-medical-50 text-medical-700 border border-medical-100'
+                          : act.action_type === 'examination'
+                            ? 'bg-purple-50 text-purple-700 border border-purple-100'
+                            : 'bg-slate-100 text-slate-650'
+                      }`}>
                       {act.action_type}
                     </span>
                   </td>

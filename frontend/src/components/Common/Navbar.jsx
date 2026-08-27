@@ -34,19 +34,19 @@ export default function Navbar({ user, activePage, onNavigate, onLogout, theme, 
                   }`}
                 >
                   <LayoutDashboard className="w-4 h-4" />
-                  Dashboard
+                  Virtual Patient Lab
                 </button>
                 <button
-                  id="nav-btn-cases"
-                  onClick={() => onNavigate('cases')}
+                  id="nav-btn-encounter"
+                  onClick={() => onNavigate('encounter-setup')}
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                    activePage === 'cases' || activePage === 'briefing' || activePage === 'simulation'
+                    activePage === 'encounter-setup' || activePage === 'simulation'
                       ? 'bg-slate-100 text-slate-900'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
-                  <BookOpen className="w-4 h-4" />
-                  Case Library
+                  <HeartPulse className="w-4 h-4 text-medical-600" />
+                  New Encounter
                 </button>
               </div>
             )}

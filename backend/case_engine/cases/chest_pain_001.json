@@ -1,13 +1,14 @@
 {
   "id": "chest_pain_001",
-  "title": "Atypical Chest Pain",
+  "title": "Chest Discomfort — Emergency Presentation",
   "specialty": "Emergency Medicine",
   "difficulty": "Intermediate",
   "duration_mins": 20,
   "patient": {
-    "name": "Robert Miller",
+    "name": "Daniel Thomas",
     "age": 52,
     "sex": "Male",
+    "occupation": "Office Manager",
     "vitals": {
       "bp": "150/90 mmHg",
       "hr": "102 bpm",
@@ -15,115 +16,127 @@
       "temp": "36.8°C"
     },
     "chief_complaint": "Chest discomfort",
-    "initial_briefing": "You are the attending physician in the Emergency Department. Robert Miller, a 52-year-old male, has just walked in complaining of chest discomfort that started approximately 30 minutes ago. He is breathing but looks visibly uncomfortable and slightly pale. You must evaluate him, gather history, perform examinations, order appropriate tests, and decide on the correct diagnosis and immediate priority."
+    "initial_statement": "I've been having this uncomfortable feeling in my chest for about half an hour. I thought it might pass but it hasn't."
   },
-  "qa_pairs": [
-    {
-      "keywords": ["where", "location", "describe", "feel", "type", "nature"],
-      "question_category": "pain_characteristics",
-      "fact": "Pressure-like chest pain located in the center of the chest.",
-      "answer": "It is right in the center of my chest. It feels like a heavy pressure, almost like someone is sitting or pressing down hard on my chest."
+
+  "clinical_facts": {
+    "symptoms": [
+      "Pressure-like chest discomfort, central, described as a heavy weight on the chest",
+      "Onset approximately 30-40 minutes ago",
+      "Triggered by exertion — was climbing stairs to his office when it started",
+      "Pain radiates to the left arm and left shoulder (started about 15 minutes after onset)",
+      "Associated diaphoresis (cold sweats, feels clammy)",
+      "Associated nausea (no vomiting)",
+      "Mild shortness of breath",
+      "No pleuritic component, no positional change",
+      "Never experienced anything like this before"
+    ],
+    "history_of_illness": [
+      "Pain started while climbing office stairs — had to stop immediately",
+      "Has been sitting in the waiting area since arriving",
+      "Pain severity: approximately 7/10",
+      "Pain is constant, not relieved by rest"
+    ],
+    "past_medical_history": [
+      "Type 2 Diabetes Mellitus — diagnosed 5 years ago",
+      "Hypertension — on treatment",
+      "Hypercholesterolaemia",
+      "No prior cardiac history",
+      "No prior hospitalizations for cardiac events"
+    ],
+    "medications": [
+      "Metformin 1g twice daily (for diabetes)",
+      "Lisinopril 10mg once daily (for hypertension)",
+      "Atorvastatin 40mg once daily (for high cholesterol)"
+    ],
+    "allergies": [
+      "No known drug or food allergies"
+    ],
+    "family_history": [
+      "Father had a myocardial infarction at age 54 — required coronary bypass surgery",
+      "No other significant family cardiac history known to patient"
+    ],
+    "social_history": [
+      "Smokes approximately 10 cigarettes per day for the past 15 years",
+      "Occasional alcohol — 2-3 drinks per week",
+      "Sedentary desk job, minimal exercise",
+      "Married with two children — children are a significant concern for him",
+      "Works long hours under significant workplace stress"
+    ],
+    "review_of_systems": [
+      "Cardiovascular: chest pressure, left arm radiation, palpitations not specifically noted",
+      "Respiratory: mild dyspnoea, no cough, no haemoptysis",
+      "GI: nausea, no vomiting, no abdominal pain",
+      "Neuro: no dizziness, no syncope, no neurological symptoms",
+      "Musculoskeletal: no recent trauma, no musculoskeletal chest wall pain"
+    ],
+    "examination_findings": {
+      "NOTE": "These findings are available when the student performs examinations — not volunteered by patient in conversation"
     },
-    {
-      "keywords": ["radiate", "arm", "jaw", "neck", "shoulder", "back"],
-      "question_category": "pain_characteristics",
-      "fact": "Pain radiates to the left arm.",
-      "answer": "Yes, I feel a dull ache radiating down my left arm and up towards my shoulder. It started doing that about 15 minutes ago."
-    },
-    {
-      "keywords": ["start", "when", "exert", "walk", "stairs", "doing", "onset"],
-      "question_category": "history_presenting_illness",
-      "fact": "Pain was triggered by exertion (walking up stairs).",
-      "answer": "It started suddenly while I was walking up the stairs to my office. It was so intense that I had to stop and sit down immediately."
-    },
-    {
-      "keywords": ["duration", "long", "minutes", "hours"],
-      "question_category": "history_presenting_illness",
-      "fact": "Pain has been ongoing for approximately 30-45 minutes.",
-      "answer": "It's been about 30 to 40 minutes since it started. It hasn't let up or changed much since then."
-    },
-    {
-      "keywords": ["diabetes", "diabetic", "sugar"],
-      "question_category": "past_medical_history",
-      "fact": "Patient has Type 2 diabetes.",
-      "answer": "Yes, I have Type 2 diabetes. I was diagnosed about 5 years ago. I take metformin for it."
-    },
-    {
-      "keywords": ["smoke", "smoking", "cigarette", "tobacco"],
-      "question_category": "lifestyle_risk_factors",
-      "fact": "Patient smokes 10 cigarettes a day.",
-      "answer": "Yes, I smoke. I smoke about half a pack (10 cigarettes) a day, and I've been doing that for about 15 years."
-    },
-    {
-      "keywords": ["hypertension", "blood pressure", "bp"],
-      "question_category": "past_medical_history",
-      "fact": "Patient has hypertension.",
-      "answer": "Yes, I have high blood pressure. My doctor prescribed me lisinopril, which I take every morning."
-    },
-    {
-      "keywords": ["sweat", "sweating", "diaphoresis", "clammy"],
-      "question_category": "associated_symptoms",
-      "fact": "Patient has sweating/diaphoresis.",
-      "answer": "Yes, I've broken out in a cold sweat. I feel quite clammy and cold right now."
-    },
-    {
-      "keywords": ["nausea", "sick", "nauseous", "vomit"],
-      "question_category": "associated_symptoms",
-      "fact": "Patient has nausea.",
-      "answer": "I do feel quite nauseous, like my stomach is turning. I haven't thrown up, but I feel like I might."
-    },
-    {
-      "keywords": ["family", "history", "father", "mother", "parents", "heart disease"],
-      "question_category": "family_history",
-      "fact": "Father had a myocardial infarction at age 54.",
-      "answer": "My father had a heart attack when he was 54 years old. He had to undergo coronary bypass surgery."
-    },
-    {
-      "keywords": ["medication", "pill", "drug", "metformin", "lisinopril"],
-      "question_category": "medication_history",
-      "fact": "Takes Metformin, Lisinopril, and Atorvastatin.",
-      "answer": "I take metformin for my diabetes, lisinopril for my blood pressure, and atorvastatin for high cholesterol."
-    },
-    {
-      "keywords": ["allergy", "allergies", "penicillin"],
-      "question_category": "allergies",
-      "fact": "No known allergies.",
-      "answer": "No, I don't have any drug or food allergies that I know of."
-    },
-    {
-      "keywords": ["before", "previous", "happened", "ever"],
-      "question_category": "past_medical_history",
-      "fact": "Never experienced this pain before.",
-      "answer": "No, I've never felt anything like this before. It's completely new and very frightening."
+    "investigation_results": {
+      "NOTE": "These results are available when investigations are ordered — not volunteered by patient"
     }
+  },
+
+  "patient_personality": {
+    "baseline_anxiety": 65,
+    "emotional_sensitivity": 75,
+    "trustfulness": 55,
+    "cooperativeness": 78,
+    "health_literacy": 35,
+    "fear_of_death": 82,
+    "privacy_sensitivity": 45,
+    "assertiveness": 42,
+    "pain_tolerance": 40,
+    "distrust_of_medical": 28
+  },
+
+  "patient_beliefs": [
+    "I think this is probably bad indigestion or something I ate at lunch.",
+    "I've been under a lot of stress at work — maybe it's stress-related.",
+    "My father had heart problems, but I'm not sure this is the same thing.",
+    "I don't want to cause a fuss if it turns out to be nothing serious.",
+    "I really need to get home to my family — my wife will be worried.",
+    "I'm a bit worried it could be my heart given my father's history."
   ],
+
+  "patient_goals": [
+    "Primary: Understand what is causing this chest discomfort.",
+    "Safety: Find out whether this is dangerous or life-threatening.",
+    "Emotional: Be reassured that I am going to be okay.",
+    "Practical: Get back to my family as soon as possible.",
+    "Secondary: Avoid unnecessary procedures if possible.",
+    "Communication: Have things explained to me clearly and simply."
+  ],
+
   "examinations": [
     {
       "type": "general",
-      "name": "General Physical Exam",
-      "result": "Patient is alert and oriented, but appears moderately distressed, pale, and is sweating heavily (diaphoretic)."
+      "name": "General Physical Examination",
+      "result": "Patient is alert and oriented, but appears moderately distressed, pale, and is sweating heavily (diaphoretic). He is clutching his chest. He appears anxious."
     },
     {
       "type": "cardiovascular",
-      "name": "Cardiovascular Exam",
+      "name": "Cardiovascular Examination",
       "result": "Tachycardia (HR 102 bpm) noted. Heart sounds are normal S1 and S2; no murmurs, rubs, or gallops heard. JVP is normal. Peripheral pulses are intact and equal bilaterally."
     },
     {
       "type": "respiratory",
-      "name": "Respiratory Exam",
+      "name": "Respiratory Examination",
       "result": "Lungs are clear to auscultation bilaterally. No wheezes, crackles, or rhonchi. Respiratory rate is 18/min, chest expansion is symmetric."
     },
     {
       "type": "abdominal",
-      "name": "Abdominal Exam",
-      "result": "Abdomen is soft, non-distended, and non-tender. No organomegaly or masses."
+      "name": "Abdominal Examination",
+      "result": "Abdomen is soft, non-distended, and non-tender. No organomegaly or masses. Epigastric area is not tender on palpation."
     },
     {
       "type": "neurological",
-      "name": "Neurological Exam",
+      "name": "Neurological Examination",
       "result": "Grossly intact. Pupil reflexes are normal. No focal motor or sensory deficits noted."
     }
   ],
+
   "investigations": [
     {
       "id": "ecg",
@@ -186,26 +199,30 @@
       "category": "IMAGING",
       "turnaround": "45 mins",
       "result": "No evidence of pulmonary embolism. Aorta is of normal caliber with no dissection flap.",
-      "interpretation": "Normal CT scan. This test was clinically unnecessary given the ECG findings, resulting in resource inefficiency."
+      "interpretation": "Normal CT scan. This test was clinically unnecessary given the ECG findings, resulting in resource inefficiency and dangerous delay."
     }
   ],
+
   "differential_diagnoses": [
     "Acute coronary syndrome",
     "Pulmonary embolism",
     "Gastroesophageal reflux disease",
     "Pericarditis",
     "Pneumonia",
-    "Aortic dissection"
+    "Aortic dissection",
+    "Musculoskeletal chest pain"
   ],
+
   "evaluation_criteria": {
     "correct_diagnosis": "Acute coronary syndrome",
-    "correct_subtypes": ["acute coronary syndrome", "stemi", "myocardial infarction", "inferior stemi"],
+    "correct_subtypes": ["acute coronary syndrome", "stemi", "myocardial infarction", "inferior stemi", "acs"],
     "immediate_priority_keywords": ["reperfusion", "cath lab", "cardiology", "pci", "aspirin", "nitroglycerin", "heparin", "thrombolysis", "angioplasty"],
     "critical_questions": [
       "pain_characteristics",
       "lifestyle_risk_factors",
       "past_medical_history",
-      "associated_symptoms"
+      "associated_symptoms",
+      "family_history"
     ],
     "required_investigations": ["ecg", "troponin"],
     "unnecessary_investigations": ["ct_angio"]

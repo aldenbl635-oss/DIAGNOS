@@ -1,0 +1,253 @@
+{
+  "id": "chest_pain_002",
+  "title": "Cardiac Chest Pressure Variant 1",
+  "specialty": "Emergency Medicine / Cardiology",
+  "difficulty": "Intermediate",
+  "duration_mins": 20,
+  "patient": {
+    "name": "James Clark",
+    "age": 37,
+    "sex": "Male",
+    "occupation": "Journalist",
+    "vitals": {
+      "bp": "157/90 mmHg",
+      "hr": "107 bpm",
+      "spo2": "95%",
+      "temp": "36.9\u00b0C"
+    },
+    "chief_complaint": "Chest pressure",
+    "initial_statement": "I've got this crushing, heavy weight right in the center of my chest. It started about 30 minutes ago and it's making me feel quite sick."
+  },
+  "clinical_facts": {
+    "symptoms": [
+      "Severe crushing chest pain/pressure under the breastbone",
+      "Radiating to the left shoulder and left forearm",
+      "Clammy cold sweating (diaphoresis) since pain onset",
+      "Shortness of breath and mild stomach nausea (no vomiting)",
+      "Constant discomfort, unaffected by deep breaths or positional shifts"
+    ],
+    "past_medical_history": [
+      "Hypertension",
+      "Borderline Diabetes"
+    ],
+    "medications": [
+      "Lisinopril 10mg once daily",
+      "Atorvastatin 20mg once daily"
+    ],
+    "allergies": [
+      "No known drug or food allergies"
+    ],
+    "family_history": [
+      "Father had a myocardial infarction at age 59"
+    ],
+    "social_history": [
+      "Smokes 1 pack of cigarettes per day",
+      "High stress office job"
+    ],
+    "review_of_systems": [
+      "Cardiovascular: pulse rate is 107 bpm, no active chest pain except as noted.",
+      "Respiratory: airways are open.",
+      "GI: abdominal sounds active.",
+      "Neuro: intact."
+    ]
+  },
+  "patient_personality": {
+    "baseline_anxiety": 53,
+    "emotional_sensitivity": 63,
+    "trustfulness": 64,
+    "cooperativeness": 52,
+    "health_literacy": 50,
+    "fear_of_death": 59,
+    "privacy_sensitivity": 54,
+    "assertiveness": 42,
+    "pain_tolerance": 29,
+    "distrust_of_medical": 32
+  },
+  "patient_beliefs": [
+    "I hope this is just a temporary strain that will pass.",
+    "I've been under a lot of stress with my job.",
+    "I'm terrified this might be something permanent or fatal."
+  ],
+  "patient_goals": [
+    "Determine the core cause of these symptoms.",
+    "Verify whether there is emergency intervention required.",
+    "Get diagnostic results explained to me step by step."
+  ],
+  "examinations": [
+    {
+      "type": "general",
+      "name": "General Physical Examination",
+      "result": "Moderate distress, pale and sweating. Clutching chest."
+    },
+    {
+      "type": "cardiovascular",
+      "name": "Cardiovascular Examination",
+      "result": "Tachycardia (107 bpm) normal heart sounds, no murmurs."
+    },
+    {
+      "type": "respiratory",
+      "name": "Respiratory Examination",
+      "result": "Lungs clear to auscultation bilaterally."
+    },
+    {
+      "type": "abdominal",
+      "name": "Abdominal Examination",
+      "result": "Soft, non-distended, non-tender abdominal exam."
+    },
+    {
+      "type": "neurological",
+      "name": "Neurological Examination",
+      "result": "Grossly intact, pupils responsive, no deficit."
+    }
+  ],
+  "investigations": [
+    {
+      "id": "ecg",
+      "name": "12-Lead Electrocardiogram (ECG)",
+      "cost": 100,
+      "category": "CARDIAC",
+      "turnaround": "Immediate",
+      "result": "ST-segment elevation of 2mm noted in anterior leads V1-V4.",
+      "interpretation": "Abnormal ECG showing acute anterior ST-elevation myocardial infarction (STEMI)."
+    },
+    {
+      "id": "troponin",
+      "name": "Cardiac Troponin I",
+      "cost": 150,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "Troponin I is elevated at 2.1 ng/mL (Normal < 0.04 ng/mL).",
+      "interpretation": "Elevated cardiac enzymes matching myocardial necrosis."
+    },
+    {
+      "id": "cbc",
+      "name": "Complete Blood Count (CBC)",
+      "cost": 80,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "WBC: 6.4 x10^9/L, Hb: 13.8 g/dL, Platelets: 220 x10^9/L.",
+      "interpretation": "Complete blood count is within normal references."
+    },
+    {
+      "id": "glucose",
+      "name": "Random Blood Glucose",
+      "cost": 50,
+      "category": "BLOOD TESTS",
+      "turnaround": "Immediate",
+      "result": "Random Blood Glucose: 165 mg/dL.",
+      "interpretation": "Mild stress-induced hyperglycemia."
+    },
+    {
+      "id": "electrolytes",
+      "name": "Serum Electrolytes Panel",
+      "cost": 90,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "Sodium: 140 mEq/L, Potassium: 4.0 mEq/L.",
+      "interpretation": "Serum electrolytes are within normal range."
+    },
+    {
+      "id": "cxr",
+      "name": "Chest X-ray (CXR)",
+      "cost": 180,
+      "category": "IMAGING",
+      "turnaround": "15 mins",
+      "result": "Both lungs are hypolucent, no vascular congestion or consolidation.",
+      "interpretation": "Normal chest X-ray profile."
+    },
+    {
+      "id": "ct_angio",
+      "name": "CT Angiography of Chest",
+      "cost": 550,
+      "category": "IMAGING",
+      "turnaround": "45 mins",
+      "result": "Normal caliber aorta, no luminal narrowing, no dissection flap visible.",
+      "interpretation": "Normal chest CT Angiography."
+    },
+    {
+      "id": "ct_head",
+      "name": "CT Scan of Head (cranial assessment)",
+      "cost": 350,
+      "category": "IMAGING",
+      "turnaround": "30 mins",
+      "result": "No acute hemorrhage, infarct, or midline shifts found in cranial structures.",
+      "interpretation": "Normal CT Scan of the Head."
+    },
+    {
+      "id": "ct_abdomen",
+      "name": "CT Scan of Abdomen & Pelvis",
+      "cost": 450,
+      "category": "IMAGING",
+      "turnaround": "45 mins",
+      "result": "Stomach, liver, bowel loops, and appendix are normal size with no inflammatory changes.",
+      "interpretation": "Normal CT Scan of the Abdomen."
+    },
+    {
+      "id": "urinalysis",
+      "name": "Urinalysis and Urine Culture",
+      "cost": 70,
+      "category": "URINE TESTS",
+      "turnaround": "15 mins",
+      "result": "Clear yellow appearance, negative nitrite, negative leukocyte esterase.",
+      "interpretation": "Urinalysis is clear of infection signs."
+    },
+    {
+      "id": "leg_ultrasound",
+      "name": "Duplex Vascular Leg Ultrasound",
+      "cost": 220,
+      "category": "IMAGING",
+      "turnaround": "30 mins",
+      "result": "Normal patency of left and right femoral veins with complete color Doppler signal.",
+      "interpretation": "Normal leg vascular ultrasound."
+    }
+  ],
+  "differential_diagnoses": [
+    "Acute coronary syndrome",
+    "Gastroesophageal reflux disease",
+    "Stable Angina",
+    "Pericarditis",
+    "Panic attack",
+    "Acute ischemic stroke",
+    "Acute appendicitis",
+    "Asthma exacerbation",
+    "Acute pyelonephritis",
+    "Deep vein thrombosis",
+    "Migraine headache"
+  ],
+  "evaluation_criteria": {
+    "correct_diagnosis": "Acute coronary syndrome",
+    "correct_subtypes": [
+      "acute coronary syndrome",
+      "stemi",
+      "myocardial infarction",
+      "acs"
+    ],
+    "immediate_priority_keywords": [
+      "acute coronary syndrome",
+      "salvage",
+      "aspirin",
+      "tPA",
+      "thrombolysis",
+      "bronchodilator",
+      "albuterol",
+      "antibiotic",
+      "heparin",
+      "coagualtion",
+      "fluid resuscitation"
+    ],
+    "critical_questions": [
+      "pain_characteristics",
+      "lifestyle_risk_factors",
+      "past_medical_history",
+      "associated_symptoms",
+      "family_history"
+    ],
+    "required_investigations": [
+      "ecg",
+      "troponin"
+    ],
+    "unnecessary_investigations": [
+      "ct_angio"
+    ]
+  }
+}

@@ -11,9 +11,65 @@ from routes.cases import build_case_detail
 import models
 import schemas
 from ai.simulator import simulate_patient
+from ai.patient_agent import PatientAgent
+from ai.patient_state import PatientAgentState
 from evaluation.ai_eval import evaluate_clinical_reasoning
 
 router = APIRouter(prefix="/simulation", tags=["Simulation"])
+
+def get_dynamic_vitals(base_vitals: dict, emotion_dict: dict) -> dict:
+    import re
+    hr_str = base_vitals.get("hr", "")
+    bp_str = base_vitals.get("bp", "")
+    
+    hr_match = re.search(r"\d+", hr_str)
+    hr_base = int(hr_match.group(0)) if hr_match else 75
+    
+    bp_match = re.findall(r"\d+", bp_str)
+    if len(bp_match) >= 2:
+        sys_base, dia_base = int(bp_match[0]), int(bp_match[1])
+    else:
+        sys_base, dia_base = 120, 80
+        
+    # Get current emotions, default to baseline if not provided
+    # Standard initial emotions for Daniel Thomas: anxiety=75, fear=50, anger=10, pain=45, trust=62
+    anxiety = emotion_dict.get("anxiety", 75)
+    fear = emotion_dict.get("fear", 50)
+    anger = emotion_dict.get("anger", 10)
+    trust = emotion_dict.get("trust", 62)
+    pain = emotion_dict.get("pain", 45)
+    
+    # Calculate current stress index (incorporating physical pain and emotions)
+    stress_index = (anxiety * 0.35 + fear * 0.35 + anger * 0.15 + pain * 0.15 - (trust - 50) * 0.20)
+    
+    # Daniel Thomas's baseline stress index
+    baseline_stress_index = 49.6
+    
+    # Compute stress delta relative to baseline
+    stress_delta = stress_index - baseline_stress_index
+    
+    # Map stress delta to vitals changes dynamically
+    dynamic_hr = int(hr_base + stress_delta * 0.8)
+    dynamic_hr = max(60, min(150, dynamic_hr))
+    
+    dynamic_sys = int(sys_base + stress_delta * 1.0)
+    dynamic_sys = max(90, min(200, dynamic_sys))
+    
+    dynamic_dia = int(dia_base + stress_delta * 0.6)
+    dynamic_dia = max(60, min(120, dynamic_dia))
+    
+    # Include dynamic respiratory rate (rr) based on stress/pain (standard baseline RR 18)
+    rr_base = 18
+    dynamic_rr = int(rr_base + stress_delta * 0.25)
+    dynamic_rr = max(12, min(30, dynamic_rr))
+    
+    return {
+        "bp": f"{dynamic_sys}/{dynamic_dia} mmHg" if "mmHg" in bp_str or not bp_str else f"{dynamic_sys}/{dynamic_dia}",
+        "hr": f"{dynamic_hr} bpm" if "bpm" in hr_str or not hr_str else f"{dynamic_hr}",
+        "rr": f"{dynamic_rr}",
+        "spo2": base_vitals.get("spo2", "96%"),
+        "temp": base_vitals.get("temp", "36.8°C"),
+    }
 
 def get_user_session(session_id: str, user_id: int, db: Session) -> models.SimulationSession:
     session = db.query(models.SimulationSession).filter(
@@ -62,12 +118,31 @@ def rebuild_workspace_state(
             continue
 
         if act.action_type == "patient_response":
+            text = act.content
+            emotion_label = None
+            emotional_cue = None
+            communication_state = None
+            
+            try:
+                import json
+                payload = json.loads(act.content)
+                if isinstance(payload, dict) and "text" in payload:
+                    text = payload.get("text", "")
+                    emotion_label = payload.get("emotion_label")
+                    emotional_cue = payload.get("emotional_cue")
+                    communication_state = payload.get("communication_state")
+            except json.JSONDecodeError:
+                pass
+                
             chat_messages.append({
                 "role": "patient",
-                "text": act.content,
-                "category": act.category
+                "text": text,
+                "category": act.category,
+                "emotion_label": emotion_label,
+                "emotional_cue": emotional_cue,
+                "communication_state": communication_state,
             })
-            chat_history.append({"role": "patient", "text": act.content})
+            chat_history.append({"role": "patient", "text": text})
             continue
 
         if act.action_type == "examination" and act.category:
@@ -107,9 +182,14 @@ def get_session(
 
     workspace = rebuild_workspace_state(session, case.data, actions)
 
+    case_detail = build_case_detail(case)
+    if session.patient_agent_state:
+        current_emotion = session.patient_agent_state.get("emotion", {})
+        case_detail["vitals"] = get_dynamic_vitals(case.data.get("patient", {}).get("vitals", {}), current_emotion)
+
     return {
         "session": session,
-        "case": build_case_detail(case),
+        "case": case_detail,
         "actions": actions,
         **workspace,
     }
@@ -171,25 +251,42 @@ def ask_question(
 
     case = db.query(models.Case).filter(models.Case.id == session.case_id).first()
     case_data = case.data
+
+    # Load or initialize patient agent state
+    if session.patient_agent_state:
+        agent_state = PatientAgentState.from_dict(session.patient_agent_state, case_data)
+    else:
+        agent_state = PatientAgentState.initialize_from_case(case_data)
     
     # Retrieve past student actions for chat context
     past_actions = db.query(models.StudentAction).filter(
         models.StudentAction.session_id == session_id,
-        models.StudentAction.action_type == "question"
+        models.StudentAction.action_type.in_(["question", "patient_response"])
     ).order_by(models.StudentAction.timestamp.asc()).all()
     
     chat_history = []
     for act in past_actions:
-        # Extract student question and parser response if structured
-        # Content might be saved as a concatenated string or JSON. We save questions directly
-        # So we can construct a fake history
-        chat_history.append({"role": "student", "text": act.content})
-        # Let's search if there's a corresponding system response in the future, or we just rely on standard prompt formatting.
-        # To simplify, we can format the user questions.
+        role = "student" if act.action_type == "question" else "patient"
+        chat_history.append({"role": role, "text": act.content})
+
+    # Run PatientAgent
+    agent = PatientAgent(case_data)
+    updated_state, output = agent.generate_response(
+        state=agent_state,
+        conversation_history=chat_history,
+        student_message=payload.question
+    )
+
+    # Persist updated agent state to session
+    session.patient_agent_state = updated_state.to_dict()
+
+    import json
+    from ai.patient_reasoning import map_revealed_fact_to_category
     
-    # Run patient simulation
-    answer, category = simulate_patient(payload.question, case_data, chat_history)
-    
+    answer = output.get("response", "")
+    revealed = output.get("revealed_information", [])
+    category = map_revealed_fact_to_category(revealed[0] if revealed else "other")
+
     # Update session time and resources
     session.elapsed_seconds += 15 # +15 seconds per question
     
@@ -204,10 +301,17 @@ def ask_question(
     db.add(log_action)
 
     # Persist patient response for session resume
+    response_content = json.dumps({
+        "text": answer,
+        "emotion_label": output.get("emotion_label"),
+        "emotional_cue": output.get("emotional_cue"),
+        "communication_state": output.get("communication_state"),
+    })
+
     response_action = models.StudentAction(
         session_id=session_id,
         action_type="patient_response",
-        content=answer,
+        content=response_content,
         cost=0,
         category=category
     )
@@ -215,11 +319,17 @@ def ask_question(
     db.commit()
     db.refresh(session)
     
+    dynamic_vitals_dict = get_dynamic_vitals(case_data.get("patient", {}).get("vitals", {}), updated_state.emotion.to_dict())
+
     return {
         "answer": answer,
         "category": category,
         "remaining_resources": session.remaining_resources,
-        "elapsed_seconds": session.elapsed_seconds
+        "elapsed_seconds": session.elapsed_seconds,
+        "emotion_label": output.get("emotion_label"),
+        "emotional_cue": output.get("emotional_cue"),
+        "communication_state": output.get("communication_state"),
+        "vitals": dynamic_vitals_dict
     }
 
 @router.post("/{session_id}/examination", response_model=schemas.ExamResponse)
@@ -447,3 +557,17 @@ def get_results(
         "evaluation": evaluation,
         "actions": actions
     }
+
+
+@router.post("/reset-history")
+def reset_history(
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    """Deletes all simulation sessions (and cascaded elements) for the current user."""
+    db.query(models.SimulationSession).filter(
+        models.SimulationSession.user_id == current_user.id
+    ).delete(synchronize_session=False)
+    db.commit()
+    return {"message": "Simulation history reset successfully"}
+

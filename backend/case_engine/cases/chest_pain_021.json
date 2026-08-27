@@ -1,0 +1,251 @@
+{
+  "id": "chest_pain_021",
+  "title": "Flank Pain & Urinary Infection Variant 20",
+  "specialty": "Emergency Medicine / Urology",
+  "difficulty": "Intermediate",
+  "duration_mins": 25,
+  "patient": {
+    "name": "Sarah Smith",
+    "age": 29,
+    "sex": "Female",
+    "occupation": "High School Teacher",
+    "vitals": {
+      "bp": "122/78 mmHg",
+      "hr": "108 bpm",
+      "spo2": "98%",
+      "temp": "39.0\u00b0C"
+    },
+    "chief_complaint": "Left flank pain and high fever",
+    "initial_statement": "I have this severe throbbing pain in my lower left back. It extends to my side. I've also had high fevers, shaking chills, and it hurts when I pee."
+  },
+  "clinical_facts": {
+    "symptoms": [
+      "Sharp throbbing pain in the left back (flank / costovertebral angle)",
+      "Documented high fever and systemic chills",
+      "Dysuria (burning painful urination) and urinating frequently",
+      "Stomach nausea and vomiting twice this morning",
+      "Symptoms started as mild bladder pressure 3 days ago"
+    ],
+    "past_medical_history": [
+      "Frequent UTIs, none previously requiring hospitalization"
+    ],
+    "medications": [
+      "Oral contraceptives daily"
+    ],
+    "allergies": [
+      "No known drug or food allergies"
+    ],
+    "family_history": [
+      "Mother has history of kidney stones"
+    ],
+    "social_history": [
+      "Non-smoker, high school teacher, drinks about 1L of water daily"
+    ],
+    "review_of_systems": [
+      "Cardiovascular: pulse rate is 108 bpm, no active chest pain except as noted.",
+      "Respiratory: airways are open.",
+      "GI: abdominal sounds active.",
+      "Neuro: intact."
+    ]
+  },
+  "patient_personality": {
+    "baseline_anxiety": 78,
+    "emotional_sensitivity": 83,
+    "trustfulness": 49,
+    "cooperativeness": 70,
+    "health_literacy": 60,
+    "fear_of_death": 51,
+    "privacy_sensitivity": 33,
+    "assertiveness": 41,
+    "pain_tolerance": 70,
+    "distrust_of_medical": 23
+  },
+  "patient_beliefs": [
+    "I hope this is just a temporary strain that will pass.",
+    "I've been under a lot of stress with my job.",
+    "I'm terrified this might be something permanent or fatal."
+  ],
+  "patient_goals": [
+    "Determine the core cause of these symptoms.",
+    "Verify whether there is emergency intervention required.",
+    "Get diagnostic results explained to me step by step."
+  ],
+  "examinations": [
+    {
+      "type": "general",
+      "name": "General Physical Examination",
+      "result": "Alert, looks moderately ill, shivering due to fever. In moderate distress."
+    },
+    {
+      "type": "cardiovascular",
+      "name": "Cardiovascular Examination",
+      "result": "Tachycardia (108 bpm), regular pulses."
+    },
+    {
+      "type": "respiratory",
+      "name": "Respiratory Examination",
+      "result": "Normal respiratory effort, lungs clear."
+    },
+    {
+      "type": "abdominal",
+      "name": "Abdominal Examination",
+      "result": "Abdomen is soft, completely non-tender on superficial and deep palpation. Epigastrium non-tender."
+    },
+    {
+      "type": "neurological",
+      "name": "Neurological Examination",
+      "result": "Intact, pupillary reflexes normal."
+    }
+  ],
+  "investigations": [
+    {
+      "id": "ecg",
+      "name": "12-Lead Electrocardiogram (ECG)",
+      "cost": 100,
+      "category": "CARDIAC",
+      "turnaround": "Immediate",
+      "result": "Normal sinus rhythm, regular rate 72 bpm, no ST/T abnormalities.",
+      "interpretation": "Normal ECG showing sinus rhythm."
+    },
+    {
+      "id": "troponin",
+      "name": "Cardiac Troponin I",
+      "cost": 150,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "Troponin I is < 0.01 ng/mL.",
+      "interpretation": "Normal cardiac enzyme profile."
+    },
+    {
+      "id": "cbc",
+      "name": "Complete Blood Count (CBC)",
+      "cost": 80,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "WBC: 15.2 x10^9/L (Elevated), Hb: 12.8 g/dL, Platelets: 280 x10^9/L.",
+      "interpretation": "Marked leukocytosis confirming active systemic bacterial infection."
+    },
+    {
+      "id": "glucose",
+      "name": "Random Blood Glucose",
+      "cost": 50,
+      "category": "BLOOD TESTS",
+      "turnaround": "Immediate",
+      "result": "Random Blood Glucose: 98 mg/dL.",
+      "interpretation": "Normal arterial glucose levels."
+    },
+    {
+      "id": "electrolytes",
+      "name": "Serum Electrolytes Panel",
+      "cost": 90,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "Sodium: 140 mEq/L, Potassium: 4.0 mEq/L.",
+      "interpretation": "Serum electrolytes are within normal range."
+    },
+    {
+      "id": "cxr",
+      "name": "Chest X-ray (CXR)",
+      "cost": 180,
+      "category": "IMAGING",
+      "turnaround": "15 mins",
+      "result": "Both lungs are hypolucent, no vascular congestion or consolidation.",
+      "interpretation": "Normal chest X-ray profile."
+    },
+    {
+      "id": "ct_angio",
+      "name": "CT Angiography of Chest",
+      "cost": 550,
+      "category": "IMAGING",
+      "turnaround": "45 mins",
+      "result": "Normal caliber aorta, no luminal narrowing, no dissection flap visible.",
+      "interpretation": "Normal chest CT Angiography."
+    },
+    {
+      "id": "ct_head",
+      "name": "CT Scan of Head (cranial assessment)",
+      "cost": 350,
+      "category": "IMAGING",
+      "turnaround": "30 mins",
+      "result": "No acute hemorrhage, infarct, or midline shifts found in cranial structures.",
+      "interpretation": "Normal CT Scan of the Head."
+    },
+    {
+      "id": "ct_abdomen",
+      "name": "CT Scan of Abdomen & Pelvis",
+      "cost": 450,
+      "category": "IMAGING",
+      "turnaround": "45 mins",
+      "result": "Stomach, liver, bowel loops, and appendix are normal size with no inflammatory changes.",
+      "interpretation": "Normal CT Scan of the Abdomen."
+    },
+    {
+      "id": "urinalysis",
+      "name": "Urinalysis and Urine Culture",
+      "cost": 70,
+      "category": "URINE TESTS",
+      "turnaround": "15 mins",
+      "result": "Turbid color, pH 6.5, Positive Nitrites, Positive Leukocyte Esterase, WBC: >50 per high-power-field (hpf), Urine Bacteria: Moderate.",
+      "interpretation": "Active bacterial urinary tract infection (UTI) involving pyuria and bacteriuria; matches Pyelonephritis."
+    },
+    {
+      "id": "leg_ultrasound",
+      "name": "Duplex Vascular Leg Ultrasound",
+      "cost": 220,
+      "category": "IMAGING",
+      "turnaround": "30 mins",
+      "result": "Normal patency of left and right femoral veins with complete color Doppler signal.",
+      "interpretation": "Normal leg vascular ultrasound."
+    }
+  ],
+  "differential_diagnoses": [
+    "Acute coronary syndrome",
+    "Gastroesophageal reflux disease",
+    "Stable Angina",
+    "Pericarditis",
+    "Panic attack",
+    "Acute ischemic stroke",
+    "Acute appendicitis",
+    "Asthma exacerbation",
+    "Acute pyelonephritis",
+    "Deep vein thrombosis",
+    "Migraine headache"
+  ],
+  "evaluation_criteria": {
+    "correct_diagnosis": "Acute pyelonephritis",
+    "correct_subtypes": [
+      "pyelonephritis",
+      "acute pyelonephritis",
+      "kidney infection",
+      "urinary tract infection",
+      "uti"
+    ],
+    "immediate_priority_keywords": [
+      "acute pyelonephritis",
+      "salvage",
+      "aspirin",
+      "tPA",
+      "thrombolysis",
+      "bronchodilator",
+      "albuterol",
+      "antibiotic",
+      "heparin",
+      "coagualtion",
+      "fluid resuscitation"
+    ],
+    "critical_questions": [
+      "pain_characteristics",
+      "lifestyle_risk_factors",
+      "past_medical_history",
+      "associated_symptoms",
+      "family_history"
+    ],
+    "required_investigations": [
+      "urinalysis",
+      "cbc"
+    ],
+    "unnecessary_investigations": [
+      "ct_head"
+    ]
+  }
+}

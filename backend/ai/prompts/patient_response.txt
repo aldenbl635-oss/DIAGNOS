@@ -1,0 +1,25 @@
+Respond ONLY with valid JSON. No preamble, no explanation, no markdown fences.
+
+The JSON must exactly match this schema:
+{
+  "response": "<string: patient's natural spoken response>",
+  "emotion_update": {
+    "fear": <int 0-100>,
+    "anxiety": <int 0-100>,
+    "trust": <int 0-100>,
+    "confusion": <int 0-100>,
+    "distress": <int 0-100>,
+    "hope": <int 0-100>,
+    "anger": <int 0-100>,
+    "embarrassment": <int 0-100>,
+    "pain": <int 0-100>
+  },
+  "revealed_information": [<list of strings>],
+  "memory_event": {
+    "event": "<string>",
+    "importance": <float 0.0-1.0>,
+    "category": "<question_answered|emotional|student_behavior|clinical>"
+  },
+  "communication_state": "<string>",
+  "student_communication_classification": "<empathetic|reassuring|neutral|alarmist|dismissive|confusing|respectful|rushed>"
+}

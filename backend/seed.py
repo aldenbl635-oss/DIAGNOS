@@ -9,21 +9,21 @@ def seed_db():
     
     db: Session = SessionLocal()
     try:
+        # Clear existing cases to load fresh body-part variants
+        db.query(models.Case).delete()
+        
         # Load and seed cases from CaseEngine JSON
         for case_id, case_data in case_engine.cases.items():
-            # Check if case already exists in DB
-            db_case = db.query(models.Case).filter(models.Case.id == case_id).first()
-            if not db_case:
-                new_case = models.Case(
-                    id=case_id,
-                    title=case_data.get("title"),
-                    specialty=case_data.get("specialty"),
-                    difficulty=case_data.get("difficulty"),
-                    duration_mins=case_data.get("duration_mins", 20),
-                    data=case_data
-                )
-                db.add(new_case)
-                print(f"Seeding case: {case_data.get('title')} ({case_id})")
+            new_case = models.Case(
+                id=case_id,
+                title=case_data.get("title"),
+                specialty=case_data.get("specialty"),
+                difficulty=case_data.get("difficulty"),
+                duration_mins=case_data.get("duration_mins", 20),
+                data=case_data
+            )
+            db.add(new_case)
+            print(f"Seeding case: {case_data.get('title')} ({case_id})")
         db.commit()
     except Exception as e:
         print(f"Error during seeding: {e}")

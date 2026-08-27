@@ -181,10 +181,121 @@ def evaluate_clinical_reasoning(
         rules_scores["decision_score"]                   # Max 5
     )
     
-    # 4. Merge lists
-    merged_strengths = list(set(rule_strengths + ai_eval_result.get("strengths", [])))
-    merged_weaknesses = list(set(rule_weaknesses + ai_eval_result.get("weaknesses", [])))
-    merged_critical = list(set(rule_critical + ai_eval_result.get("critical_mistakes", [])))
+    # 4. Compute communication and patient interaction metrics
+    emotional_events = []
+    if session.patient_agent_state and isinstance(session.patient_agent_state, dict):
+        emotional_events = session.patient_agent_state.get("emotional_events", [])
+
+    from ai.patient_reasoning import analyze_student_communication_rule_based
+    
+    comm_score = 100.0
+    empathy = 50.0
+    interaction = 75.0
+    
+    had_rude = False
+    had_threat = False
+    used_empathetic_after = False
+    empathetic_count = 0
+    reassuring_count = 0
+    rude_count = 0
+    threat_count = 0
+    insult_count = 0
+    dismissive_count = 0
+    frightening_count = 0
+    rushed_count = 0
+    
+    for act in actions:
+        if act.action_type == "question":
+            analysis = analyze_student_communication_rule_based(act.content)
+            intent = analysis.get("intent", "respectful")
+            
+            if analysis.get("contains_threat") or intent == "threatening":
+                had_threat = True
+                threat_count += 1
+                comm_score -= 40
+                empathy -= 30
+            elif analysis.get("contains_insult") or intent == "insulting":
+                had_rude = True
+                insult_count += 1
+                comm_score -= 30
+                empathy -= 25
+            elif intent == "rude":
+                had_rude = True
+                rude_count += 1
+                comm_score -= 20
+                empathy -= 20
+            elif intent == "dismissive":
+                had_rude = True
+                dismissive_count += 1
+                comm_score -= 15
+                empathy -= 15
+            elif intent == "alarmist" or intent == "frightening":
+                frightening_count += 1
+                comm_score -= 15
+                empathy -= 15
+            elif intent == "rushed":
+                rushed_count += 1
+                comm_score -= 10
+                empathy -= 5
+            elif intent == "empathetic":
+                empathetic_count += 1
+                empathy += 15
+                comm_score += 5
+                if had_rude or had_threat:
+                    used_empathetic_after = True
+            elif intent == "reassuring":
+                reassuring_count += 1
+                empathy += 10
+                comm_score += 5
+                if had_rude or had_threat:
+                    used_empathetic_after = True
+            elif intent == "respectful":
+                empathy += 5
+                comm_score += 3
+    
+    distressed_count = 0
+    for e in emotional_events:
+        lbl = e.get("emotion_label", "")
+        if lbl in ["Shocked", "Frightened", "Distressed", "Angry"]:
+            distressed_count += 1
+            interaction -= 10
+            
+    if (had_rude or had_threat) and used_empathetic_after:
+        interaction += 20
+        comm_score += 15
+    elif (had_rude or had_threat) and not used_empathetic_after:
+        interaction -= 15
+        
+    comm_score = max(10.0, min(100.0, comm_score))
+    empathy = max(0.0, min(100.0, empathy))
+    interaction = max(10.0, min(100.0, interaction))
+    
+    comm_strengths = []
+    comm_weaknesses = []
+    comm_critical = []
+    
+    if empathetic_count >= 2 or reassuring_count >= 2:
+        comm_strengths.append("Demonstrated outstanding empathy and active reassurance.")
+    if not had_rude and not had_threat and comm_score >= 85:
+        comm_strengths.append("Maintained excellent professionalism throughout the encounter.")
+    if (had_rude or had_threat) and used_empathetic_after:
+        comm_strengths.append("Successfully repaired the therapeutic relationship after a communication breakdown.")
+        
+    if had_threat:
+        comm_critical.append("Threatening or unprofessional clinical tone used during the encounter.")
+    if frightening_count > 0:
+        comm_weaknesses.append(f"Used alarmist language {frightening_count} time(s), causing patient distress.")
+    if rude_count or insult_count:
+        comm_weaknesses.append("Rude or hostile tone used which damaged patient trust.")
+    if distressed_count > 0:
+        comm_weaknesses.append(f"Patient experienced significant emotional distress ({distressed_count} instances).")
+    if (had_rude or had_threat) and not used_empathetic_after:
+        comm_weaknesses.append("Failed to acknowledge or apologize for a rude/insensitive comment.")
+
+    # Merge lists
+    merged_strengths = list(set(rule_strengths + ai_eval_result.get("strengths", []) + comm_strengths))
+    merged_weaknesses = list(set(rule_weaknesses + ai_eval_result.get("weaknesses", []) + comm_weaknesses))
+    merged_critical = list(set(rule_critical + ai_eval_result.get("critical_mistakes", []) + comm_critical))
     
     # Construct Evaluation model
     evaluation = models.Evaluation(
@@ -196,6 +307,10 @@ def evaluate_clinical_reasoning(
         reasoning_score=round(ai_reasoning_scaled, 1),
         decision_score=rules_scores["decision_score"],
         resource_efficiency_score=rules_scores["resource_efficiency_score"],
+        communication_score=round(comm_score, 1),
+        empathy_score=round(empathy, 1),
+        patient_interaction_score=round(interaction, 1),
+        emotional_timeline=emotional_events,
         final_score=round(final_score, 1),
         strengths=merged_strengths,
         weaknesses=merged_weaknesses,

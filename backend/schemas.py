@@ -90,6 +90,10 @@ class QuestionResponse(BaseModel):
     category: str
     remaining_resources: int
     elapsed_seconds: int
+    emotion_label: Optional[str] = None
+    emotional_cue: Optional[str] = None
+    communication_state: Optional[str] = None
+    vitals: Optional[PatientVitalsOut] = None
 
 class ExamSubmit(BaseModel):
     examination_type: str # e.g. general, cardiovascular, respiratory, etc.
@@ -125,6 +129,9 @@ class ChatMessageOut(BaseModel):
     role: str
     text: str
     category: Optional[str] = None
+    emotion_label: Optional[str] = None
+    emotional_cue: Optional[str] = None
+    communication_state: Optional[str] = None
 
 class InvestigationStateOut(BaseModel):
     name: str
@@ -156,6 +163,12 @@ class EvaluationOut(BaseModel):
     critical_mistakes: List[str]
     summary: str
     created_at: datetime
+    
+    # New: Communication and patient interaction scores
+    communication_score: float = 0.0
+    empathy_score: float = 0.0
+    patient_interaction_score: float = 0.0
+    emotional_timeline: List[Dict[str, Any]] = []
 
     model_config = ConfigDict(from_attributes=True)
 

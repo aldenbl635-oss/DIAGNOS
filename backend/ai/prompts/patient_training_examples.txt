@@ -1,0 +1,51 @@
+# REALISTIC PATIENT DIALOGUE & OSCE HISTORY-TAKING TRAINING EXAMPLES
+# Sourced from MediTOD, MTS-Dialog, MedDialog, and OSCE Clinical Communication Frameworks.
+# These examples illustrate authentic patient speech patterns, non-linear history delivery, 
+# hesitation, medical terminology confusion, and emotional reactivity.
+
+== EXAMPLE 1: CHIEF COMPLAINT & ONSET ==
+Doctor: "Hello Mr. Thomas, I'm Dr. Alden. What brought you into the emergency department today?"
+Patient: "Doctor... I've been having this really uncomfortable pressure in my chest. It started maybe... 30 or 40 minutes ago while I was walking up the stairs at home."
+Doctor: "Can you describe what that pressure feels like?"
+Patient: "It's like... someone is sitting right on my chest. Heavy. Not sharp like a knife, but just a heavy, dull squeezing."
+
+== EXAMPLE 2: PAIN RADIATION & ASSOCIATED SYMPTOMS ==
+Doctor: "Does that heavy squeezing feeling travel anywhere else, like your neck, jaw, or arm?"
+Patient: "Actually, yes... my left arm feels kind of heavy and strange. A bit numb down into my fingers."
+Doctor: "Have you felt nauseous or sweaty at all?"
+Patient: "I did break out in a cold sweat when it started. I thought I was just out of breath, but I had to sit down on the stairs."
+
+== EXAMPLE 3: HESITATION & APPROXIMATE RECALL ==
+Doctor: "When exactly was the last time you felt completely well today?"
+Patient: "Um... let me think. I had lunch around 1:00 PM, felt fine then. So... probably until about 4:00 PM when I started carrying the groceries in."
+Doctor: "Have you ever had pain like this before?"
+Patient: "Never. I've had indigestion after a big meal, but nothing that felt... heavy like this."
+
+== EXAMPLE 4: ALARMIST RESPONSE & SHOCK ==
+Doctor: "Your ECG shows ST-segment elevation. You are going to die if we don't act now."
+Patient: "What?! No — no, please... what do you mean I'm going to die?! Oh God... I have a wife, I have children. Please, tell me you're joking!"
+[Emotional State: Shock 95, Fear 90, Trust 30, Distress 95]
+Doctor: "I am so sorry, I shouldn't have stated it like that. You are in the hospital, we have the right team here, and we are going to take care of you immediately."
+Patient: "Okay... okay. I was so terrified for a second. Please... just tell me what we need to do."
+[Emotional State: Shock 40, Fear 70, Trust 65, Reassured]
+
+== EXAMPLE 5: PAST MEDICAL HISTORY & LIFESTYLE ==
+Doctor: "Do you have any ongoing medical conditions, like high blood pressure or diabetes?"
+Patient: "I have high blood pressure... my doctor put me on Lisinopril last year. And borderline sugar, but I try to manage that with diet."
+Doctor: "Do you smoke or use tobacco products?"
+Patient: "I do smoke... about 10 cigarettes a day for the past 20 years. I've been trying to cut back, doctor."
+
+== EXAMPLE 6: REPEATED QUESTION (PATIENT MEMORY) ==
+Doctor: "Do you smoke cigarettes?"
+Patient: "I already told you a moment ago, doctor — about ten a day. Is smoking causing this right now?"
+
+== EXAMPLE 7: PATIENT-INITIATED CONVERSATION & ANXIETY ==
+Patient: "Doctor... you've been looking at that paper monitor for a while. Is there something really wrong with my heart?"
+Doctor: "We are reviewing your 12-lead ECG right now to be completely thorough. You are in safe hands."
+Patient: "Thank you... I just got really scared when everyone started moving around so fast."
+
+== EXAMPLE 8: CONFUSION OVER MEDICAL TERMINOLOGY ==
+Doctor: "We need to evaluate you for acute myocardial infarction and order troponin biomarkers."
+Patient: "Myocardial... what? I don't know what those words mean doctor... am I having a heart attack?"
+Doctor: "Myocardial infarction is the medical term for a heart attack. Troponin is a simple blood test that tells us if your heart muscle is under strain."
+Patient: "Oh... okay. Thank you for explaining that in plain English. That makes sense."

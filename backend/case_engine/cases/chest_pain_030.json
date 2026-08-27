@@ -1,0 +1,248 @@
+{
+  "id": "chest_pain_030",
+  "title": "Right Lower Quadrant Pain Variant 29",
+  "specialty": "Emergency Medicine / General Surgery",
+  "difficulty": "Intermediate",
+  "duration_mins": 25,
+  "patient": {
+    "name": "Karen Lee",
+    "age": 30,
+    "sex": "Female",
+    "occupation": "Security Guard",
+    "vitals": {
+      "bp": "125/82 mmHg",
+      "hr": "100 bpm",
+      "spo2": "99%",
+      "temp": "38.2\u00b0C"
+    },
+    "chief_complaint": "Right lower quadrant abdominal pain",
+    "initial_statement": "My stomach started hurting this morning around my belly button. Over the afternoon, it moved down to my lower right side and is hurting so much now."
+  },
+  "clinical_facts": {
+    "symptoms": [
+      "Migrating abdominal pain: starting in periumbilical area, shifting to RLQ",
+      "Nausea, lost appetite (anorexia) since this morning",
+      "Pain is severe, throbbing, and worsened by walking or jumping",
+      "Low-grade fever and mild chills"
+    ],
+    "past_medical_history": [
+      "Generally healthy, no prior surgeries"
+    ],
+    "medications": [
+      "None regular"
+    ],
+    "allergies": [
+      "No known drug or food allergies"
+    ],
+    "family_history": [
+      "Brother had appendectomy at age 14"
+    ],
+    "social_history": [
+      "Non-smoker, college student, active lifestyle"
+    ],
+    "review_of_systems": [
+      "Cardiovascular: pulse rate is 100 bpm, no active chest pain except as noted.",
+      "Respiratory: airways are open.",
+      "GI: abdominal sounds active.",
+      "Neuro: intact."
+    ]
+  },
+  "patient_personality": {
+    "baseline_anxiety": 57,
+    "emotional_sensitivity": 56,
+    "trustfulness": 53,
+    "cooperativeness": 50,
+    "health_literacy": 60,
+    "fear_of_death": 74,
+    "privacy_sensitivity": 64,
+    "assertiveness": 59,
+    "pain_tolerance": 49,
+    "distrust_of_medical": 28
+  },
+  "patient_beliefs": [
+    "I hope this is just a temporary strain that will pass.",
+    "I've been under a lot of stress with my job.",
+    "I'm terrified this might be something permanent or fatal."
+  ],
+  "patient_goals": [
+    "Determine the core cause of these symptoms.",
+    "Verify whether there is emergency intervention required.",
+    "Get diagnostic results explained to me step by step."
+  ],
+  "examinations": [
+    {
+      "type": "general",
+      "name": "General Physical Examination",
+      "result": "Alert, looks flushed and uncomfortable. Lies still with knees slightly bent."
+    },
+    {
+      "type": "cardiovascular",
+      "name": "Cardiovascular Examination",
+      "result": "Regular heart rate (100 bpm), normal cardiovascular sounds."
+    },
+    {
+      "type": "respiratory",
+      "name": "Respiratory Examination",
+      "result": "Normal chest rise, lungs clear."
+    },
+    {
+      "type": "abdominal",
+      "name": "Abdominal Examination",
+      "result": "Soft, guarded. Exquisite tenderness in the Right Lower Quadrant (RLQ) at McBurney's point. Positive rebound tenderness and positive Rovsing's sign."
+    },
+    {
+      "type": "neurological",
+      "name": "Neurological Examination",
+      "result": "Normal cranial nerves, reflexes intact."
+    }
+  ],
+  "investigations": [
+    {
+      "id": "ecg",
+      "name": "12-Lead Electrocardiogram (ECG)",
+      "cost": 100,
+      "category": "CARDIAC",
+      "turnaround": "Immediate",
+      "result": "Normal sinus rhythm, regular rate 72 bpm, no ST/T abnormalities.",
+      "interpretation": "Normal ECG showing sinus rhythm."
+    },
+    {
+      "id": "troponin",
+      "name": "Cardiac Troponin I",
+      "cost": 150,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "Troponin I is < 0.01 ng/mL.",
+      "interpretation": "Normal cardiac enzyme profile."
+    },
+    {
+      "id": "cbc",
+      "name": "Complete Blood Count (CBC)",
+      "cost": 80,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "WBC: 14.8 x10^9/L (Elevated; Normal 4.0-11.0), Neutrophils: 85% (Elevated), Hb: 14.0 g/dL.",
+      "interpretation": "Leukocytosis with left shift, highly indicative of acute bacterial inflammation/infection."
+    },
+    {
+      "id": "glucose",
+      "name": "Random Blood Glucose",
+      "cost": 50,
+      "category": "BLOOD TESTS",
+      "turnaround": "Immediate",
+      "result": "Random Blood Glucose: 98 mg/dL.",
+      "interpretation": "Normal arterial glucose levels."
+    },
+    {
+      "id": "electrolytes",
+      "name": "Serum Electrolytes Panel",
+      "cost": 90,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "Sodium: 140 mEq/L, Potassium: 4.0 mEq/L.",
+      "interpretation": "Serum electrolytes are within normal range."
+    },
+    {
+      "id": "cxr",
+      "name": "Chest X-ray (CXR)",
+      "cost": 180,
+      "category": "IMAGING",
+      "turnaround": "15 mins",
+      "result": "Both lungs are hypolucent, no vascular congestion or consolidation.",
+      "interpretation": "Normal chest X-ray profile."
+    },
+    {
+      "id": "ct_angio",
+      "name": "CT Angiography of Chest",
+      "cost": 550,
+      "category": "IMAGING",
+      "turnaround": "45 mins",
+      "result": "Normal caliber aorta, no luminal narrowing, no dissection flap visible.",
+      "interpretation": "Normal chest CT Angiography."
+    },
+    {
+      "id": "ct_head",
+      "name": "CT Scan of Head (cranial assessment)",
+      "cost": 350,
+      "category": "IMAGING",
+      "turnaround": "30 mins",
+      "result": "No acute hemorrhage, infarct, or midline shifts found in cranial structures.",
+      "interpretation": "Normal CT Scan of the Head."
+    },
+    {
+      "id": "ct_abdomen",
+      "name": "CT Scan of Abdomen & Pelvis",
+      "cost": 450,
+      "category": "IMAGING",
+      "turnaround": "45 mins",
+      "result": "CT of the Abdomen/Pelvis shows a dilated, thick-walled appendix measuring 10.5 mm in diameter, surrounding fat stranding, hyperenhancement of the wall, and trace fluid in the right lower quadrant.",
+      "interpretation": "Acute appendicitis. Surgical consultation is recommended."
+    },
+    {
+      "id": "urinalysis",
+      "name": "Urinalysis and Urine Culture",
+      "cost": 70,
+      "category": "URINE TESTS",
+      "turnaround": "15 mins",
+      "result": "Clear yellow appearance, negative nitrite, negative leukocyte esterase.",
+      "interpretation": "Urinalysis is clear of infection signs."
+    },
+    {
+      "id": "leg_ultrasound",
+      "name": "Duplex Vascular Leg Ultrasound",
+      "cost": 220,
+      "category": "IMAGING",
+      "turnaround": "30 mins",
+      "result": "Normal patency of left and right femoral veins with complete color Doppler signal.",
+      "interpretation": "Normal leg vascular ultrasound."
+    }
+  ],
+  "differential_diagnoses": [
+    "Acute coronary syndrome",
+    "Gastroesophageal reflux disease",
+    "Stable Angina",
+    "Pericarditis",
+    "Panic attack",
+    "Acute ischemic stroke",
+    "Acute appendicitis",
+    "Asthma exacerbation",
+    "Acute pyelonephritis",
+    "Deep vein thrombosis",
+    "Migraine headache"
+  ],
+  "evaluation_criteria": {
+    "correct_diagnosis": "Acute appendicitis",
+    "correct_subtypes": [
+      "appendicitis",
+      "acute appendicitis",
+      "appendix infection"
+    ],
+    "immediate_priority_keywords": [
+      "acute appendicitis",
+      "salvage",
+      "aspirin",
+      "tPA",
+      "thrombolysis",
+      "bronchodilator",
+      "albuterol",
+      "antibiotic",
+      "heparin",
+      "coagualtion",
+      "fluid resuscitation"
+    ],
+    "critical_questions": [
+      "pain_characteristics",
+      "lifestyle_risk_factors",
+      "past_medical_history",
+      "associated_symptoms",
+      "family_history"
+    ],
+    "required_investigations": [
+      "ct_abdomen",
+      "cbc"
+    ],
+    "unnecessary_investigations": [
+      "ct_head"
+    ]
+  }
+}

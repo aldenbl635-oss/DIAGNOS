@@ -1,0 +1,253 @@
+{
+  "id": "chest_pain_018",
+  "title": "Sudden Left-Sided Weakness Variant 17",
+  "specialty": "Emergency Medicine / Neurology",
+  "difficulty": "Advanced",
+  "duration_mins": 20,
+  "patient": {
+    "name": "Sandra Perez",
+    "age": 27,
+    "sex": "Female",
+    "occupation": "Corporate Accountant",
+    "vitals": {
+      "bp": "182/95 mmHg",
+      "hr": "77 bpm",
+      "spo2": "97%",
+      "temp": "36.6\u00b0C"
+    },
+    "chief_complaint": "Slurred speech and arm weakness",
+    "initial_statement": "All of a sudden, my left arm and left leg felt extremely heavy and numb. My partner says my mouth is drooping on the left side."
+  },
+  "clinical_facts": {
+    "symptoms": [
+      "Sudden weakness and motor deficit in left arm and left leg",
+      "Difficulty speaking clearly (slurred speech / dysarthria)",
+      "Left-sided facial droop noticed by family",
+      "Onset approximately 45 minutes ago",
+      "No chest pain or dyspnoea"
+    ],
+    "past_medical_history": [
+      "Hypertension",
+      "Atrial Fibrillation",
+      "High Cholesterol"
+    ],
+    "medications": [
+      "Amlodipine 5mg daily",
+      "Atorvastatin 20mg daily",
+      "Aspirin 81mg daily"
+    ],
+    "allergies": [
+      "No known drug or food allergies"
+    ],
+    "family_history": [
+      "Grandfather died of a stroke at age 70"
+    ],
+    "social_history": [
+      "Non-smoker, drinks alcohol occasionally, retired clerk"
+    ],
+    "review_of_systems": [
+      "Cardiovascular: pulse rate is 77 bpm, no active chest pain except as noted.",
+      "Respiratory: airways are open.",
+      "GI: abdominal sounds active.",
+      "Neuro: intact."
+    ]
+  },
+  "patient_personality": {
+    "baseline_anxiety": 67,
+    "emotional_sensitivity": 56,
+    "trustfulness": 68,
+    "cooperativeness": 67,
+    "health_literacy": 40,
+    "fear_of_death": 81,
+    "privacy_sensitivity": 52,
+    "assertiveness": 61,
+    "pain_tolerance": 25,
+    "distrust_of_medical": 15
+  },
+  "patient_beliefs": [
+    "I hope this is just a temporary strain that will pass.",
+    "I've been under a lot of stress with my job.",
+    "I'm terrified this might be something permanent or fatal."
+  ],
+  "patient_goals": [
+    "Determine the core cause of these symptoms.",
+    "Verify whether there is emergency intervention required.",
+    "Get diagnostic results explained to me step by step."
+  ],
+  "examinations": [
+    {
+      "type": "general",
+      "name": "General Physical Examination",
+      "result": "Alert, slightly confused, appears anxious but speech is slurry."
+    },
+    {
+      "type": "cardiovascular",
+      "name": "Cardiovascular Examination",
+      "result": "Regular heart rate (77 bpm), pulse is strong."
+    },
+    {
+      "type": "respiratory",
+      "name": "Respiratory Examination",
+      "result": "Breathing normally, lungs clear bilaterally."
+    },
+    {
+      "type": "abdominal",
+      "name": "Abdominal Examination",
+      "result": "Soft, non-distended, non-tender."
+    },
+    {
+      "type": "neurological",
+      "name": "Neurological Examination",
+      "result": "Left facial droop (sparing forehead). Significant motor weakness: left upper extremity 1/5 grip, left lower extremity 3/5. Speech is dysarthric. Right side normal."
+    }
+  ],
+  "investigations": [
+    {
+      "id": "ecg",
+      "name": "12-Lead Electrocardiogram (ECG)",
+      "cost": 100,
+      "category": "CARDIAC",
+      "turnaround": "Immediate",
+      "result": "Normal sinus rhythm, regular rate 72 bpm, no ST/T abnormalities.",
+      "interpretation": "Normal ECG showing sinus rhythm."
+    },
+    {
+      "id": "troponin",
+      "name": "Cardiac Troponin I",
+      "cost": 150,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "Troponin I is < 0.01 ng/mL.",
+      "interpretation": "Normal cardiac enzyme profile."
+    },
+    {
+      "id": "cbc",
+      "name": "Complete Blood Count (CBC)",
+      "cost": 80,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "WBC: 6.4 x10^9/L, Hb: 13.8 g/dL, Platelets: 220 x10^9/L.",
+      "interpretation": "Complete blood count is within normal references."
+    },
+    {
+      "id": "glucose",
+      "name": "Random Blood Glucose",
+      "cost": 50,
+      "category": "BLOOD TESTS",
+      "turnaround": "Immediate",
+      "result": "Random Blood Glucose: 98 mg/dL.",
+      "interpretation": "Normal arterial glucose levels."
+    },
+    {
+      "id": "electrolytes",
+      "name": "Serum Electrolytes Panel",
+      "cost": 90,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "Sodium: 140 mEq/L, Potassium: 4.0 mEq/L.",
+      "interpretation": "Serum electrolytes are within normal range."
+    },
+    {
+      "id": "cxr",
+      "name": "Chest X-ray (CXR)",
+      "cost": 180,
+      "category": "IMAGING",
+      "turnaround": "15 mins",
+      "result": "Both lungs are hypolucent, no vascular congestion or consolidation.",
+      "interpretation": "Normal chest X-ray profile."
+    },
+    {
+      "id": "ct_angio",
+      "name": "CT Angiography of Chest",
+      "cost": 550,
+      "category": "IMAGING",
+      "turnaround": "45 mins",
+      "result": "Normal caliber aorta, no luminal narrowing, no dissection flap visible.",
+      "interpretation": "Normal chest CT Angiography."
+    },
+    {
+      "id": "ct_head",
+      "name": "CT Scan of Head (cranial assessment)",
+      "cost": 350,
+      "category": "IMAGING",
+      "turnaround": "30 mins",
+      "result": "Non-contrast CT Head shows no acute intracranial hemorrhage. Early loss of gray-white matter differentiation in the right insular cortex is suggestive of acute ischemic infarct in the right MCA territory.",
+      "interpretation": "Acute right middle cerebral artery (MCA) ischemic stroke. No cerebral bleed detected."
+    },
+    {
+      "id": "ct_abdomen",
+      "name": "CT Scan of Abdomen & Pelvis",
+      "cost": 450,
+      "category": "IMAGING",
+      "turnaround": "45 mins",
+      "result": "Stomach, liver, bowel loops, and appendix are normal size with no inflammatory changes.",
+      "interpretation": "Normal CT Scan of the Abdomen."
+    },
+    {
+      "id": "urinalysis",
+      "name": "Urinalysis and Urine Culture",
+      "cost": 70,
+      "category": "URINE TESTS",
+      "turnaround": "15 mins",
+      "result": "Clear yellow appearance, negative nitrite, negative leukocyte esterase.",
+      "interpretation": "Urinalysis is clear of infection signs."
+    },
+    {
+      "id": "leg_ultrasound",
+      "name": "Duplex Vascular Leg Ultrasound",
+      "cost": 220,
+      "category": "IMAGING",
+      "turnaround": "30 mins",
+      "result": "Normal patency of left and right femoral veins with complete color Doppler signal.",
+      "interpretation": "Normal leg vascular ultrasound."
+    }
+  ],
+  "differential_diagnoses": [
+    "Acute coronary syndrome",
+    "Gastroesophageal reflux disease",
+    "Stable Angina",
+    "Pericarditis",
+    "Panic attack",
+    "Acute ischemic stroke",
+    "Acute appendicitis",
+    "Asthma exacerbation",
+    "Acute pyelonephritis",
+    "Deep vein thrombosis",
+    "Migraine headache"
+  ],
+  "evaluation_criteria": {
+    "correct_diagnosis": "Acute ischemic stroke",
+    "correct_subtypes": [
+      "stroke",
+      "ischemic stroke",
+      "acute ischemic stroke",
+      "brain stroke"
+    ],
+    "immediate_priority_keywords": [
+      "acute ischemic stroke",
+      "salvage",
+      "aspirin",
+      "tPA",
+      "thrombolysis",
+      "bronchodilator",
+      "albuterol",
+      "antibiotic",
+      "heparin",
+      "coagualtion",
+      "fluid resuscitation"
+    ],
+    "critical_questions": [
+      "pain_characteristics",
+      "lifestyle_risk_factors",
+      "past_medical_history",
+      "associated_symptoms",
+      "family_history"
+    ],
+    "required_investigations": [
+      "ct_head"
+    ],
+    "unnecessary_investigations": [
+      "ct_angio"
+    ]
+  }
+}

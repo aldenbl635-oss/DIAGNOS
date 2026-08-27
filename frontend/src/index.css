@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  /* Medical color system */
   --color-medical-50: #f0f9ff;
   --color-medical-100: #e0f2fe;
   --color-medical-200: #bae6fd;
@@ -11,85 +12,191 @@
   --color-medical-700: #0369a1;
   --color-medical-800: #075985;
   --color-medical-900: #0c4a6e;
-  
+
   --color-teal-50: #f0fdfa;
   --color-teal-100: #ccfbf1;
   --color-teal-500: #14b8a6;
   --color-teal-600: #0d9488;
   --color-teal-700: #0f766e;
 
+  /* Encounter room — deep clinical dark */
+  --color-encounter-bg: #080d17;
+  --color-encounter-panel: #0f1724;
+  --color-encounter-surface: #161f2e;
+  --color-encounter-border: #1e2d42;
+  --color-encounter-muted: #2a3a52;
+
+  /* Patient emotion palette */
+  --color-emotion-calm: #14b8a6;
+  --color-emotion-concerned: #f59e0b;
+  --color-emotion-anxious: #f97316;
+  --color-emotion-distressed: #ef4444;
+  --color-emotion-frightened: #dc2626;
+  --color-emotion-shocked: #8b5cf6;
+  --color-emotion-reassured: #22c55e;
+  --color-emotion-angry: #ef4444;
+  --color-emotion-confused: #6b7280;
+
   --font-sans: 'Outfit', 'Inter', sans-serif;
 }
 
-/* Custom Scrollbar styling for clinical dashboard feel */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
+/* ─── Custom Scrollbar ─────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+/* Encounter room thin scrollbar */
+.encounter-scroll::-webkit-scrollbar { width: 3px; }
+.encounter-scroll::-webkit-scrollbar-thumb { background: #1e2d42; }
 
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-/* Custom CSS micro-animations & transitions */
+/* ─── Core Animations ─────────────────────────────── */
 .animate-fade-in {
   animation: fadeIn 0.3s ease-out forwards;
 }
-
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
 .animate-slide-up {
   animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-
 .animate-pulse-slow {
   animation: pulseSlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+.animate-heartbeat {
+  animation: heartbeat 1.2s ease-in-out infinite;
+}
+.animate-typing {
+  animation: typing 1.4s ease-in-out infinite;
+}
+.animate-message-in {
+  animation: messageIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.animate-emotion-shift {
+  animation: emotionShift 0.6s ease-out forwards;
+}
+.animate-glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
-
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes pulseSlow {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: .7;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: .65; }
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.012); }
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.15); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.08); }
+  70% { transform: scale(1); }
+}
+@keyframes typing {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+@keyframes messageIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes emotionShift {
+  0% { opacity: 0.5; transform: scale(0.9); }
+  60% { transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0); }
+  50% { box-shadow: 0 0 0 6px rgba(20, 184, 166, 0.15); }
+}
+@keyframes dotBounce1 {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+@keyframes dotBounce2 {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  50% { transform: scale(1); opacity: 1; }
+}
+@keyframes dotBounce3 {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  60% { transform: scale(1); opacity: 1; }
 }
 
-/* Glassmorphism utility */
+/* Typing dots */
+.typing-dot:nth-child(1) { animation: dotBounce1 1.4s ease-in-out infinite; }
+.typing-dot:nth-child(2) { animation: dotBounce2 1.4s ease-in-out infinite; }
+.typing-dot:nth-child(3) { animation: dotBounce3 1.4s ease-in-out infinite; }
+
+/* ─── Encounter Room Layout ────────────────────────── */
+.encounter-room {
+  background-color: #080d17;
+  color: #e2e8f0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.encounter-panel {
+  background-color: #0f1724;
+  border: 1px solid #1e2d42;
+}
+
+.encounter-surface {
+  background-color: #161f2e;
+  border: 1px solid #1e2d42;
+}
+
+/* ─── Glassmorphism ────────────────────────────────── */
 .glass-panel {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(241, 245, 249, 0.8);
 }
+.glass-dark {
+  background: rgba(15, 23, 36, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(30, 45, 66, 0.9);
+}
 
-/* Theme Toggle & Dark Mode Overrides */
+/* ─── Emotion State Colors ─────────────────────────── */
+.emotion-calm      { color: #14b8a6; }
+.emotion-concerned { color: #f59e0b; }
+.emotion-anxious   { color: #f97316; }
+.emotion-distressed{ color: #ef4444; }
+.emotion-frightened{ color: #dc2626; }
+.emotion-shocked   { color: #8b5cf6; }
+.emotion-reassured { color: #22c55e; }
+.emotion-angry     { color: #f87171; }
+.emotion-confused  { color: #94a3b8; }
+
+.emotion-dot-calm       { background: #14b8a6; box-shadow: 0 0 8px #14b8a650; }
+.emotion-dot-concerned  { background: #f59e0b; box-shadow: 0 0 8px #f59e0b50; }
+.emotion-dot-anxious    { background: #f97316; box-shadow: 0 0 8px #f9731650; }
+.emotion-dot-distressed { background: #ef4444; box-shadow: 0 0 8px #ef444450; }
+.emotion-dot-frightened { background: #dc2626; box-shadow: 0 0 10px #dc262660; }
+.emotion-dot-shocked    { background: #8b5cf6; box-shadow: 0 0 12px #8b5cf680; }
+.emotion-dot-reassured  { background: #22c55e; box-shadow: 0 0 8px #22c55e50; }
+.emotion-dot-angry      { background: #f87171; box-shadow: 0 0 8px #f8717150; }
+.emotion-dot-confused   { background: #94a3b8; box-shadow: 0 0 8px #94a3b850; }
+
+/* ─── Theme Toggle and Dark Mode ───────────────────── */
 html, body {
   transition: background-color 0.25s ease, color 0.25s ease;
 }
@@ -99,41 +206,29 @@ html.dark {
   background-color: #0f172a;
   color: #f8fafc;
 }
-
-html.dark body {
-  background-color: #0f172a;
-  color: #f8fafc;
-}
-
+html.dark body { background-color: #0f172a; color: #f8fafc; }
 html.dark .bg-slate-50,
-html.dark .bg-slate-100 {
-  background-color: #0f172a !important;
-}
-
-html.dark .bg-white {
-  background-color: #1e293b !important;
-  color: #f8fafc !important;
-}
-
+html.dark .bg-slate-100 { background-color: #0f172a !important; }
+html.dark .bg-white { background-color: #1e293b !important; color: #f8fafc !important; }
 html.dark .text-slate-900,
 html.dark .text-slate-800,
-html.dark .text-slate-700 {
-  color: #f1f5f9 !important;
-}
-
+html.dark .text-slate-700 { color: #f1f5f9 !important; }
 html.dark .text-slate-600,
-html.dark .text-slate-500 {
-  color: #94a3b8 !important;
-}
-
+html.dark .text-slate-500 { color: #94a3b8 !important; }
 html.dark .border-slate-200,
 html.dark .border-slate-200\/80,
-html.dark .border-slate-100 {
-  border-color: #334155 !important;
+html.dark .border-slate-100 { border-color: #334155 !important; }
+html.dark .glass-panel { background: rgba(30, 41, 59, 0.8) !important; border-color: rgba(51, 65, 85, 0.8) !important; }
+
+/* ─── Vital Signs Pulse ────────────────────────────── */
+.vital-pulse {
+  animation: heartbeat 1.2s ease-in-out infinite;
+  display: inline-block;
 }
 
-html.dark .glass-panel {
-  background: rgba(30, 41, 59, 0.8) !important;
-  border-color: rgba(51, 65, 85, 0.8) !important;
+/* ─── Input focus ring for encounter ──────────────── */
+.encounter-input:focus {
+  outline: none;
+  border-color: #14b8a6;
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15);
 }
-

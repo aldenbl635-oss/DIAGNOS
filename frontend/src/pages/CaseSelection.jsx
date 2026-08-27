@@ -7,6 +7,8 @@ export default function CaseSelection({ onNavigate, onSelectCase }) {
   const [cases, setCases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterDifficulty, setFilterDifficulty] = useState('All');
 
   useEffect(() => {
     async function fetchCases() {
@@ -65,24 +67,60 @@ export default function CaseSelection({ onNavigate, onSelectCase }) {
     ...placeholders.filter(p => !activeCasesIds.includes(p.id))
   ];
 
+  const filteredCases = allCases.filter(c => {
+    const matchesSearch = c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (c.chief_complaint && c.chief_complaint.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      c.specialty.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesDifficulty = filterDifficulty === 'All' || c.difficulty === filterDifficulty;
+    return matchesSearch && matchesDifficulty;
+  });
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fade-in">
-      <div className="border-b border-slate-200/60 pb-6">
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Clinical Case Library</h1>
-        <p className="text-sm text-slate-500 font-medium mt-1">
-          Select a case to begin your diagnostic assessment. Try the active demo case: <strong>Atypical Chest Pain</strong>.
-        </p>
+      <div className="border-b border-slate-200/60 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Clinical Case Library</h1>
+          <p className="text-sm text-slate-500 font-medium mt-1 font-sans">
+            Select a case to begin your diagnostic assessment. We now have <strong>{cases.length} active patients</strong> ready.
+          </p>
+        </div>
+      </div>
+
+      {/* Search & Filter Controls */}
+      <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-slate-55 p-4 rounded-xl border border-slate-200/60">
+        <div className="w-full sm:w-80">
+          <input
+            type="text"
+            placeholder="Search by title, specialty, or chief complaint..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-medical-500 focus:border-medical-500"
+          />
+        </div>
+        <div className="flex gap-2 w-full sm:w-auto justify-start sm:justify-end">
+          {['All', 'Beginner', 'Intermediate', 'Advanced'].map((diff) => (
+            <button
+              key={diff}
+              onClick={() => setFilterDifficulty(diff)}
+              className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${filterDifficulty === diff
+                  ? 'bg-medical-550 border-medical-500 text-white'
+                  : 'bg-white border-slate-200 text-slate-650 hover:bg-slate-50 cursor-pointer'
+                }`}
+            >
+              {diff}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
-        {allCases.map((c) => (
-          <div 
+        {filteredCases.map((c) => (
+          <div
             key={c.id}
-            className={`bg-white border rounded-2xl p-6 flex flex-col justify-between space-y-5 transition-all duration-200 ${
-              c.isLocked 
-                ? 'opacity-65 border-slate-200 bg-slate-50/50' 
+            className={`bg-white border rounded-2xl p-6 flex flex-col justify-between space-y-5 transition-all duration-200 ${c.isLocked
+                ? 'opacity-65 border-slate-200 bg-slate-50/50'
                 : 'border-slate-200 hover:border-medical-300 hover:shadow-lg hover:shadow-slate-100 cursor-pointer'
-            }`}
+              }`}
             onClick={() => !c.isLocked && onSelectCase(c.id)}
           >
             {/* Card Top */}
@@ -91,14 +129,14 @@ export default function CaseSelection({ onNavigate, onSelectCase }) {
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-slate-100 px-2.5 py-1 rounded-md">
                   {c.specialty}
                 </span>
-                
+
                 {c.isLocked ? (
                   <span className="text-[9px] font-bold text-slate-500 bg-slate-200/80 px-2 py-0.5 rounded flex items-center gap-1 uppercase tracking-wide">
                     <Lock className="w-2.5 h-2.5" /> Locked
                   </span>
                 ) : (
                   <span className="text-[9px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded flex items-center gap-1 uppercase tracking-wide animate-pulse-slow">
-                    ● Active Demo
+                    ● Active Patient
                   </span>
                 )}
               </div>
@@ -106,16 +144,16 @@ export default function CaseSelection({ onNavigate, onSelectCase }) {
               <div>
                 <h3 className="text-xl font-bold text-slate-900 leading-snug">{c.title}</h3>
                 {c.chief_complaint && (
-                  <p className="text-xs text-slate-500 font-semibold mt-1">Chief Complaint: "{c.chief_complaint}"</p>
+                  <p className="text-xs text-slate-550 font-semibold mt-1">Chief Complaint: "{c.chief_complaint}"</p>
                 )}
               </div>
 
               {/* Badges details */}
               <div className="flex gap-4 text-xs font-semibold text-slate-500 pt-1">
-                <span className="flex items-center gap-1.5">
+                <span className="flex items-center gap-1.5 font-sans">
                   <Clock className="w-4 h-4 text-slate-450" /> {c.duration_mins} mins
                 </span>
-                <span className="flex items-center gap-1.5">
+                <span className="flex items-center gap-1.5 font-sans">
                   <BarChart className="w-4 h-4 text-slate-450" /> {c.difficulty}
                 </span>
               </div>
@@ -126,7 +164,7 @@ export default function CaseSelection({ onNavigate, onSelectCase }) {
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Skills Tested:</span>
               <div className="flex flex-wrap gap-1.5">
                 {c.skills.map((skill, idx) => (
-                  <span key={idx} className="bg-slate-100/70 border border-slate-200/40 text-[10px] text-slate-600 font-bold px-2 py-0.5 rounded">
+                  <span key={idx} className="bg-slate-100/70 border border-slate-200/40 text-[10px] text-slate-600 font-bold px-2 py-0.5 rounded font-sans">
                     {skill}
                   </span>
                 ))}
@@ -146,7 +184,7 @@ export default function CaseSelection({ onNavigate, onSelectCase }) {
                 <button
                   id={`case-card-btn-${c.id}`}
                   onClick={() => onSelectCase(c.id)}
-                  className="w-full py-2.5 bg-medical-500 hover:bg-medical-700 text-white font-semibold text-sm rounded-xl shadow-md shadow-medical-100 flex items-center justify-center gap-1.5 transition-colors"
+                  className="w-full py-2.5 bg-medical-500 hover:bg-medical-700 text-white font-semibold text-sm rounded-xl shadow-md shadow-medical-100 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <Play className="w-4 h-4 fill-current" /> Begin Assessment
                 </button>

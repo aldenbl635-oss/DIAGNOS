@@ -44,6 +44,9 @@ class SimulationSession(Base):
     # JSON state: [{diagnosis: str, confidence: int}]
     differential_diagnoses = Column(JSON, default=list)
 
+    # Virtual patient agent state (emotion, memory, personality, beliefs)
+    patient_agent_state = Column(JSON, nullable=True, default=None)
+
     # Final submission
     final_diagnosis = Column(String, nullable=True)
     immediate_priority = Column(Text, nullable=True)
@@ -90,12 +93,20 @@ class Evaluation(Base):
     decision_score = Column(Float, default=0)
     resource_efficiency_score = Column(Float, default=0)
 
+    # New: Communication and patient interaction scores
+    communication_score = Column(Float, default=0)
+    empathy_score = Column(Float, default=0)
+    patient_interaction_score = Column(Float, default=0)
+
     final_score = Column(Float, default=0)
 
     strengths = Column(JSON, default=list)
     weaknesses = Column(JSON, default=list)
     critical_mistakes = Column(JSON, default=list)
     summary = Column(Text, nullable=True)
+
+    # Emotional timeline for results page
+    emotional_timeline = Column(JSON, default=list)
     created_at = Column(DateTime, default=lambda: datetime.datetime.now(timezone.utc))
 
     session = relationship("SimulationSession", back_populates="evaluation")

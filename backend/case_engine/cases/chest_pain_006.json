@@ -1,0 +1,248 @@
+{
+  "id": "chest_pain_006",
+  "title": "Acute Panic Presentation Variant 5",
+  "specialty": "Emergency Medicine / Psychiatry",
+  "difficulty": "Beginner",
+  "duration_mins": 25,
+  "patient": {
+    "name": "Karen Garcia",
+    "age": 61,
+    "sex": "Female",
+    "occupation": "Registered Nurse",
+    "vitals": {
+      "bp": "141/92 mmHg",
+      "hr": "116 bpm",
+      "spo2": "100%",
+      "temp": "36.7\u00b0C"
+    },
+    "chief_complaint": "Chest tightness & palpitations",
+    "initial_statement": "My heart is racing so fast and my chest feels extremely tight. I can't catch my breath, and I feel like I'm going to collapse."
+  },
+  "clinical_facts": {
+    "symptoms": [
+      "Severe chest tightness, rapid heart palpitations",
+      "Shortness of breath, feeling like suffocating (hyperventilating)",
+      "Numbness/tingling in fingers (paresthesias) and around mouth",
+      "Extreme sense of doom, dizziness, feeling of falling"
+    ],
+    "past_medical_history": [
+      "Generalized anxiety disorder",
+      "Stressful life events"
+    ],
+    "medications": [
+      "Alprazolam 0.25mg as needed for panic attacks"
+    ],
+    "allergies": [
+      "No known drug or food allergies"
+    ],
+    "family_history": [
+      "Mother has history of anxiety and panic disorder"
+    ],
+    "social_history": [
+      "Works long hours, high caffeine/energy drink intake"
+    ],
+    "review_of_systems": [
+      "Cardiovascular: pulse rate is 116 bpm, no active chest pain except as noted.",
+      "Respiratory: airways are open.",
+      "GI: abdominal sounds active.",
+      "Neuro: intact."
+    ]
+  },
+  "patient_personality": {
+    "baseline_anxiety": 61,
+    "emotional_sensitivity": 76,
+    "trustfulness": 46,
+    "cooperativeness": 83,
+    "health_literacy": 60,
+    "fear_of_death": 48,
+    "privacy_sensitivity": 42,
+    "assertiveness": 40,
+    "pain_tolerance": 47,
+    "distrust_of_medical": 28
+  },
+  "patient_beliefs": [
+    "I hope this is just a temporary strain that will pass.",
+    "I've been under a lot of stress with my job.",
+    "I'm terrified this might be something permanent or fatal."
+  ],
+  "patient_goals": [
+    "Determine the core cause of these symptoms.",
+    "Verify whether there is emergency intervention required.",
+    "Get diagnostic results explained to me step by step."
+  ],
+  "examinations": [
+    {
+      "type": "general",
+      "name": "General Physical Examination",
+      "result": "Highly anxious, breathing rapidly (hyperventilating). Trembling."
+    },
+    {
+      "type": "cardiovascular",
+      "name": "Cardiovascular Examination",
+      "result": "Tachycardia (116 bpm), regular, no murmurs."
+    },
+    {
+      "type": "respiratory",
+      "name": "Respiratory Examination",
+      "result": "Tachypnoea, lungs clear."
+    },
+    {
+      "type": "abdominal",
+      "name": "Abdominal Examination",
+      "result": "Soft, non-tender."
+    },
+    {
+      "type": "neurological",
+      "name": "Neurological Examination",
+      "result": "Grossly intact, though patient complains of finger numbness."
+    }
+  ],
+  "investigations": [
+    {
+      "id": "ecg",
+      "name": "12-Lead Electrocardiogram (ECG)",
+      "cost": 100,
+      "category": "CARDIAC",
+      "turnaround": "Immediate",
+      "result": "Sinus tachycardia with rate of 116 bpm bpm, normal axis, no ST change.",
+      "interpretation": "Sinus tachycardia, otherwise normal electrocardiogram."
+    },
+    {
+      "id": "troponin",
+      "name": "Cardiac Troponin I",
+      "cost": 150,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "Troponin I is < 0.01 ng/mL.",
+      "interpretation": "Normal cardiac enzyme profile."
+    },
+    {
+      "id": "cbc",
+      "name": "Complete Blood Count (CBC)",
+      "cost": 80,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "WBC: 6.4 x10^9/L, Hb: 13.8 g/dL, Platelets: 220 x10^9/L.",
+      "interpretation": "Complete blood count is within normal references."
+    },
+    {
+      "id": "glucose",
+      "name": "Random Blood Glucose",
+      "cost": 50,
+      "category": "BLOOD TESTS",
+      "turnaround": "Immediate",
+      "result": "Random Blood Glucose: 98 mg/dL.",
+      "interpretation": "Normal arterial glucose levels."
+    },
+    {
+      "id": "electrolytes",
+      "name": "Serum Electrolytes Panel",
+      "cost": 90,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "Sodium: 140 mEq/L, Potassium: 4.0 mEq/L.",
+      "interpretation": "Serum electrolytes are within normal range."
+    },
+    {
+      "id": "cxr",
+      "name": "Chest X-ray (CXR)",
+      "cost": 180,
+      "category": "IMAGING",
+      "turnaround": "15 mins",
+      "result": "Both lungs are hypolucent, no vascular congestion or consolidation.",
+      "interpretation": "Normal chest X-ray profile."
+    },
+    {
+      "id": "ct_angio",
+      "name": "CT Angiography of Chest",
+      "cost": 550,
+      "category": "IMAGING",
+      "turnaround": "45 mins",
+      "result": "Normal caliber aorta, no luminal narrowing, no dissection flap visible.",
+      "interpretation": "Normal chest CT Angiography."
+    },
+    {
+      "id": "ct_head",
+      "name": "CT Scan of Head (cranial assessment)",
+      "cost": 350,
+      "category": "IMAGING",
+      "turnaround": "30 mins",
+      "result": "No acute hemorrhage, infarct, or midline shifts found in cranial structures.",
+      "interpretation": "Normal CT Scan of the Head."
+    },
+    {
+      "id": "ct_abdomen",
+      "name": "CT Scan of Abdomen & Pelvis",
+      "cost": 450,
+      "category": "IMAGING",
+      "turnaround": "45 mins",
+      "result": "Stomach, liver, bowel loops, and appendix are normal size with no inflammatory changes.",
+      "interpretation": "Normal CT Scan of the Abdomen."
+    },
+    {
+      "id": "urinalysis",
+      "name": "Urinalysis and Urine Culture",
+      "cost": 70,
+      "category": "URINE TESTS",
+      "turnaround": "15 mins",
+      "result": "Clear yellow appearance, negative nitrite, negative leukocyte esterase.",
+      "interpretation": "Urinalysis is clear of infection signs."
+    },
+    {
+      "id": "leg_ultrasound",
+      "name": "Duplex Vascular Leg Ultrasound",
+      "cost": 220,
+      "category": "IMAGING",
+      "turnaround": "30 mins",
+      "result": "Normal patency of left and right femoral veins with complete color Doppler signal.",
+      "interpretation": "Normal leg vascular ultrasound."
+    }
+  ],
+  "differential_diagnoses": [
+    "Acute coronary syndrome",
+    "Gastroesophageal reflux disease",
+    "Stable Angina",
+    "Pericarditis",
+    "Panic attack",
+    "Acute ischemic stroke",
+    "Acute appendicitis",
+    "Asthma exacerbation",
+    "Acute pyelonephritis",
+    "Deep vein thrombosis",
+    "Migraine headache"
+  ],
+  "evaluation_criteria": {
+    "correct_diagnosis": "Panic attack",
+    "correct_subtypes": [
+      "panic attack",
+      "anxiety",
+      "panic disorder"
+    ],
+    "immediate_priority_keywords": [
+      "panic attack",
+      "salvage",
+      "aspirin",
+      "tPA",
+      "thrombolysis",
+      "bronchodilator",
+      "albuterol",
+      "antibiotic",
+      "heparin",
+      "coagualtion",
+      "fluid resuscitation"
+    ],
+    "critical_questions": [
+      "pain_characteristics",
+      "lifestyle_risk_factors",
+      "past_medical_history",
+      "associated_symptoms",
+      "family_history"
+    ],
+    "required_investigations": [
+      "ecg"
+    ],
+    "unnecessary_investigations": [
+      "ct_angio"
+    ]
+  }
+}

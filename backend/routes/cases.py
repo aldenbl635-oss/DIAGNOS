@@ -54,8 +54,16 @@ def build_case_detail(c: models.Case) -> dict:
 
 @router.get("", response_model=List[schemas.CaseBriefOut])
 def get_cases(db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+    # Find case IDs that the user has already attended
+    attended = db.query(models.SimulationSession.case_id).filter(
+        models.SimulationSession.user_id == current_user.id
+    ).all()
+    attended_ids = {row[0] for row in attended}
+
     db_cases = db.query(models.Case).all()
-    return [build_case_brief(c) for c in db_cases]
+    # Filter out already attended case variants
+    unattended_cases = [c for c in db_cases if c.id not in attended_ids]
+    return [build_case_brief(c) for c in unattended_cases]
 
 @router.get("/{case_id}", response_model=schemas.CaseDetailOut)
 def get_case(case_id: str, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):

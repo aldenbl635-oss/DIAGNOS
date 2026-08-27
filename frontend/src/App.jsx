@@ -5,16 +5,15 @@ import Loader from './components/Common/Loader';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import CaseSelection from './pages/CaseSelection';
-import Briefing from './pages/Briefing';
-import Simulation from './pages/Simulation';
+import EncounterSetup from './pages/EncounterSetup';
+import PatientEncounter from './pages/PatientEncounter';
 import Results from './pages/Results';
 import { api } from './api/client';
 
 export default function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+
   // Theme State (light/dark)
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('diagnos_theme') || 'light';
@@ -33,9 +32,8 @@ export default function App() {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
-  // Navigation Routing States
-  const [activePage, setActivePage] = useState('landing'); // landing, login, register, dashboard, cases, briefing, simulation, results
-  const [selectedCaseId, setSelectedCaseId] = useState(null);
+  // Navigation Routing States: landing, login, register, dashboard, encounter-setup, simulation, results
+  const [activePage, setActivePage] = useState('landing');
   const [activeSessionId, setActiveSessionId] = useState(null);
 
   // Authenticate user on mount
@@ -56,6 +54,15 @@ export default function App() {
     loadUser();
   }, []);
 
+  // Listen to global 401 unauthorized events to force logout clean-up
+  useEffect(() => {
+    const handleUnauthorized = () => {
+      handleLogout();
+    };
+    window.addEventListener('diagnos-unauthorized', handleUnauthorized);
+    return () => window.removeEventListener('diagnos-unauthorized', handleUnauthorized);
+  }, []);
+
   const handleLoginSuccess = (authenticatedUser) => {
     setUser(authenticatedUser);
     setActivePage('dashboard');
@@ -68,20 +75,20 @@ export default function App() {
   };
 
   const handleNavigate = (page) => {
-    setActivePage(page);
+    // Map legacy page routes if any
+    if (page === 'cases' || page === 'briefing') {
+      setActivePage('encounter-setup');
+    } else {
+      setActivePage(page);
+    }
   };
 
-  const handleSelectCase = (caseId) => {
-    setSelectedCaseId(caseId);
-    setActivePage('briefing');
-  };
-
-  const handleStartSimulation = (sessionId) => {
+  const handleStartEncounter = (sessionId) => {
     setActiveSessionId(sessionId);
     setActivePage('simulation');
   };
 
-  const handleSimulationComplete = (sessionId) => {
+  const handleEncounterComplete = (sessionId) => {
     setActiveSessionId(sessionId);
     setActivePage('results');
   };
@@ -97,83 +104,82 @@ export default function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center">
-        <Loader size="large" text="Starting DiagnOS Workspace Simulator..." />
+      <div className="min-h-screen bg-slate-900 flex flex-col justify-center items-center">
+        <Loader size="large" text="Starting DiagnOS Virtual Patient Lab..." />
       </div>
     );
   }
 
+  // Determine if full-screen encounter mode is active (hides top navigation chrome for maximum immersion)
+  const isEncounterMode = activePage === 'simulation' || activePage === 'encounter-setup';
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 transition-colors">
-      {/* Navigation and Disclaimer Headers */}
-      <Navbar 
-        user={user} 
-        activePage={activePage} 
-        onNavigate={handleNavigate} 
-        onLogout={handleLogout} 
-        theme={theme}
-        onToggleTheme={handleToggleTheme}
-      />
-      <Disclaimer />
+      {/* Navigation and Disclaimer Headers (Hidden in full-screen patient encounter mode) */}
+      {!isEncounterMode && (
+        <>
+          <Navbar
+            user={user}
+            activePage={activePage}
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+            theme={theme}
+            onToggleTheme={handleToggleTheme}
+          />
+          <Disclaimer />
+        </>
+      )}
 
       {/* Main Pages Content Switcher */}
       <main className="flex-1">
         {activePage === 'landing' && (
           <Landing onNavigate={handleNavigate} />
         )}
-        
+
         {activePage === 'login' && (
-          <Login 
-            isRegisterInitial={false} 
-            onLoginSuccess={handleLoginSuccess} 
-            onNavigate={handleNavigate} 
+          <Login
+            isRegisterInitial={false}
+            onLoginSuccess={handleLoginSuccess}
+            onNavigate={handleNavigate}
           />
         )}
-        
+
         {activePage === 'register' && (
-          <Login 
-            isRegisterInitial={true} 
-            onLoginSuccess={handleLoginSuccess} 
-            onNavigate={handleNavigate} 
+          <Login
+            isRegisterInitial={true}
+            onLoginSuccess={handleLoginSuccess}
+            onNavigate={handleNavigate}
           />
         )}
 
         {/* Authenticated routes */}
         {user && activePage === 'dashboard' && (
-          <Dashboard 
-            user={user} 
-            onNavigate={handleNavigate} 
-            onSelectSession={handleSelectSession} 
+          <Dashboard
+            user={user}
+            onNavigate={handleNavigate}
+            onSelectSession={handleSelectSession}
           />
         )}
 
-        {user && activePage === 'cases' && (
-          <CaseSelection 
-            onNavigate={handleNavigate} 
-            onSelectCase={handleSelectCase} 
-          />
-        )}
-
-        {user && activePage === 'briefing' && (
-          <Briefing 
-            caseId={selectedCaseId} 
-            onStartSimulation={handleStartSimulation} 
-            onNavigate={handleNavigate} 
+        {user && (activePage === 'encounter-setup' || activePage === 'cases' || activePage === 'briefing') && (
+          <EncounterSetup
+            onStartEncounter={handleStartEncounter}
+            onNavigate={handleNavigate}
           />
         )}
 
         {user && activePage === 'simulation' && (
-          <Simulation 
-            sessionId={activeSessionId} 
-            onNavigate={handleNavigate} 
-            onSimulationComplete={handleSimulationComplete} 
+          <PatientEncounter
+            sessionId={activeSessionId}
+            onNavigate={handleNavigate}
+            onEncounterComplete={handleEncounterComplete}
           />
         )}
 
         {user && activePage === 'results' && (
-          <Results 
-            sessionId={activeSessionId} 
-            onNavigate={handleNavigate} 
+          <Results
+            sessionId={activeSessionId}
+            onNavigate={handleNavigate}
           />
         )}
       </main>

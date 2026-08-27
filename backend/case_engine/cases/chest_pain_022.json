@@ -1,0 +1,249 @@
+{
+  "id": "chest_pain_022",
+  "title": "Unilateral Calf Swelling & Pain Variant 21",
+  "specialty": "Emergency Medicine / Vascular Medicine",
+  "difficulty": "Intermediate",
+  "duration_mins": 15,
+  "patient": {
+    "name": "John Lee",
+    "age": 36,
+    "sex": "Male",
+    "occupation": "Security Guard",
+    "vitals": {
+      "bp": "128/81 mmHg",
+      "hr": "89 bpm",
+      "spo2": "99%",
+      "temp": "37.1\u00b0C"
+    },
+    "chief_complaint": "Left leg swelling and pain",
+    "initial_statement": "My left calf has expanded, turned reddish, and is extremely tender to walk on. It started yesterday afternoon and got worse overnight."
+  },
+  "clinical_facts": {
+    "symptoms": [
+      "Severe aching, throbbing pain in the left calf",
+      "Left leg swelling extending from the ankle to below the knee",
+      "Local warmth and redness over the calf area",
+      "Onset after returning from an 11-hour flight from Tokyo",
+      "No dyspnoea, no chest tightness (no PE signs)"
+    ],
+    "past_medical_history": [
+      "Mild varicose veins, none other"
+    ],
+    "medications": [
+      "None regular"
+    ],
+    "allergies": [
+      "No known drug or food allergies"
+    ],
+    "family_history": [
+      "Mother has history of cardiovascular events and blood clots"
+    ],
+    "social_history": [
+      "Non-smoker, drinks alcohol socially, travel photographer"
+    ],
+    "review_of_systems": [
+      "Cardiovascular: pulse rate is 89 bpm, no active chest pain except as noted.",
+      "Respiratory: airways are open.",
+      "GI: abdominal sounds active.",
+      "Neuro: intact."
+    ]
+  },
+  "patient_personality": {
+    "baseline_anxiety": 67,
+    "emotional_sensitivity": 53,
+    "trustfulness": 63,
+    "cooperativeness": 80,
+    "health_literacy": 50,
+    "fear_of_death": 69,
+    "privacy_sensitivity": 43,
+    "assertiveness": 41,
+    "pain_tolerance": 32,
+    "distrust_of_medical": 41
+  },
+  "patient_beliefs": [
+    "I hope this is just a temporary strain that will pass.",
+    "I've been under a lot of stress with my job.",
+    "I'm terrified this might be something permanent or fatal."
+  ],
+  "patient_goals": [
+    "Determine the core cause of these symptoms.",
+    "Verify whether there is emergency intervention required.",
+    "Get diagnostic results explained to me step by step."
+  ],
+  "examinations": [
+    {
+      "type": "general",
+      "name": "General Physical Examination",
+      "result": "Alert, comfortable at rest, limping when standing."
+    },
+    {
+      "type": "cardiovascular",
+      "name": "Cardiovascular Examination",
+      "result": "Regular heart rate (89 bpm), pulse is symmetric."
+    },
+    {
+      "type": "respiratory",
+      "name": "Respiratory Examination",
+      "result": "Normal chest sounds, clear breath sounds."
+    },
+    {
+      "type": "abdominal",
+      "name": "Abdominal Examination",
+      "result": "Soft, abdomen is non-tender."
+    },
+    {
+      "type": "neurological",
+      "name": "Neurological Examination",
+      "result": "Gross muscle strength in toes intact."
+    }
+  ],
+  "investigations": [
+    {
+      "id": "ecg",
+      "name": "12-Lead Electrocardiogram (ECG)",
+      "cost": 100,
+      "category": "CARDIAC",
+      "turnaround": "Immediate",
+      "result": "Normal sinus rhythm, regular rate 72 bpm, no ST/T abnormalities.",
+      "interpretation": "Normal ECG showing sinus rhythm."
+    },
+    {
+      "id": "troponin",
+      "name": "Cardiac Troponin I",
+      "cost": 150,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "Troponin I is < 0.01 ng/mL.",
+      "interpretation": "Normal cardiac enzyme profile."
+    },
+    {
+      "id": "cbc",
+      "name": "Complete Blood Count (CBC)",
+      "cost": 80,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "WBC: 6.4 x10^9/L, Hb: 13.8 g/dL, Platelets: 220 x10^9/L.",
+      "interpretation": "Complete blood count is within normal references."
+    },
+    {
+      "id": "glucose",
+      "name": "Random Blood Glucose",
+      "cost": 50,
+      "category": "BLOOD TESTS",
+      "turnaround": "Immediate",
+      "result": "Random Blood Glucose: 98 mg/dL.",
+      "interpretation": "Normal arterial glucose levels."
+    },
+    {
+      "id": "electrolytes",
+      "name": "Serum Electrolytes Panel",
+      "cost": 90,
+      "category": "BLOOD TESTS",
+      "turnaround": "30 mins",
+      "result": "Sodium: 140 mEq/L, Potassium: 4.0 mEq/L.",
+      "interpretation": "Serum electrolytes are within normal range."
+    },
+    {
+      "id": "cxr",
+      "name": "Chest X-ray (CXR)",
+      "cost": 180,
+      "category": "IMAGING",
+      "turnaround": "15 mins",
+      "result": "Both lungs are hypolucent, no vascular congestion or consolidation.",
+      "interpretation": "Normal chest X-ray profile."
+    },
+    {
+      "id": "ct_angio",
+      "name": "CT Angiography of Chest",
+      "cost": 550,
+      "category": "IMAGING",
+      "turnaround": "45 mins",
+      "result": "Normal caliber aorta, no luminal narrowing, no dissection flap visible.",
+      "interpretation": "Normal chest CT Angiography."
+    },
+    {
+      "id": "ct_head",
+      "name": "CT Scan of Head (cranial assessment)",
+      "cost": 350,
+      "category": "IMAGING",
+      "turnaround": "30 mins",
+      "result": "No acute hemorrhage, infarct, or midline shifts found in cranial structures.",
+      "interpretation": "Normal CT Scan of the Head."
+    },
+    {
+      "id": "ct_abdomen",
+      "name": "CT Scan of Abdomen & Pelvis",
+      "cost": 450,
+      "category": "IMAGING",
+      "turnaround": "45 mins",
+      "result": "Stomach, liver, bowel loops, and appendix are normal size with no inflammatory changes.",
+      "interpretation": "Normal CT Scan of the Abdomen."
+    },
+    {
+      "id": "urinalysis",
+      "name": "Urinalysis and Urine Culture",
+      "cost": 70,
+      "category": "URINE TESTS",
+      "turnaround": "15 mins",
+      "result": "Clear yellow appearance, negative nitrite, negative leukocyte esterase.",
+      "interpretation": "Urinalysis is clear of infection signs."
+    },
+    {
+      "id": "leg_ultrasound",
+      "name": "Duplex Vascular Leg Ultrasound",
+      "cost": 220,
+      "category": "IMAGING",
+      "turnaround": "30 mins",
+      "result": "Duplex Ultrasound of the left lower extremity shows non-compressibility of the popliteal vein with absent color flow, indicating total thrombotic occlusion.",
+      "interpretation": "Acute Deep Vein Thrombosis (DVT) of the left popliteal vein."
+    }
+  ],
+  "differential_diagnoses": [
+    "Acute coronary syndrome",
+    "Gastroesophageal reflux disease",
+    "Stable Angina",
+    "Pericarditis",
+    "Panic attack",
+    "Acute ischemic stroke",
+    "Acute appendicitis",
+    "Asthma exacerbation",
+    "Acute pyelonephritis",
+    "Deep vein thrombosis",
+    "Migraine headache"
+  ],
+  "evaluation_criteria": {
+    "correct_diagnosis": "Deep vein thrombosis",
+    "correct_subtypes": [
+      "dvt",
+      "deep vein thrombosis",
+      "blood clot in leg",
+      "popliteal dvt"
+    ],
+    "immediate_priority_keywords": [
+      "deep vein thrombosis",
+      "salvage",
+      "aspirin",
+      "tPA",
+      "thrombolysis",
+      "bronchodilator",
+      "albuterol",
+      "antibiotic",
+      "heparin",
+      "coagualtion",
+      "fluid resuscitation"
+    ],
+    "critical_questions": [
+      "pain_characteristics",
+      "lifestyle_risk_factors",
+      "past_medical_history",
+      "associated_symptoms",
+      "family_history"
+    ],
+    "required_investigations": [
+      "leg_ultrasound"
+    ],
+    "unnecessary_investigations": [
+      "ct_head"
+    ]
+  }
+}
