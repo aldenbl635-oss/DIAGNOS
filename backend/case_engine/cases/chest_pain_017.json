@@ -3,14 +3,14 @@
   "title": "Acute Panic Presentation Variant 16",
   "specialty": "Emergency Medicine / Psychiatry",
   "difficulty": "Beginner",
-  "duration_mins": 15,
+  "duration_mins": 25,
   "patient": {
-    "name": "Karen Miller",
-    "age": 50,
-    "sex": "Female",
-    "occupation": "Electrician",
+    "name": "Christopher White",
+    "age": 74,
+    "sex": "Male",
+    "occupation": "Retail Store Manager",
     "vitals": {
-      "bp": "140/83 mmHg",
+      "bp": "133/82 mmHg",
       "hr": "120 bpm",
       "spo2": "100%",
       "temp": "36.7\u00b0C"
@@ -49,16 +49,16 @@
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 49,
-    "emotional_sensitivity": 78,
-    "trustfulness": 72,
-    "cooperativeness": 65,
-    "health_literacy": 50,
-    "fear_of_death": 86,
-    "privacy_sensitivity": 47,
-    "assertiveness": 52,
-    "pain_tolerance": 31,
-    "distrust_of_medical": 15
+    "baseline_anxiety": 43,
+    "emotional_sensitivity": 66,
+    "trustfulness": 45,
+    "cooperativeness": 51,
+    "health_literacy": 40,
+    "fear_of_death": 82,
+    "privacy_sensitivity": 39,
+    "assertiveness": 50,
+    "pain_tolerance": 44,
+    "distrust_of_medical": 22
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -210,6 +210,28 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Christopher White (Chest tightness & palpitations)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Acute Palpitations & Hyperventilation Symptoms",
+      "type": "question"
+    },
+    {
+      "label": "Perform General & Neurological Physical Exam",
+      "type": "examination"
+    },
+    {
+      "label": "Order 12-Lead Electrocardiogram (ECG) (Rule Out Arrhythmia & Ischemia)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Panic Attack / Acute Anxiety Disorder",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Panic attack",

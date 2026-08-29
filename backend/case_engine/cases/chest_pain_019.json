@@ -5,15 +5,15 @@
   "difficulty": "Intermediate",
   "duration_mins": 25,
   "patient": {
-    "name": "Christopher Garcia",
-    "age": 63,
+    "name": "Richard Jones",
+    "age": 54,
     "sex": "Male",
     "occupation": "Real Estate Agent",
     "vitals": {
-      "bp": "116/79 mmHg",
+      "bp": "124/79 mmHg",
       "hr": "95 bpm",
       "spo2": "99%",
-      "temp": "38.2\u00b0C"
+      "temp": "38.3\u00b0C"
     },
     "chief_complaint": "Right lower quadrant abdominal pain",
     "initial_statement": "My stomach started hurting this morning around my belly button. Over the afternoon, it moved down to my lower right side and is hurting so much now."
@@ -48,16 +48,16 @@
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 62,
-    "emotional_sensitivity": 85,
-    "trustfulness": 64,
-    "cooperativeness": 68,
-    "health_literacy": 70,
-    "fear_of_death": 90,
-    "privacy_sensitivity": 56,
-    "assertiveness": 70,
-    "pain_tolerance": 44,
-    "distrust_of_medical": 26
+    "baseline_anxiety": 75,
+    "emotional_sensitivity": 76,
+    "trustfulness": 58,
+    "cooperativeness": 77,
+    "health_literacy": 60,
+    "fear_of_death": 58,
+    "privacy_sensitivity": 35,
+    "assertiveness": 57,
+    "pain_tolerance": 64,
+    "distrust_of_medical": 34
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -209,6 +209,32 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Richard Jones (Right lower quadrant abdominal pain)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Migrating Abdominal Pain & GI Symptoms",
+      "type": "question"
+    },
+    {
+      "label": "Perform Abdominal Exam (Assess McBurney's Point & Peritoneal Signs)",
+      "type": "examination"
+    },
+    {
+      "label": "Order Complete Blood Count (CBC) (Evaluate Leukocytosis)",
+      "type": "investigation"
+    },
+    {
+      "label": "Order CT Scan of Abdomen & Pelvis (Confirm Acute Appendicitis)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Acute Appendicitis & Prepare for Surgical Consultation",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Acute appendicitis",

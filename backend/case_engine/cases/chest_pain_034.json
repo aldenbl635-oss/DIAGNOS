@@ -5,13 +5,13 @@
   "difficulty": "Beginner",
   "duration_mins": 15,
   "patient": {
-    "name": "William Thompson",
-    "age": 41,
+    "name": "James Jackson",
+    "age": 32,
     "sex": "Male",
-    "occupation": "Software Engineer",
+    "occupation": "Corporate Accountant",
     "vitals": {
-      "bp": "129/86 mmHg",
-      "hr": "88 bpm",
+      "bp": "130/80 mmHg",
+      "hr": "79 bpm",
       "spo2": "99%",
       "temp": "36.7\u00b0C"
     },
@@ -42,23 +42,23 @@
       "Graphic designer, long hours looking at bright computer monitors"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 88 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 79 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 51,
-    "emotional_sensitivity": 68,
-    "trustfulness": 69,
-    "cooperativeness": 54,
-    "health_literacy": 30,
-    "fear_of_death": 47,
-    "privacy_sensitivity": 53,
-    "assertiveness": 61,
-    "pain_tolerance": 34,
-    "distrust_of_medical": 38
+    "baseline_anxiety": 59,
+    "emotional_sensitivity": 55,
+    "trustfulness": 64,
+    "cooperativeness": 71,
+    "health_literacy": 50,
+    "fear_of_death": 45,
+    "privacy_sensitivity": 35,
+    "assertiveness": 45,
+    "pain_tolerance": 42,
+    "distrust_of_medical": 30
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -79,7 +79,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Regular heart rate (88 bpm), heart sounds normal."
+      "result": "Regular heart rate (79 bpm), heart sounds normal."
     },
     {
       "type": "respiratory",
@@ -210,6 +210,28 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet James Jackson (Severe headache)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Aura, Photophobia & Previous Headache Pattern",
+      "type": "question"
+    },
+    {
+      "label": "Perform Comprehensive Neurological Exam (Confirm Normal Status)",
+      "type": "examination"
+    },
+    {
+      "label": "Order Complete Blood Count (CBC) (Baseline Screening; Avoid Low-Yield CT)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Acute Migraine Headache & Provide Triptan Therapy",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Migraine headache",

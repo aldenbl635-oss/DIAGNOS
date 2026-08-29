@@ -3,16 +3,16 @@
   "title": "Cardiac Chest Pressure Variant 45",
   "specialty": "Emergency Medicine / Cardiology",
   "difficulty": "Intermediate",
-  "duration_mins": 25,
+  "duration_mins": 15,
   "patient": {
-    "name": "Sarah Taylor",
+    "name": "Jennifer Lewis",
     "age": 37,
     "sex": "Female",
-    "occupation": "Post Office Clerk",
+    "occupation": "High School Teacher",
     "vitals": {
-      "bp": "137/96 mmHg",
-      "hr": "112 bpm",
-      "spo2": "95%",
+      "bp": "145/88 mmHg",
+      "hr": "109 bpm",
+      "spo2": "96%",
       "temp": "36.8\u00b0C"
     },
     "chief_complaint": "Chest pressure",
@@ -38,30 +38,30 @@
       "No known drug or food allergies"
     ],
     "family_history": [
-      "Father had a myocardial infarction at age 54"
+      "Father had a myocardial infarction at age 52"
     ],
     "social_history": [
       "Smokes 1 pack of cigarettes per day",
       "High stress office job"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 112 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 109 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 85,
-    "emotional_sensitivity": 56,
-    "trustfulness": 47,
-    "cooperativeness": 80,
-    "health_literacy": 70,
-    "fear_of_death": 47,
-    "privacy_sensitivity": 51,
-    "assertiveness": 52,
-    "pain_tolerance": 46,
-    "distrust_of_medical": 15
+    "baseline_anxiety": 54,
+    "emotional_sensitivity": 78,
+    "trustfulness": 71,
+    "cooperativeness": 84,
+    "health_literacy": 50,
+    "fear_of_death": 53,
+    "privacy_sensitivity": 57,
+    "assertiveness": 65,
+    "pain_tolerance": 62,
+    "distrust_of_medical": 42
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -82,7 +82,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Tachycardia (112 bpm) normal heart sounds, no murmurs."
+      "result": "Tachycardia (109 bpm) normal heart sounds, no murmurs."
     },
     {
       "type": "respiratory",
@@ -213,6 +213,32 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Jennifer Lewis (Chest pressure)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Pain Characteristics & Cardiac Risk Factors",
+      "type": "question"
+    },
+    {
+      "label": "Perform Cardiovascular & General Physical Exam",
+      "type": "examination"
+    },
+    {
+      "label": "Order 12-Lead Electrocardiogram (ECG) (Detect ST-Elevation)",
+      "type": "investigation"
+    },
+    {
+      "label": "Order Cardiac Troponin I (Confirm Myocardial Necrosis)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Acute Coronary Syndrome",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Acute coronary syndrome",

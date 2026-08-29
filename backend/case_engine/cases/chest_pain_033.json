@@ -5,13 +5,13 @@
   "difficulty": "Intermediate",
   "duration_mins": 20,
   "patient": {
-    "name": "Karen Harris",
-    "age": 61,
-    "sex": "Female",
-    "occupation": "Office Manager",
+    "name": "Brian Lopez",
+    "age": 35,
+    "sex": "Male",
+    "occupation": "Security Guard",
     "vitals": {
-      "bp": "123/76 mmHg",
-      "hr": "85 bpm",
+      "bp": "131/77 mmHg",
+      "hr": "89 bpm",
       "spo2": "99%",
       "temp": "37.1\u00b0C"
     },
@@ -42,23 +42,23 @@
       "Non-smoker, drinks alcohol socially, travel photographer"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 85 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 89 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 77,
-    "emotional_sensitivity": 71,
-    "trustfulness": 73,
-    "cooperativeness": 68,
-    "health_literacy": 30,
-    "fear_of_death": 57,
-    "privacy_sensitivity": 30,
-    "assertiveness": 64,
-    "pain_tolerance": 34,
-    "distrust_of_medical": 26
+    "baseline_anxiety": 54,
+    "emotional_sensitivity": 80,
+    "trustfulness": 54,
+    "cooperativeness": 51,
+    "health_literacy": 40,
+    "fear_of_death": 90,
+    "privacy_sensitivity": 48,
+    "assertiveness": 60,
+    "pain_tolerance": 49,
+    "distrust_of_medical": 39
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -79,7 +79,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Regular heart rate (85 bpm), pulse is symmetric."
+      "result": "Regular heart rate (89 bpm), pulse is symmetric."
     },
     {
       "type": "respiratory",
@@ -210,6 +210,28 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Brian Lopez (Left leg swelling and pain)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Travel History, Immobility & Swelling Onset",
+      "type": "question"
+    },
+    {
+      "label": "Perform Lower Extremity Vascular & Palpation Exam",
+      "type": "examination"
+    },
+    {
+      "label": "Order Duplex Vascular Leg Ultrasound (Confirm Popliteal Vein Thrombosis)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Acute Deep Vein Thrombosis (DVT) & Initiate Anticoagulation",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Deep vein thrombosis",

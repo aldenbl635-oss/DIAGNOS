@@ -3,15 +3,15 @@
   "title": "Retrosternal Burning Variant 46",
   "specialty": "Emergency Medicine / Gastroenterology",
   "difficulty": "Beginner",
-  "duration_mins": 25,
+  "duration_mins": 15,
   "patient": {
-    "name": "Patricia Martinez",
-    "age": 74,
+    "name": "Emily Anderson",
+    "age": 30,
     "sex": "Female",
-    "occupation": "Office Manager",
+    "occupation": "High School Teacher",
     "vitals": {
-      "bp": "120/79 mmHg",
-      "hr": "76 bpm",
+      "bp": "122/80 mmHg",
+      "hr": "79 bpm",
       "spo2": "99%",
       "temp": "36.7\u00b0C"
     },
@@ -44,23 +44,23 @@
       "Eats late dinner before sleeping"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 76 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 79 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 54,
-    "emotional_sensitivity": 50,
-    "trustfulness": 55,
-    "cooperativeness": 74,
-    "health_literacy": 40,
-    "fear_of_death": 56,
-    "privacy_sensitivity": 30,
-    "assertiveness": 42,
-    "pain_tolerance": 38,
-    "distrust_of_medical": 43
+    "baseline_anxiety": 79,
+    "emotional_sensitivity": 51,
+    "trustfulness": 74,
+    "cooperativeness": 75,
+    "health_literacy": 50,
+    "fear_of_death": 79,
+    "privacy_sensitivity": 32,
+    "assertiveness": 68,
+    "pain_tolerance": 70,
+    "distrust_of_medical": 31
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -81,7 +81,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Regular heart rate (76 bpm), normal chest sounds."
+      "result": "Regular heart rate (79 bpm), normal chest sounds."
     },
     {
       "type": "respiratory",
@@ -212,6 +212,28 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Emily Anderson (Heartburn)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Postprandial Symptoms & Reflux History",
+      "type": "question"
+    },
+    {
+      "label": "Perform Abdominal Examination (Epigastric Assessment)",
+      "type": "examination"
+    },
+    {
+      "label": "Order 12-Lead Electrocardiogram (ECG) (Rule Out Cardiac Ischemia)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Gastroesophageal Reflux Disease (GERD)",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Gastroesophageal reflux disease",

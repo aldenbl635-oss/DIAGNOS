@@ -240,7 +240,7 @@ TOPIC_KEYWORD_MAP: Dict[str, List[str]] = {
     "duration": ["how long", "duration", "since", "long", "minutes", "hours", "days", "weeks", "month"],
     "location_site": ["where", "location", "site", "side", "which part"],
     "character_quality": ["describe", "what kind", "type", "character", "sharp", "dull", "crushing", "squeezing", "burning", "aching", "throbbing", "pressure"],
-    "radiation": ["radiat", "spread", "go anywhere", "move", "travel", "shoot", "arm", "jaw", "shoulder", "neck", "back", "groin", "thigh", "leg"],
+    "radiation": ["radiat", "spread", "go anywhere", "move to", "travel to", "shoot", "to your arm", "to your jaw", "to your shoulder", "to your neck", "to your leg"],
     "severity": ["how bad", "scale", "out of 10", "rate the pain", "severity", "intense", "mild", "severe"],
     "exacerbating": ["worse", "aggravate", "makes it worse", "exacerbat"],
     "relieving": ["better", "reliev", "ease", "improv", "nitroglycerin", "rest"],
@@ -725,7 +725,7 @@ class OfflinePatientResponder:
 
         # ── RADIATION ─────────────────────────────────────────────────────
         if topic == "radiation" or any(kw in msg_lower for kw in [
-            "radiat", "spread", "go anywhere", "move to", "travel", "arm", "jaw", "shoulder", "neck", "leg"
+            "radiat", "spread", "go anywhere", "move to", "travel to"
         ]):
             rad = ctx.search_category(ctx.symptoms, ["radiat", "spread", "extend", "travel", "shoulder", "arm", "jaw", "neck", "back"])
             if rad:

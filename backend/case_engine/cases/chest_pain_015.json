@@ -5,13 +5,13 @@
   "difficulty": "Intermediate",
   "duration_mins": 20,
   "patient": {
-    "name": "Michael Clark",
-    "age": 32,
-    "sex": "Male",
-    "occupation": "Truck Driver",
+    "name": "Jessica Garcia",
+    "age": 43,
+    "sex": "Female",
+    "occupation": "Warehouse Supervisor",
     "vitals": {
-      "bp": "126/84 mmHg",
-      "hr": "86 bpm",
+      "bp": "136/87 mmHg",
+      "hr": "90 bpm",
       "spo2": "98%",
       "temp": "36.7\u00b0C"
     },
@@ -43,23 +43,23 @@
       "Sedentary, minimal routine physical activity"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 86 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 90 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 48,
+    "baseline_anxiety": 78,
     "emotional_sensitivity": 80,
-    "trustfulness": 74,
-    "cooperativeness": 58,
-    "health_literacy": 50,
-    "fear_of_death": 46,
-    "privacy_sensitivity": 42,
-    "assertiveness": 58,
-    "pain_tolerance": 42,
-    "distrust_of_medical": 20
+    "trustfulness": 55,
+    "cooperativeness": 62,
+    "health_literacy": 30,
+    "fear_of_death": 60,
+    "privacy_sensitivity": 41,
+    "assertiveness": 49,
+    "pain_tolerance": 57,
+    "distrust_of_medical": 16
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -80,7 +80,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Regular rhythm, rate 86 bpm."
+      "result": "Regular rhythm, rate 90 bpm."
     },
     {
       "type": "respiratory",
@@ -211,6 +211,32 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Jessica Garcia (Chest tightness on effort)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Exertional Triggers & Relief by Rest",
+      "type": "question"
+    },
+    {
+      "label": "Perform Baseline Cardiovascular Examination",
+      "type": "examination"
+    },
+    {
+      "label": "Order 12-Lead Electrocardiogram (ECG) (Screen Ischemia)",
+      "type": "investigation"
+    },
+    {
+      "label": "Order Cardiac Troponin I (Rule Out Acute Necrosis)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Stable Angina",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Stable Angina",

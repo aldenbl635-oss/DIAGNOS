@@ -3,17 +3,17 @@
   "title": "Flank Pain & Urinary Infection Variant 31",
   "specialty": "Emergency Medicine / Urology",
   "difficulty": "Intermediate",
-  "duration_mins": 20,
+  "duration_mins": 15,
   "patient": {
-    "name": "Sandra Garcia",
-    "age": 40,
-    "sex": "Female",
-    "occupation": "Office Manager",
+    "name": "Charles Lopez",
+    "age": 66,
+    "sex": "Male",
+    "occupation": "Registered Nurse",
     "vitals": {
-      "bp": "120/78 mmHg",
-      "hr": "101 bpm",
+      "bp": "115/73 mmHg",
+      "hr": "105 bpm",
       "spo2": "98%",
-      "temp": "39.4\u00b0C"
+      "temp": "39.2\u00b0C"
     },
     "chief_complaint": "Left flank pain and high fever",
     "initial_statement": "I have this severe throbbing pain in my lower left back. It extends to my side. I've also had high fevers, shaking chills, and it hurts when I pee."
@@ -42,23 +42,23 @@
       "Non-smoker, high school teacher, drinks about 1L of water daily"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 101 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 105 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 73,
-    "emotional_sensitivity": 54,
-    "trustfulness": 54,
-    "cooperativeness": 73,
-    "health_literacy": 70,
-    "fear_of_death": 60,
-    "privacy_sensitivity": 46,
-    "assertiveness": 35,
-    "pain_tolerance": 47,
-    "distrust_of_medical": 35
+    "baseline_anxiety": 65,
+    "emotional_sensitivity": 65,
+    "trustfulness": 66,
+    "cooperativeness": 55,
+    "health_literacy": 40,
+    "fear_of_death": 57,
+    "privacy_sensitivity": 52,
+    "assertiveness": 49,
+    "pain_tolerance": 43,
+    "distrust_of_medical": 34
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -79,7 +79,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Tachycardia (101 bpm), regular pulses."
+      "result": "Tachycardia (105 bpm), regular pulses."
     },
     {
       "type": "respiratory",
@@ -210,6 +210,32 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Charles Lopez (Left flank pain and high fever)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Urinary Symptoms, Chills & Flank Pain",
+      "type": "question"
+    },
+    {
+      "label": "Perform Costovertebral Angle (CVA) Tenderness & Abdominal Exam",
+      "type": "examination"
+    },
+    {
+      "label": "Order Urinalysis and Urine Culture (Identify Pyuria & Nitrites)",
+      "type": "investigation"
+    },
+    {
+      "label": "Order Complete Blood Count (CBC) (Assess Systemic Infection)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Acute Pyelonephritis & Initiate Targeted Antibiotics",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Acute pyelonephritis",

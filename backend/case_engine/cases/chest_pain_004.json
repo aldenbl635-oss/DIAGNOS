@@ -5,15 +5,15 @@
   "difficulty": "Intermediate",
   "duration_mins": 20,
   "patient": {
-    "name": "Mary Williams",
-    "age": 60,
-    "sex": "Female",
-    "occupation": "Corporate Accountant",
+    "name": "Christopher White",
+    "age": 30,
+    "sex": "Male",
+    "occupation": "Graphic Designer",
     "vitals": {
-      "bp": "131/84 mmHg",
-      "hr": "80 bpm",
+      "bp": "127/84 mmHg",
+      "hr": "88 bpm",
       "spo2": "98%",
-      "temp": "36.7\u00b0C"
+      "temp": "36.6\u00b0C"
     },
     "chief_complaint": "Chest tightness on effort",
     "initial_statement": "I get this squeezing tightness in my chest when I walk quickly or climb stairs. It stops after I rest for a few minutes."
@@ -43,23 +43,23 @@
       "Sedentary, minimal routine physical activity"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 80 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 88 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 66,
-    "emotional_sensitivity": 82,
-    "trustfulness": 71,
-    "cooperativeness": 50,
-    "health_literacy": 40,
-    "fear_of_death": 68,
-    "privacy_sensitivity": 53,
-    "assertiveness": 66,
-    "pain_tolerance": 40,
-    "distrust_of_medical": 36
+    "baseline_anxiety": 69,
+    "emotional_sensitivity": 84,
+    "trustfulness": 58,
+    "cooperativeness": 83,
+    "health_literacy": 50,
+    "fear_of_death": 46,
+    "privacy_sensitivity": 44,
+    "assertiveness": 59,
+    "pain_tolerance": 58,
+    "distrust_of_medical": 23
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -80,7 +80,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Regular rhythm, rate 80 bpm."
+      "result": "Regular rhythm, rate 88 bpm."
     },
     {
       "type": "respiratory",
@@ -211,6 +211,32 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Christopher White (Chest tightness on effort)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Exertional Triggers & Relief by Rest",
+      "type": "question"
+    },
+    {
+      "label": "Perform Baseline Cardiovascular Examination",
+      "type": "examination"
+    },
+    {
+      "label": "Order 12-Lead Electrocardiogram (ECG) (Screen Ischemia)",
+      "type": "investigation"
+    },
+    {
+      "label": "Order Cardiac Troponin I (Rule Out Acute Necrosis)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Stable Angina",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Stable Angina",

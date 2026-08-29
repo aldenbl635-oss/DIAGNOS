@@ -3,16 +3,16 @@
   "title": "Acute Bronchospasm & Wheezing Variant 19",
   "specialty": "Emergency Medicine / Pulmonology",
   "difficulty": "Intermediate",
-  "duration_mins": 15,
+  "duration_mins": 25,
   "patient": {
-    "name": "Kimberly Rodriguez",
-    "age": 42,
-    "sex": "Female",
-    "occupation": "Post Office Clerk",
+    "name": "David Smith",
+    "age": 63,
+    "sex": "Male",
+    "occupation": "Bank Teller",
     "vitals": {
-      "bp": "137/86 mmHg",
-      "hr": "104 bpm",
-      "spo2": "92%",
+      "bp": "133/82 mmHg",
+      "hr": "118 bpm",
+      "spo2": "93%",
       "temp": "36.8\u00b0C"
     },
     "chief_complaint": "Shortness of breath",
@@ -44,23 +44,23 @@
       "Non-smoker, owns two cats, works as landscape architect"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 104 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 118 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 57,
-    "emotional_sensitivity": 73,
-    "trustfulness": 51,
-    "cooperativeness": 72,
-    "health_literacy": 50,
-    "fear_of_death": 82,
-    "privacy_sensitivity": 64,
-    "assertiveness": 54,
-    "pain_tolerance": 64,
-    "distrust_of_medical": 20
+    "baseline_anxiety": 47,
+    "emotional_sensitivity": 59,
+    "trustfulness": 60,
+    "cooperativeness": 73,
+    "health_literacy": 60,
+    "fear_of_death": 90,
+    "privacy_sensitivity": 38,
+    "assertiveness": 36,
+    "pain_tolerance": 67,
+    "distrust_of_medical": 37
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -81,7 +81,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Tachycardia (104 bpm), regular rhythm, no murmurs."
+      "result": "Tachycardia (118 bpm), regular rhythm, no murmurs."
     },
     {
       "type": "respiratory",
@@ -212,6 +212,28 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet David Smith (Shortness of breath)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Inhaler Response & Environmental Triggers",
+      "type": "question"
+    },
+    {
+      "label": "Perform Respiratory Examination (Assess Airway Wheezing)",
+      "type": "examination"
+    },
+    {
+      "label": "Order Chest X-ray (CXR) (Rule Out Pneumothorax & Consolidation)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Acute Asthma Exacerbation & Initiate Bronchodilators",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Asthma exacerbation",

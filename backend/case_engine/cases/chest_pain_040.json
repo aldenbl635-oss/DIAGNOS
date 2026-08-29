@@ -5,13 +5,13 @@
   "difficulty": "Advanced",
   "duration_mins": 25,
   "patient": {
-    "name": "Anthony Williams",
-    "age": 64,
+    "name": "Mark Perez",
+    "age": 36,
     "sex": "Male",
-    "occupation": "Post Office Clerk",
+    "occupation": "Plumber",
     "vitals": {
-      "bp": "179/103 mmHg",
-      "hr": "79 bpm",
+      "bp": "166/101 mmHg",
+      "hr": "89 bpm",
       "spo2": "98%",
       "temp": "36.6\u00b0C"
     },
@@ -46,23 +46,23 @@
       "Non-smoker, drinks alcohol occasionally, retired clerk"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 79 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 89 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 57,
-    "emotional_sensitivity": 60,
-    "trustfulness": 59,
-    "cooperativeness": 71,
-    "health_literacy": 30,
-    "fear_of_death": 52,
-    "privacy_sensitivity": 57,
-    "assertiveness": 57,
-    "pain_tolerance": 48,
-    "distrust_of_medical": 28
+    "baseline_anxiety": 58,
+    "emotional_sensitivity": 73,
+    "trustfulness": 69,
+    "cooperativeness": 83,
+    "health_literacy": 70,
+    "fear_of_death": 43,
+    "privacy_sensitivity": 47,
+    "assertiveness": 52,
+    "pain_tolerance": 33,
+    "distrust_of_medical": 39
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -83,7 +83,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Regular heart rate (79 bpm), pulse is strong."
+      "result": "Regular heart rate (89 bpm), pulse is strong."
     },
     {
       "type": "respiratory",
@@ -214,6 +214,28 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Mark Perez (Slurred speech and arm weakness)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Exact Time of Symptom Onset & Progression",
+      "type": "question"
+    },
+    {
+      "label": "Perform Comprehensive Neurological & NIHSS Examination",
+      "type": "examination"
+    },
+    {
+      "label": "Order Non-Contrast CT Scan of Head (Rule Out Hemorrhage)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Acute Ischemic Stroke & Evaluate for Reperfusion",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Acute ischemic stroke",

@@ -14,6 +14,8 @@ from ai.simulator import simulate_patient
 from ai.patient_agent import PatientAgent
 from ai.patient_state import PatientAgentState
 from evaluation.ai_eval import evaluate_clinical_reasoning
+from case_engine.pathway import generate_case_expected_pathway
+from case_engine.engine import case_engine
 
 router = APIRouter(prefix="/simulation", tags=["Simulation"])
 
@@ -597,6 +599,11 @@ def submit_and_evaluate(
     
     if not session:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Session not found")
+    case = db.query(models.Case).filter(models.Case.id == session.case_id).first()
+    case_data = case.data if case else (case_engine.get_case(session.case_id) or {})
+    expected_pathway = generate_case_expected_pathway(case_data)
+    case_detail = build_case_detail(case) if case else None
+
     if session.status == "completed":
         # Check if already evaluated, if yes just return the evaluation
         eval_record = db.query(models.Evaluation).filter(models.Evaluation.session_id == session_id).first()
@@ -605,7 +612,9 @@ def submit_and_evaluate(
             return {
                 "session": session,
                 "evaluation": eval_record,
-                "actions": actions
+                "actions": actions,
+                "expected_pathway": expected_pathway,
+                "case": case_detail
             }
             
     # Update final entries
@@ -618,10 +627,8 @@ def submit_and_evaluate(
     # Get all action logs
     actions = db.query(models.StudentAction).filter(models.StudentAction.session_id == session_id).order_by(models.StudentAction.timestamp.asc()).all()
     
-    case = db.query(models.Case).filter(models.Case.id == session.case_id).first()
-    
     # Perform scoring (rule-based + AI feedback integration)
-    evaluation = evaluate_clinical_reasoning(session, case.data, actions)
+    evaluation = evaluate_clinical_reasoning(session, case_data, actions)
     
     db.add(evaluation)
     db.commit()
@@ -631,7 +638,9 @@ def submit_and_evaluate(
     return {
         "session": session,
         "evaluation": evaluation,
-        "actions": actions
+        "actions": actions,
+        "expected_pathway": expected_pathway,
+        "case": case_detail
     }
 
 @router.get("/{session_id}/results", response_model=schemas.SimulationResultOut)
@@ -653,11 +662,17 @@ def get_results(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Evaluation results not generated yet")
         
     actions = db.query(models.StudentAction).filter(models.StudentAction.session_id == session_id).order_by(models.StudentAction.timestamp.asc()).all()
+    case = db.query(models.Case).filter(models.Case.id == session.case_id).first()
+    case_data = case.data if case else (case_engine.get_case(session.case_id) or {})
+    expected_pathway = generate_case_expected_pathway(case_data)
+    case_detail = build_case_detail(case) if case else None
     
     return {
         "session": session,
         "evaluation": evaluation,
-        "actions": actions
+        "actions": actions,
+        "expected_pathway": expected_pathway,
+        "case": case_detail
     }
 
 

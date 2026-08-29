@@ -97,6 +97,14 @@ def generate_50_cases():
             diag_subtypes = ["acute coronary syndrome", "stemi", "myocardial infarction", "acs"]
             req_inv = ["ecg", "troponin"]
             unnec_inv = ["ct_angio"]
+            expected_pathway = [
+                {"label": f"Meet {name} ({chief_complaint})", "type": "system"},
+                {"label": "Interview Pain Characteristics & Cardiac Risk Factors", "type": "question"},
+                {"label": "Perform Cardiovascular & General Physical Exam", "type": "examination"},
+                {"label": "Order 12-Lead Electrocardiogram (ECG) (Detect ST-Elevation)", "type": "investigation"},
+                {"label": "Order Cardiac Troponin I (Confirm Myocardial Necrosis)", "type": "investigation"},
+                {"label": "Diagnose Acute Coronary Syndrome", "type": "decision"}
+            ]
             
         elif diag_choice == "GERD":
             title = f"Retrosternal Burning Variant {i-1}"
@@ -132,6 +140,13 @@ def generate_50_cases():
             diag_subtypes = ["gerd", "acid reflux", "heartburn", "gastroesophageal reflux disease"]
             req_inv = ["ecg"]
             unnec_inv = ["ct_angio"]
+            expected_pathway = [
+                {"label": f"Meet {name} ({chief_complaint})", "type": "system"},
+                {"label": "Interview Postprandial Symptoms & Reflux History", "type": "question"},
+                {"label": "Perform Abdominal Examination (Epigastric Assessment)", "type": "examination"},
+                {"label": "Order 12-Lead Electrocardiogram (ECG) (Rule Out Cardiac Ischemia)", "type": "investigation"},
+                {"label": "Diagnose Gastroesophageal Reflux Disease (GERD)", "type": "decision"}
+            ]
             
         elif diag_choice == "Stable Angina":
             title = f"Exertional Chest Tightness Variant {i-1}"
@@ -166,6 +181,14 @@ def generate_50_cases():
             diag_subtypes = ["angina", "stable angina", "exertional chest pain"]
             req_inv = ["ecg", "troponin"]
             unnec_inv = ["ct_angio"]
+            expected_pathway = [
+                {"label": f"Meet {name} ({chief_complaint})", "type": "system"},
+                {"label": "Interview Exertional Triggers & Relief by Rest", "type": "question"},
+                {"label": "Perform Baseline Cardiovascular Examination", "type": "examination"},
+                {"label": "Order 12-Lead Electrocardiogram (ECG) (Screen Ischemia)", "type": "investigation"},
+                {"label": "Order Cardiac Troponin I (Rule Out Acute Necrosis)", "type": "investigation"},
+                {"label": "Diagnose Stable Angina", "type": "decision"}
+            ]
             
         elif diag_choice == "Pericarditis":
             title = f"Positional Chest Pain Variant {i-1}"
@@ -204,6 +227,13 @@ def generate_50_cases():
             diag_subtypes = ["pericarditis", "acute pericarditis"]
             req_inv = ["ecg"]
             unnec_inv = ["ct_angio"]
+            expected_pathway = [
+                {"label": f"Meet {name} ({chief_complaint})", "type": "system"},
+                {"label": "Interview Positional & Pleuritic Pain Characteristics", "type": "question"},
+                {"label": "Auscultate Heart for Pericardial Friction Rub", "type": "examination"},
+                {"label": "Order 12-Lead Electrocardiogram (ECG) (Identify Diffuse ST Elevation)", "type": "investigation"},
+                {"label": "Diagnose Acute Pericarditis", "type": "decision"}
+            ]
             
         elif diag_choice == "Panic Attack":
             title = f"Acute Panic Presentation Variant {i-1}"
@@ -241,6 +271,13 @@ def generate_50_cases():
             diag_subtypes = ["panic attack", "anxiety", "panic disorder"]
             req_inv = ["ecg"]
             unnec_inv = ["ct_angio"]
+            expected_pathway = [
+                {"label": f"Meet {name} ({chief_complaint})", "type": "system"},
+                {"label": "Interview Acute Palpitations & Hyperventilation Symptoms", "type": "question"},
+                {"label": "Perform General & Neurological Physical Exam", "type": "examination"},
+                {"label": "Order 12-Lead Electrocardiogram (ECG) (Rule Out Arrhythmia & Ischemia)", "type": "investigation"},
+                {"label": "Diagnose Panic Attack / Acute Anxiety Disorder", "type": "decision"}
+            ]
             
         elif diag_choice == "Stroke":
             title = f"Sudden Left-Sided Weakness Variant {i-1}"
@@ -279,6 +316,13 @@ def generate_50_cases():
             diag_subtypes = ["stroke", "ischemic stroke", "acute ischemic stroke", "brain stroke"]
             req_inv = ["ct_head"]
             unnec_inv = ["ct_angio"]
+            expected_pathway = [
+                {"label": f"Meet {name} ({chief_complaint})", "type": "system"},
+                {"label": "Interview Exact Time of Symptom Onset & Progression", "type": "question"},
+                {"label": "Perform Comprehensive Neurological & NIHSS Examination", "type": "examination"},
+                {"label": "Order Non-Contrast CT Scan of Head (Rule Out Hemorrhage)", "type": "investigation"},
+                {"label": "Diagnose Acute Ischemic Stroke & Evaluate for Reperfusion", "type": "decision"}
+            ]
             
         elif diag_choice == "Appendicitis":
             title = f"Right Lower Quadrant Pain Variant {i-1}"
@@ -318,6 +362,14 @@ def generate_50_cases():
             diag_subtypes = ["appendicitis", "acute appendicitis", "appendix infection"]
             req_inv = ["ct_abdomen", "cbc"]
             unnec_inv = ["ct_head"]
+            expected_pathway = [
+                {"label": f"Meet {name} ({chief_complaint})", "type": "system"},
+                {"label": "Interview Migrating Abdominal Pain & GI Symptoms", "type": "question"},
+                {"label": "Perform Abdominal Exam (Assess McBurney's Point & Peritoneal Signs)", "type": "examination"},
+                {"label": "Order Complete Blood Count (CBC) (Evaluate Leukocytosis)", "type": "investigation"},
+                {"label": "Order CT Scan of Abdomen & Pelvis (Confirm Acute Appendicitis)", "type": "investigation"},
+                {"label": "Diagnose Acute Appendicitis & Prepare for Surgical Consultation", "type": "decision"}
+            ]
             
         elif diag_choice == "Asthma":
             title = f"Acute Bronchospasm & Wheezing Variant {i-1}"
@@ -356,6 +408,13 @@ def generate_50_cases():
             diag_subtypes = ["asthma", "asthma exacerbation", "bronchospasm", "reactive airway"]
             req_inv = ["cxr"]
             unnec_inv = ["ct_head"]
+            expected_pathway = [
+                {"label": f"Meet {name} ({chief_complaint})", "type": "system"},
+                {"label": "Interview Inhaler Response & Environmental Triggers", "type": "question"},
+                {"label": "Perform Respiratory Examination (Assess Airway Wheezing)", "type": "examination"},
+                {"label": "Order Chest X-ray (CXR) (Rule Out Pneumothorax & Consolidation)", "type": "investigation"},
+                {"label": "Diagnose Acute Asthma Exacerbation & Initiate Bronchodilators", "type": "decision"}
+            ]
             
         elif diag_choice == "Pyelonephritis":
             title = f"Flank Pain & Urinary Infection Variant {i-1}"
@@ -397,6 +456,14 @@ def generate_50_cases():
             diag_subtypes = ["pyelonephritis", "acute pyelonephritis", "kidney infection", "urinary tract infection", "uti"]
             req_inv = ["urinalysis", "cbc"]
             unnec_inv = ["ct_head"]
+            expected_pathway = [
+                {"label": f"Meet {name} ({chief_complaint})", "type": "system"},
+                {"label": "Interview Urinary Symptoms, Chills & Flank Pain", "type": "question"},
+                {"label": "Perform Costovertebral Angle (CVA) Tenderness & Abdominal Exam", "type": "examination"},
+                {"label": "Order Urinalysis and Urine Culture (Identify Pyuria & Nitrites)", "type": "investigation"},
+                {"label": "Order Complete Blood Count (CBC) (Assess Systemic Infection)", "type": "investigation"},
+                {"label": "Diagnose Acute Pyelonephritis & Initiate Targeted Antibiotics", "type": "decision"}
+            ]
             
         elif diag_choice == "DVT":
             title = f"Unilateral Calf Swelling & Pain Variant {i-1}"
@@ -436,6 +503,13 @@ def generate_50_cases():
             diag_subtypes = ["dvt", "deep vein thrombosis", "blood clot in leg", "popliteal dvt"]
             req_inv = ["leg_ultrasound"]
             unnec_inv = ["ct_head"]
+            expected_pathway = [
+                {"label": f"Meet {name} ({chief_complaint})", "type": "system"},
+                {"label": "Interview Travel History, Immobility & Swelling Onset", "type": "question"},
+                {"label": "Perform Lower Extremity Vascular & Palpation Exam", "type": "examination"},
+                {"label": "Order Duplex Vascular Leg Ultrasound (Confirm Popliteal Vein Thrombosis)", "type": "investigation"},
+                {"label": "Diagnose Acute Deep Vein Thrombosis (DVT) & Initiate Anticoagulation", "type": "decision"}
+            ]
             
         else: # Migraine
             title = f"Unilateral Throbbing Headache Variant {i-1}"
@@ -471,6 +545,13 @@ def generate_50_cases():
             diag_subtypes = ["migraine", "headache", "migraine headache", "hemicrania"]
             req_inv = ["cbc"]  # screening
             unnec_inv = ["ct_head"] # clinically not required since it matches their historic pattern
+            expected_pathway = [
+                {"label": f"Meet {name} ({chief_complaint})", "type": "system"},
+                {"label": "Interview Aura, Photophobia & Previous Headache Pattern", "type": "question"},
+                {"label": "Perform Comprehensive Neurological Exam (Confirm Normal Status)", "type": "examination"},
+                {"label": "Order Complete Blood Count (CBC) (Baseline Screening; Avoid Low-Yield CT)", "type": "investigation"},
+                {"label": "Diagnose Acute Migraine Headache & Provide Triptan Therapy", "type": "decision"}
+            ]
             
         case_data = {
             "id": case_id,
@@ -638,6 +719,7 @@ def generate_50_cases():
                 "Deep vein thrombosis",
                 "Migraine headache"
             ],
+            "expected_pathway": expected_pathway,
             "evaluation_criteria": {
                 "correct_diagnosis": diag_str,
                 "correct_subtypes": diag_subtypes,

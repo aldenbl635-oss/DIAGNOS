@@ -71,39 +71,77 @@ export default function Results({ sessionId, onNavigate }) {
     return `+${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Determine path nodes for comparison
-  const expectedPath = [
-    { label: "Meet Robert (Discomfort Brief)", type: "system" },
-    { label: "Interview Pain & Risk Factors", type: "question" },
-    { label: "Order 12-Lead ECG (Primary Screen)", type: "investigation" },
-    { label: "Order Cardiac Troponin (Injury Confirm)", type: "investigation" },
-    { label: "Diagnose Acute Coronary Syndrome", type: "decision" }
-  ];
+  // Dynamic case-specific expected pathway
+  const expectedPath = (data.expected_pathway && data.expected_pathway.length > 0)
+    ? data.expected_pathway
+    : (data.case?.expected_pathway && data.case.expected_pathway.length > 0)
+      ? data.case.expected_pathway
+      : [
+          { label: `Meet ${data.case?.patient_name || 'Patient'} (${data.case?.chief_complaint || 'Encounter Brief'})`, type: "system" },
+          { label: "Targeted Clinical History & Risk Assessment", type: "question" },
+          { label: "Focused Physical Examination", type: "examination" },
+          { label: "Essential Diagnostic Workup", type: "investigation" },
+          { label: `Diagnose ${session?.final_diagnosis || "Target Condition"}`, type: "decision" }
+        ];
 
-  // Format student actions for pathway nodes
+  // Dynamic student actions pathway for comparison
   const getStudentPathNodes = () => {
     const nodes = [];
-    nodes.push({ label: "Brief Review", type: "system" });
+    const patientName = data.case?.patient_name || "Patient";
+    nodes.push({ label: `Encounter Review (${patientName})`, type: "system" });
 
-    let askedQuestions = false;
-    let orderedEcg = false;
-    let orderedTroponin = false;
-    let orderedCt = false;
+    let questionCount = 0;
+    const examsPerformed = new Set();
+    let updatedDifferentials = false;
 
-    actions.forEach(act => {
-      if (act.action_type === 'question') askedQuestions = true;
-      if (act.action_type === 'investigation') {
-        const name = (act.content || '').toLowerCase();
-        if (name.includes('ecg') || name.includes('electrocardiogram')) orderedEcg = true;
-        if (name.includes('troponin')) orderedTroponin = true;
-        if (name.includes('ct') || name.includes('angio')) orderedCt = true;
+    // Check evaluation weaknesses/critical mistakes for wasted/unnecessary test mentions
+    const unnecessaryHints = [
+      ...(evaluation.weaknesses || []),
+      ...(evaluation.critical_mistakes || [])
+    ].join(' ').toLowerCase();
+
+    (actions || []).forEach(act => {
+      if (act.action_type === 'question') {
+        questionCount++;
+      } else if (act.action_type === 'examination') {
+        const cleanName = (act.content || '').replace(/^Performed\s+/i, '').trim();
+        if (cleanName && !examsPerformed.has(cleanName)) {
+          examsPerformed.add(cleanName);
+          nodes.push({ label: `Performed ${cleanName}`, type: "examination" });
+        }
+      } else if (act.action_type === 'investigation') {
+        const invContent = (act.content || '').replace(/^Ordered\s+/i, '').trim();
+        const lower = invContent.toLowerCase();
+        
+        // Determine if this test was unneeded based on action cost / eval flags
+        const isUnnecessary = act.cost >= 350 && (
+          unnecessaryHints.includes('unnecessary') ||
+          unnecessaryHints.includes('waste') ||
+          unnecessaryHints.includes('low-yield') ||
+          unnecessaryHints.includes(lower)
+        );
+
+        if (isUnnecessary) {
+          nodes.push({ label: `Wasted Cost: Ordered ${invContent}`, type: "unnecessary" });
+        } else {
+          nodes.push({ label: `Ordered ${invContent}`, type: "investigation" });
+        }
+      } else if (act.action_type === 'diagnosis_update') {
+        updatedDifferentials = true;
       }
     });
 
-    if (askedQuestions) nodes.push({ label: "Progressive Patient Interview", type: "question" });
-    if (orderedCt) nodes.push({ label: "Wasted Cost: ordered advanced CT Scan", type: "unnecessary" });
-    if (orderedEcg) nodes.push({ label: "Ordered 12-Lead ECG", type: "investigation" });
-    if (orderedTroponin) nodes.push({ label: "Ordered Cardiac Troponin", type: "investigation" });
+    if (questionCount > 0) {
+      nodes.splice(1, 0, {
+        label: `Targeted Patient Interview (${questionCount} question${questionCount > 1 ? 's' : ''})`,
+        type: "question"
+      });
+    }
+
+    if (updatedDifferentials) {
+      nodes.push({ label: "Updated Differential Hypotheses", type: "hypothesis" });
+    }
+
     nodes.push({ label: `Submit: ${session.final_diagnosis || "Incomplete"}`, type: "decision" });
 
     return nodes;
@@ -475,13 +513,24 @@ export default function Results({ sessionId, onNavigate }) {
           <div className="border border-slate-200/70 p-4.5 rounded-xl bg-slate-50/50 space-y-4">
             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Expected High-Value Pathway</h4>
             <div className="relative pl-5 border-l-2 border-slate-200 space-y-5 py-2">
-              {expectedPath.map((node, idx) => (
-                <div key={idx} className="relative">
-                  {/* Dot */}
-                  <div className="absolute -left-[26px] top-1 w-3 h-3 bg-medical-500 border-2 border-white rounded-full" />
-                  <span className="text-xs font-bold text-slate-800">{node.label}</span>
-                </div>
-              ))}
+              {expectedPath.map((node, idx) => {
+                const colors = {
+                  system: 'bg-slate-400',
+                  question: 'bg-emerald-500',
+                  examination: 'bg-purple-500',
+                  investigation: 'bg-medical-500',
+                  decision: 'bg-teal-600',
+                  hypothesis: 'bg-indigo-500',
+                  unnecessary: 'bg-amber-500'
+                };
+                return (
+                  <div key={idx} className="relative">
+                    {/* Dot */}
+                    <div className={`absolute -left-[26px] top-1 w-3 h-3 ${colors[node.type] || 'bg-medical-500'} border-2 border-white rounded-full`} />
+                    <span className="text-xs font-bold text-slate-800">{node.label}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -493,8 +542,10 @@ export default function Results({ sessionId, onNavigate }) {
                 const colors = {
                   system: 'bg-slate-400',
                   question: 'bg-emerald-500',
+                  examination: 'bg-purple-500',
                   investigation: 'bg-medical-500',
-                  decision: 'bg-red-500',
+                  decision: 'bg-teal-600',
+                  hypothesis: 'bg-indigo-500',
                   unnecessary: 'bg-amber-500'
                 };
                 return (

@@ -317,3 +317,84 @@ def test_non_relevant_questions():
     response_text2 = res2[1]["response"]
     assert "chest" in response_text2.lower() or "discomfort" in response_text2.lower() or "pain" in response_text2.lower()
 
+
+def test_dynamic_case_pathway_generation():
+    from case_engine.pathway import generate_case_expected_pathway
+    from case_engine.engine import case_engine
+
+    # 1. Test case with explicit expected_pathway (chest_pain_001)
+    case_001 = case_engine.cases["chest_pain_001"]
+    pathway_001 = generate_case_expected_pathway(case_001)
+    assert len(pathway_001) >= 5
+    assert pathway_001[0]["type"] == "system"
+    assert "Daniel Thomas" in pathway_001[0]["label"]
+    assert any("ECG" in n["label"] for n in pathway_001)
+    assert any("Troponin" in n["label"] for n in pathway_001)
+    assert pathway_001[-1]["type"] == "decision"
+    assert "coronary" in pathway_001[-1]["label"].lower()
+
+    # 2. Test dynamically synthesized pathway from raw case data without explicit expected_pathway
+    stroke_case = {
+        "title": "Acute Stroke Presentation",
+        "patient": {"name": "Eleanor Vance", "chief_complaint": "Slurred speech and arm weakness"},
+        "clinical_facts": {"symptoms": ["Sudden left arm weakness", "Slurred speech"]},
+        "examinations": [
+            {"type": "neurological", "name": "Neurological Examination", "result": "Left facial droop"}
+        ],
+        "investigations": [
+            {"id": "ct_head", "name": "CT Scan of Head", "cost": 350, "result": "Ischemic stroke"}
+        ],
+        "evaluation_criteria": {
+            "correct_diagnosis": "Acute ischemic stroke",
+            "required_investigations": ["ct_head"]
+        }
+    }
+    stroke_pathway = generate_case_expected_pathway(stroke_case)
+    assert len(stroke_pathway) == 5
+    assert "Eleanor Vance" in stroke_pathway[0]["label"]
+    assert stroke_pathway[1]["type"] == "question"
+    assert stroke_pathway[2]["type"] == "examination"
+    assert "Neurological" in stroke_pathway[2]["label"]
+    assert stroke_pathway[3]["type"] == "investigation"
+    assert "CT Scan of Head" in stroke_pathway[3]["label"]
+    assert stroke_pathway[4]["type"] == "decision"
+    assert "Acute ischemic stroke" in stroke_pathway[4]["label"]
+
+
+def test_results_endpoint_includes_case_specific_pathway(client):
+    # Register and run simulation for chest_pain_001
+    email = "pathway_test@diagnos.org"
+    res = client.post("/api/auth/register", json={"name": "Pathway Student", "email": email, "password": "password123"})
+    token = res.json()["access_token"]
+    headers = {"Authorization": f"Bearer {token}"}
+
+    res = client.post("/api/simulation/start", json={"case_id": "chest_pain_001"}, headers=headers)
+    session_id = res.json()["id"]
+
+    # Ask question, do exam, order test
+    client.post(f"/api/simulation/{session_id}/question", json={"question": "Where is the pain located?"}, headers=headers)
+    client.post(f"/api/simulation/{session_id}/examination", json={"examination_type": "cardiovascular"}, headers=headers)
+    client.post(f"/api/simulation/{session_id}/investigation", json={"investigation_id": "ecg"}, headers=headers)
+
+    submit_payload = {
+        "final_diagnosis": "Acute coronary syndrome",
+        "immediate_priority": "Aspirin 325mg and cardiac catheterization lab activation.",
+        "evidence_justification": "ST elevation in inferior leads and elevated cardiac enzymes."
+    }
+    eval_res = client.post(f"/api/simulation/{session_id}/evaluate", json=submit_payload, headers=headers)
+    assert eval_res.status_code == 200
+    eval_json = eval_res.json()
+    assert "expected_pathway" in eval_json
+    assert len(eval_json["expected_pathway"]) > 0
+    assert any("Daniel Thomas" in node["label"] for node in eval_json["expected_pathway"])
+
+    # Test GET results endpoint
+    results_res = client.get(f"/api/simulation/{session_id}/results", headers=headers)
+    assert results_res.status_code == 200
+    results_json = results_res.json()
+    assert "expected_pathway" in results_json
+    assert len(results_json["expected_pathway"]) > 0
+    assert results_json["expected_pathway"][0]["type"] == "system"
+    assert "Daniel Thomas" in results_json["expected_pathway"][0]["label"]
+
+

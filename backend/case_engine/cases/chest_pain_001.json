@@ -213,6 +213,14 @@
     "Musculoskeletal chest pain"
   ],
 
+  "expected_pathway": [
+    { "label": "Meet Daniel Thomas (Chest discomfort)", "type": "system" },
+    { "label": "Interview Pain Characteristics & Cardiac Risk Factors", "type": "question" },
+    { "label": "Perform Cardiovascular & General Physical Exam", "type": "examination" },
+    { "label": "Order 12-Lead Electrocardiogram (ECG) (Detect ST-Elevation)", "type": "investigation" },
+    { "label": "Order Cardiac Troponin I (Confirm Myocardial Necrosis)", "type": "investigation" },
+    { "label": "Diagnose Acute Coronary Syndrome", "type": "decision" }
+  ],
   "evaluation_criteria": {
     "correct_diagnosis": "Acute coronary syndrome",
     "correct_subtypes": ["acute coronary syndrome", "stemi", "myocardial infarction", "inferior stemi", "acs"],

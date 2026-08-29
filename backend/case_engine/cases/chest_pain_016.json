@@ -3,17 +3,17 @@
   "title": "Positional Chest Pain Variant 15",
   "specialty": "Emergency Medicine / Cardiology",
   "difficulty": "Intermediate",
-  "duration_mins": 15,
+  "duration_mins": 20,
   "patient": {
-    "name": "Jessica Williams",
-    "age": 56,
+    "name": "Nancy Rodriguez",
+    "age": 64,
     "sex": "Female",
-    "occupation": "Real Estate Agent",
+    "occupation": "Truck Driver",
     "vitals": {
-      "bp": "110/81 mmHg",
-      "hr": "91 bpm",
+      "bp": "118/70 mmHg",
+      "hr": "100 bpm",
       "spo2": "99%",
-      "temp": "37.4\u00b0C"
+      "temp": "37.6\u00b0C"
     },
     "chief_complaint": "Sharp chest pain",
     "initial_statement": "I have this sharp, stabbing pain in my chest. It gets a lot worse when I take a deep breath or lie down, but feels better when I sit forward."
@@ -42,23 +42,23 @@
       "Non-smoker, active runner"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 91 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 100 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 85,
-    "emotional_sensitivity": 75,
-    "trustfulness": 64,
-    "cooperativeness": 75,
-    "health_literacy": 40,
-    "fear_of_death": 46,
-    "privacy_sensitivity": 57,
-    "assertiveness": 64,
-    "pain_tolerance": 60,
-    "distrust_of_medical": 24
+    "baseline_anxiety": 57,
+    "emotional_sensitivity": 70,
+    "trustfulness": 56,
+    "cooperativeness": 57,
+    "health_literacy": 50,
+    "fear_of_death": 42,
+    "privacy_sensitivity": 42,
+    "assertiveness": 60,
+    "pain_tolerance": 67,
+    "distrust_of_medical": 33
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -79,7 +79,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Mild tachycardia (91 bpm). Scrubbing friction rub heard at left sternal border."
+      "result": "Mild tachycardia (100 bpm). Scrubbing friction rub heard at left sternal border."
     },
     {
       "type": "respiratory",
@@ -210,6 +210,28 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Nancy Rodriguez (Sharp chest pain)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Positional & Pleuritic Pain Characteristics",
+      "type": "question"
+    },
+    {
+      "label": "Auscultate Heart for Pericardial Friction Rub",
+      "type": "examination"
+    },
+    {
+      "label": "Order 12-Lead Electrocardiogram (ECG) (Identify Diffuse ST Elevation)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Acute Pericarditis",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Pericarditis",

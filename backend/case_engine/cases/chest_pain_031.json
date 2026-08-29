@@ -5,14 +5,14 @@
   "difficulty": "Intermediate",
   "duration_mins": 25,
   "patient": {
-    "name": "Anthony Lee",
-    "age": 49,
-    "sex": "Male",
-    "occupation": "Graphic Designer",
+    "name": "Barbara Anderson",
+    "age": 34,
+    "sex": "Female",
+    "occupation": "Real Estate Agent",
     "vitals": {
-      "bp": "134/82 mmHg",
-      "hr": "117 bpm",
-      "spo2": "92%",
+      "bp": "138/81 mmHg",
+      "hr": "116 bpm",
+      "spo2": "93%",
       "temp": "36.8\u00b0C"
     },
     "chief_complaint": "Shortness of breath",
@@ -44,23 +44,23 @@
       "Non-smoker, owns two cats, works as landscape architect"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 117 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 116 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 83,
-    "emotional_sensitivity": 77,
-    "trustfulness": 64,
-    "cooperativeness": 54,
-    "health_literacy": 70,
-    "fear_of_death": 88,
-    "privacy_sensitivity": 59,
-    "assertiveness": 42,
-    "pain_tolerance": 37,
-    "distrust_of_medical": 34
+    "baseline_anxiety": 49,
+    "emotional_sensitivity": 62,
+    "trustfulness": 71,
+    "cooperativeness": 52,
+    "health_literacy": 50,
+    "fear_of_death": 76,
+    "privacy_sensitivity": 34,
+    "assertiveness": 45,
+    "pain_tolerance": 53,
+    "distrust_of_medical": 35
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -81,7 +81,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Tachycardia (117 bpm), regular rhythm, no murmurs."
+      "result": "Tachycardia (116 bpm), regular rhythm, no murmurs."
     },
     {
       "type": "respiratory",
@@ -212,6 +212,28 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Barbara Anderson (Shortness of breath)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Inhaler Response & Environmental Triggers",
+      "type": "question"
+    },
+    {
+      "label": "Perform Respiratory Examination (Assess Airway Wheezing)",
+      "type": "examination"
+    },
+    {
+      "label": "Order Chest X-ray (CXR) (Rule Out Pneumothorax & Consolidation)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Acute Asthma Exacerbation & Initiate Bronchodilators",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Asthma exacerbation",

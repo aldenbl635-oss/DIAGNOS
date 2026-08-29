@@ -5,13 +5,13 @@
   "difficulty": "Beginner",
   "duration_mins": 25,
   "patient": {
-    "name": "Karen Garcia",
-    "age": 61,
-    "sex": "Female",
-    "occupation": "Registered Nurse",
+    "name": "Andrew Sanchez",
+    "age": 65,
+    "sex": "Male",
+    "occupation": "Office Manager",
     "vitals": {
-      "bp": "141/92 mmHg",
-      "hr": "116 bpm",
+      "bp": "140/82 mmHg",
+      "hr": "121 bpm",
       "spo2": "100%",
       "temp": "36.7\u00b0C"
     },
@@ -42,23 +42,23 @@
       "Works long hours, high caffeine/energy drink intake"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 116 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 121 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 61,
-    "emotional_sensitivity": 76,
-    "trustfulness": 46,
-    "cooperativeness": 83,
-    "health_literacy": 60,
-    "fear_of_death": 48,
-    "privacy_sensitivity": 42,
-    "assertiveness": 40,
-    "pain_tolerance": 47,
-    "distrust_of_medical": 28
+    "baseline_anxiety": 45,
+    "emotional_sensitivity": 57,
+    "trustfulness": 52,
+    "cooperativeness": 79,
+    "health_literacy": 50,
+    "fear_of_death": 66,
+    "privacy_sensitivity": 48,
+    "assertiveness": 57,
+    "pain_tolerance": 36,
+    "distrust_of_medical": 24
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -79,7 +79,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Tachycardia (116 bpm), regular, no murmurs."
+      "result": "Tachycardia (121 bpm), regular, no murmurs."
     },
     {
       "type": "respiratory",
@@ -104,7 +104,7 @@
       "cost": 100,
       "category": "CARDIAC",
       "turnaround": "Immediate",
-      "result": "Sinus tachycardia with rate of 116 bpm bpm, normal axis, no ST change.",
+      "result": "Sinus tachycardia with rate of 121 bpm bpm, normal axis, no ST change.",
       "interpretation": "Sinus tachycardia, otherwise normal electrocardiogram."
     },
     {
@@ -210,6 +210,28 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Andrew Sanchez (Chest tightness & palpitations)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Acute Palpitations & Hyperventilation Symptoms",
+      "type": "question"
+    },
+    {
+      "label": "Perform General & Neurological Physical Exam",
+      "type": "examination"
+    },
+    {
+      "label": "Order 12-Lead Electrocardiogram (ECG) (Rule Out Arrhythmia & Ischemia)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Panic Attack / Acute Anxiety Disorder",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Panic attack",

@@ -5,13 +5,13 @@
   "difficulty": "Beginner",
   "duration_mins": 20,
   "patient": {
-    "name": "Mark Smith",
-    "age": 67,
+    "name": "Anthony Lewis",
+    "age": 54,
     "sex": "Male",
-    "occupation": "Retail Store Manager",
+    "occupation": "Plumber",
     "vitals": {
-      "bp": "138/85 mmHg",
-      "hr": "116 bpm",
+      "bp": "140/85 mmHg",
+      "hr": "114 bpm",
       "spo2": "100%",
       "temp": "36.7\u00b0C"
     },
@@ -42,7 +42,7 @@
       "Works long hours, high caffeine/energy drink intake"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 116 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 114 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
@@ -50,15 +50,15 @@
   },
   "patient_personality": {
     "baseline_anxiety": 70,
-    "emotional_sensitivity": 55,
-    "trustfulness": 67,
-    "cooperativeness": 63,
-    "health_literacy": 50,
-    "fear_of_death": 88,
-    "privacy_sensitivity": 30,
-    "assertiveness": 35,
-    "pain_tolerance": 68,
-    "distrust_of_medical": 16
+    "emotional_sensitivity": 77,
+    "trustfulness": 63,
+    "cooperativeness": 73,
+    "health_literacy": 60,
+    "fear_of_death": 74,
+    "privacy_sensitivity": 36,
+    "assertiveness": 53,
+    "pain_tolerance": 33,
+    "distrust_of_medical": 33
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -79,7 +79,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Tachycardia (116 bpm), regular, no murmurs."
+      "result": "Tachycardia (114 bpm), regular, no murmurs."
     },
     {
       "type": "respiratory",
@@ -104,7 +104,7 @@
       "cost": 100,
       "category": "CARDIAC",
       "turnaround": "Immediate",
-      "result": "Sinus tachycardia with rate of 116 bpm bpm, normal axis, no ST change.",
+      "result": "Sinus tachycardia with rate of 114 bpm bpm, normal axis, no ST change.",
       "interpretation": "Sinus tachycardia, otherwise normal electrocardiogram."
     },
     {
@@ -210,6 +210,28 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Anthony Lewis (Chest tightness & palpitations)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Acute Palpitations & Hyperventilation Symptoms",
+      "type": "question"
+    },
+    {
+      "label": "Perform General & Neurological Physical Exam",
+      "type": "examination"
+    },
+    {
+      "label": "Order 12-Lead Electrocardiogram (ECG) (Rule Out Arrhythmia & Ischemia)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Panic Attack / Acute Anxiety Disorder",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Panic attack",

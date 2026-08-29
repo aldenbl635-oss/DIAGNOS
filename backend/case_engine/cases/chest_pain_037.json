@@ -3,14 +3,14 @@
   "title": "Exertional Chest Tightness Variant 36",
   "specialty": "Emergency Medicine / Cardiology",
   "difficulty": "Intermediate",
-  "duration_mins": 15,
+  "duration_mins": 20,
   "patient": {
-    "name": "Elizabeth Anderson",
-    "age": 64,
+    "name": "Nancy Martinez",
+    "age": 50,
     "sex": "Female",
-    "occupation": "Warehouse Supervisor",
+    "occupation": "Security Guard",
     "vitals": {
-      "bp": "125/87 mmHg",
+      "bp": "142/82 mmHg",
       "hr": "82 bpm",
       "spo2": "98%",
       "temp": "36.6\u00b0C"
@@ -50,16 +50,16 @@
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 60,
-    "emotional_sensitivity": 66,
-    "trustfulness": 57,
-    "cooperativeness": 71,
-    "health_literacy": 60,
-    "fear_of_death": 89,
-    "privacy_sensitivity": 56,
-    "assertiveness": 64,
-    "pain_tolerance": 53,
-    "distrust_of_medical": 22
+    "baseline_anxiety": 58,
+    "emotional_sensitivity": 54,
+    "trustfulness": 46,
+    "cooperativeness": 81,
+    "health_literacy": 30,
+    "fear_of_death": 53,
+    "privacy_sensitivity": 62,
+    "assertiveness": 67,
+    "pain_tolerance": 59,
+    "distrust_of_medical": 18
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -211,6 +211,32 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Nancy Martinez (Chest tightness on effort)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Exertional Triggers & Relief by Rest",
+      "type": "question"
+    },
+    {
+      "label": "Perform Baseline Cardiovascular Examination",
+      "type": "examination"
+    },
+    {
+      "label": "Order 12-Lead Electrocardiogram (ECG) (Screen Ischemia)",
+      "type": "investigation"
+    },
+    {
+      "label": "Order Cardiac Troponin I (Rule Out Acute Necrosis)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Stable Angina",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Stable Angina",

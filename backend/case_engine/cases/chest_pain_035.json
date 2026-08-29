@@ -3,17 +3,17 @@
   "title": "Cardiac Chest Pressure Variant 34",
   "specialty": "Emergency Medicine / Cardiology",
   "difficulty": "Intermediate",
-  "duration_mins": 15,
+  "duration_mins": 25,
   "patient": {
-    "name": "Ashley Sanchez",
-    "age": 71,
+    "name": "Melissa Lee",
+    "age": 39,
     "sex": "Female",
-    "occupation": "Librarian",
+    "occupation": "Sous Chef",
     "vitals": {
-      "bp": "139/100 mmHg",
-      "hr": "102 bpm",
-      "spo2": "96%",
-      "temp": "36.9\u00b0C"
+      "bp": "143/98 mmHg",
+      "hr": "112 bpm",
+      "spo2": "97%",
+      "temp": "36.6\u00b0C"
     },
     "chief_complaint": "Chest pressure",
     "initial_statement": "I've got this crushing, heavy weight right in the center of my chest. It started about 30 minutes ago and it's making me feel quite sick."
@@ -28,8 +28,7 @@
     ],
     "past_medical_history": [
       "Hypertension",
-      "Hypercholesterolaemia",
-      "Smoker"
+      "Borderline Diabetes"
     ],
     "medications": [
       "Lisinopril 10mg once daily",
@@ -39,30 +38,30 @@
       "No known drug or food allergies"
     ],
     "family_history": [
-      "Father had a myocardial infarction at age 52"
+      "Father had a myocardial infarction at age 59"
     ],
     "social_history": [
       "Smokes 1 pack of cigarettes per day",
       "High stress office job"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 102 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 112 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 81,
+    "baseline_anxiety": 74,
     "emotional_sensitivity": 72,
-    "trustfulness": 52,
-    "cooperativeness": 50,
-    "health_literacy": 50,
-    "fear_of_death": 56,
-    "privacy_sensitivity": 52,
-    "assertiveness": 55,
-    "pain_tolerance": 49,
-    "distrust_of_medical": 25
+    "trustfulness": 58,
+    "cooperativeness": 84,
+    "health_literacy": 40,
+    "fear_of_death": 87,
+    "privacy_sensitivity": 54,
+    "assertiveness": 58,
+    "pain_tolerance": 61,
+    "distrust_of_medical": 45
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -83,7 +82,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Tachycardia (102 bpm) normal heart sounds, no murmurs."
+      "result": "Tachycardia (112 bpm) normal heart sounds, no murmurs."
     },
     {
       "type": "respiratory",
@@ -214,6 +213,32 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Melissa Lee (Chest pressure)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Pain Characteristics & Cardiac Risk Factors",
+      "type": "question"
+    },
+    {
+      "label": "Perform Cardiovascular & General Physical Exam",
+      "type": "examination"
+    },
+    {
+      "label": "Order 12-Lead Electrocardiogram (ECG) (Detect ST-Elevation)",
+      "type": "investigation"
+    },
+    {
+      "label": "Order Cardiac Troponin I (Confirm Myocardial Necrosis)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Acute Coronary Syndrome",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Acute coronary syndrome",

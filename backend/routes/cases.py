@@ -24,11 +24,14 @@ def build_case_brief(c: models.Case) -> dict:
         "chief_complaint": chief_complaint,
     }
 
+from case_engine.pathway import generate_case_expected_pathway
+
 def build_case_detail(c: models.Case) -> dict:
     patient = c.data.get("patient", {})
     presentation = c.data.get("presentation", {})
     vitals = c.data.get("vitals") or patient.get("vitals", {})
     brief = build_case_brief(c)
+    pathway = generate_case_expected_pathway(c.data)
     return {
         **brief,
         "patient_name": patient.get("name", "Unknown Patient"),
@@ -53,6 +56,7 @@ def build_case_detail(c: models.Case) -> dict:
         ],
         "differential_options": c.data.get("differential_diagnoses", []),
         "initial_briefing": patient.get("initial_briefing") or presentation.get("initial_briefing", ""),
+        "expected_pathway": pathway,
     }
 
 @router.get("", response_model=List[schemas.CaseBriefOut])

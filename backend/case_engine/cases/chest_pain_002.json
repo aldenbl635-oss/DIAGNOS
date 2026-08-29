@@ -3,17 +3,17 @@
   "title": "Cardiac Chest Pressure Variant 1",
   "specialty": "Emergency Medicine / Cardiology",
   "difficulty": "Intermediate",
-  "duration_mins": 20,
+  "duration_mins": 25,
   "patient": {
-    "name": "James Clark",
-    "age": 37,
-    "sex": "Male",
-    "occupation": "Journalist",
+    "name": "Deborah Robinson",
+    "age": 45,
+    "sex": "Female",
+    "occupation": "Security Guard",
     "vitals": {
-      "bp": "157/90 mmHg",
-      "hr": "107 bpm",
+      "bp": "144/97 mmHg",
+      "hr": "100 bpm",
       "spo2": "95%",
-      "temp": "36.9\u00b0C"
+      "temp": "36.6\u00b0C"
     },
     "chief_complaint": "Chest pressure",
     "initial_statement": "I've got this crushing, heavy weight right in the center of my chest. It started about 30 minutes ago and it's making me feel quite sick."
@@ -28,7 +28,8 @@
     ],
     "past_medical_history": [
       "Hypertension",
-      "Borderline Diabetes"
+      "Hypercholesterolaemia",
+      "Smoker"
     ],
     "medications": [
       "Lisinopril 10mg once daily",
@@ -38,30 +39,30 @@
       "No known drug or food allergies"
     ],
     "family_history": [
-      "Father had a myocardial infarction at age 59"
+      "Father had a myocardial infarction at age 56"
     ],
     "social_history": [
       "Smokes 1 pack of cigarettes per day",
       "High stress office job"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 107 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 100 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 53,
-    "emotional_sensitivity": 63,
-    "trustfulness": 64,
-    "cooperativeness": 52,
-    "health_literacy": 50,
-    "fear_of_death": 59,
-    "privacy_sensitivity": 54,
-    "assertiveness": 42,
-    "pain_tolerance": 29,
-    "distrust_of_medical": 32
+    "baseline_anxiety": 40,
+    "emotional_sensitivity": 68,
+    "trustfulness": 69,
+    "cooperativeness": 50,
+    "health_literacy": 70,
+    "fear_of_death": 90,
+    "privacy_sensitivity": 49,
+    "assertiveness": 46,
+    "pain_tolerance": 52,
+    "distrust_of_medical": 27
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -82,7 +83,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Tachycardia (107 bpm) normal heart sounds, no murmurs."
+      "result": "Tachycardia (100 bpm) normal heart sounds, no murmurs."
     },
     {
       "type": "respiratory",
@@ -213,6 +214,32 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Deborah Robinson (Chest pressure)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Pain Characteristics & Cardiac Risk Factors",
+      "type": "question"
+    },
+    {
+      "label": "Perform Cardiovascular & General Physical Exam",
+      "type": "examination"
+    },
+    {
+      "label": "Order 12-Lead Electrocardiogram (ECG) (Detect ST-Elevation)",
+      "type": "investigation"
+    },
+    {
+      "label": "Order Cardiac Troponin I (Confirm Myocardial Necrosis)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Acute Coronary Syndrome",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Acute coronary syndrome",

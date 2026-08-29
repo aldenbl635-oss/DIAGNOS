@@ -3,17 +3,17 @@
   "title": "Retrosternal Burning Variant 35",
   "specialty": "Emergency Medicine / Gastroenterology",
   "difficulty": "Beginner",
-  "duration_mins": 15,
+  "duration_mins": 20,
   "patient": {
-    "name": "Christopher Robinson",
-    "age": 31,
+    "name": "Christopher Williams",
+    "age": 61,
     "sex": "Male",
-    "occupation": "Truck Driver",
+    "occupation": "Construction Foreman",
     "vitals": {
-      "bp": "121/78 mmHg",
-      "hr": "88 bpm",
+      "bp": "121/83 mmHg",
+      "hr": "75 bpm",
       "spo2": "99%",
-      "temp": "36.8\u00b0C"
+      "temp": "36.6\u00b0C"
     },
     "chief_complaint": "Heartburn",
     "initial_statement": "My chest is burning, mostly right under my breastbone. It feels worse when I lie flat on my back or bend over."
@@ -44,23 +44,23 @@
       "Eats late dinner before sleeping"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 88 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 75 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 80,
-    "emotional_sensitivity": 58,
-    "trustfulness": 60,
-    "cooperativeness": 66,
-    "health_literacy": 50,
-    "fear_of_death": 47,
-    "privacy_sensitivity": 55,
-    "assertiveness": 38,
-    "pain_tolerance": 37,
-    "distrust_of_medical": 20
+    "baseline_anxiety": 68,
+    "emotional_sensitivity": 51,
+    "trustfulness": 61,
+    "cooperativeness": 55,
+    "health_literacy": 60,
+    "fear_of_death": 77,
+    "privacy_sensitivity": 59,
+    "assertiveness": 47,
+    "pain_tolerance": 51,
+    "distrust_of_medical": 15
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -81,7 +81,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Regular heart rate (88 bpm), normal chest sounds."
+      "result": "Regular heart rate (75 bpm), normal chest sounds."
     },
     {
       "type": "respiratory",
@@ -212,6 +212,28 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Christopher Williams (Heartburn)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Postprandial Symptoms & Reflux History",
+      "type": "question"
+    },
+    {
+      "label": "Perform Abdominal Examination (Epigastric Assessment)",
+      "type": "examination"
+    },
+    {
+      "label": "Order 12-Lead Electrocardiogram (ECG) (Rule Out Cardiac Ischemia)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Gastroesophageal Reflux Disease (GERD)",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Gastroesophageal reflux disease",

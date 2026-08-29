@@ -7,7 +7,7 @@ class UserRegister(BaseModel):
     name: str = Field(..., min_length=2)
     email: EmailStr
     password: str = Field(..., min_length=6)
-    specialization: str = Field(..., description="Student's medical specialization")
+    specialization: Optional[str] = "Emergency Medicine"
 
 class UserLogin(BaseModel):
     email: EmailStr
@@ -60,6 +60,10 @@ class InvestigationBriefOut(BaseModel):
     cost: int
     category: str
 
+class PathwayNodeOut(BaseModel):
+    label: str
+    type: str = "system"
+
 class CaseDetailOut(CaseBriefOut):
     patient_name: str
     vitals: PatientVitalsOut
@@ -67,6 +71,7 @@ class CaseDetailOut(CaseBriefOut):
     investigations: List[InvestigationBriefOut]
     differential_options: List[str] = []
     initial_briefing: Optional[str] = None
+    expected_pathway: List[PathwayNodeOut] = []
 
 # Simulation schemas
 class SimulationStart(BaseModel):
@@ -192,6 +197,8 @@ class SimulationResultOut(BaseModel):
     session: SimulationSessionOut
     evaluation: EvaluationOut
     actions: List[ActionOut]
+    expected_pathway: List[PathwayNodeOut] = []
+    case: Optional[CaseDetailOut] = None
 
 class DashboardStatsOut(BaseModel):
     cases_completed: int

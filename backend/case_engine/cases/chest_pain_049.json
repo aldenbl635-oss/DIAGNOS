@@ -3,17 +3,17 @@
   "title": "Positional Chest Pain Variant 48",
   "specialty": "Emergency Medicine / Cardiology",
   "difficulty": "Intermediate",
-  "duration_mins": 20,
+  "duration_mins": 25,
   "patient": {
-    "name": "Emily Clark",
-    "age": 40,
-    "sex": "Female",
-    "occupation": "Plumber",
+    "name": "Thomas Jones",
+    "age": 41,
+    "sex": "Male",
+    "occupation": "Warehouse Supervisor",
     "vitals": {
-      "bp": "110/80 mmHg",
+      "bp": "121/77 mmHg",
       "hr": "95 bpm",
       "spo2": "99%",
-      "temp": "37.4\u00b0C"
+      "temp": "37.9\u00b0C"
     },
     "chief_complaint": "Sharp chest pain",
     "initial_statement": "I have this sharp, stabbing pain in my chest. It gets a lot worse when I take a deep breath or lie down, but feels better when I sit forward."
@@ -49,16 +49,16 @@
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 83,
-    "emotional_sensitivity": 56,
-    "trustfulness": 53,
-    "cooperativeness": 57,
-    "health_literacy": 50,
-    "fear_of_death": 65,
-    "privacy_sensitivity": 30,
-    "assertiveness": 70,
-    "pain_tolerance": 30,
-    "distrust_of_medical": 37
+    "baseline_anxiety": 68,
+    "emotional_sensitivity": 54,
+    "trustfulness": 60,
+    "cooperativeness": 72,
+    "health_literacy": 40,
+    "fear_of_death": 67,
+    "privacy_sensitivity": 53,
+    "assertiveness": 63,
+    "pain_tolerance": 70,
+    "distrust_of_medical": 17
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -210,6 +210,28 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Thomas Jones (Sharp chest pain)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Positional & Pleuritic Pain Characteristics",
+      "type": "question"
+    },
+    {
+      "label": "Auscultate Heart for Pericardial Friction Rub",
+      "type": "examination"
+    },
+    {
+      "label": "Order 12-Lead Electrocardiogram (ECG) (Identify Diffuse ST Elevation)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Acute Pericarditis",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Pericarditis",

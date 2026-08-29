@@ -5,13 +5,13 @@
   "difficulty": "Beginner",
   "duration_mins": 25,
   "patient": {
-    "name": "Richard Brown",
-    "age": 48,
-    "sex": "Male",
-    "occupation": "Construction Foreman",
+    "name": "Linda Clark",
+    "age": 55,
+    "sex": "Female",
+    "occupation": "Truck Driver",
     "vitals": {
-      "bp": "140/89 mmHg",
-      "hr": "113 bpm",
+      "bp": "134/90 mmHg",
+      "hr": "110 bpm",
       "spo2": "100%",
       "temp": "36.7\u00b0C"
     },
@@ -42,23 +42,23 @@
       "Works long hours, high caffeine/energy drink intake"
     ],
     "review_of_systems": [
-      "Cardiovascular: pulse rate is 113 bpm, no active chest pain except as noted.",
+      "Cardiovascular: pulse rate is 110 bpm, no active chest pain except as noted.",
       "Respiratory: airways are open.",
       "GI: abdominal sounds active.",
       "Neuro: intact."
     ]
   },
   "patient_personality": {
-    "baseline_anxiety": 77,
-    "emotional_sensitivity": 56,
-    "trustfulness": 52,
-    "cooperativeness": 64,
-    "health_literacy": 30,
-    "fear_of_death": 64,
-    "privacy_sensitivity": 32,
-    "assertiveness": 66,
-    "pain_tolerance": 64,
-    "distrust_of_medical": 28
+    "baseline_anxiety": 84,
+    "emotional_sensitivity": 78,
+    "trustfulness": 57,
+    "cooperativeness": 56,
+    "health_literacy": 40,
+    "fear_of_death": 68,
+    "privacy_sensitivity": 36,
+    "assertiveness": 46,
+    "pain_tolerance": 55,
+    "distrust_of_medical": 32
   },
   "patient_beliefs": [
     "I hope this is just a temporary strain that will pass.",
@@ -79,7 +79,7 @@
     {
       "type": "cardiovascular",
       "name": "Cardiovascular Examination",
-      "result": "Tachycardia (113 bpm), regular, no murmurs."
+      "result": "Tachycardia (110 bpm), regular, no murmurs."
     },
     {
       "type": "respiratory",
@@ -104,7 +104,7 @@
       "cost": 100,
       "category": "CARDIAC",
       "turnaround": "Immediate",
-      "result": "Sinus tachycardia with rate of 113 bpm bpm, normal axis, no ST change.",
+      "result": "Sinus tachycardia with rate of 110 bpm bpm, normal axis, no ST change.",
       "interpretation": "Sinus tachycardia, otherwise normal electrocardiogram."
     },
     {
@@ -210,6 +210,28 @@
     "Acute pyelonephritis",
     "Deep vein thrombosis",
     "Migraine headache"
+  ],
+  "expected_pathway": [
+    {
+      "label": "Meet Linda Clark (Chest tightness & palpitations)",
+      "type": "system"
+    },
+    {
+      "label": "Interview Acute Palpitations & Hyperventilation Symptoms",
+      "type": "question"
+    },
+    {
+      "label": "Perform General & Neurological Physical Exam",
+      "type": "examination"
+    },
+    {
+      "label": "Order 12-Lead Electrocardiogram (ECG) (Rule Out Arrhythmia & Ischemia)",
+      "type": "investigation"
+    },
+    {
+      "label": "Diagnose Panic Attack / Acute Anxiety Disorder",
+      "type": "decision"
+    }
   ],
   "evaluation_criteria": {
     "correct_diagnosis": "Panic attack",
