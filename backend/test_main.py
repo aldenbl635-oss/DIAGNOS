@@ -398,3 +398,115 @@ def test_results_endpoint_includes_case_specific_pathway(client):
     assert "Daniel Thomas" in results_json["expected_pathway"][0]["label"]
 
 
+def test_case_specific_critical_mistakes_stroke():
+    from evaluation.scorer import evaluate_session_rules
+    import uuid
+
+    stroke_case = {
+        "title": "Sudden Left-Sided Weakness",
+        "specialty": "Emergency Medicine / Neurology",
+        "patient": {"name": "Eleanor Vance", "chief_complaint": "Slurred speech and arm weakness"},
+        "examinations": [
+            {"type": "neurological", "name": "Neurological Examination", "result": "Left facial droop"},
+            {"type": "general", "name": "General Physical Examination", "result": "Alert, slurred speech"}
+        ],
+        "investigations": [
+            {"id": "ct_head", "name": "CT Scan of Head", "cost": 350, "result": "Acute ischemic stroke"},
+            {"id": "cbc", "name": "Complete Blood Count", "cost": 80, "result": "Normal"}
+        ],
+        "evaluation_criteria": {
+            "correct_diagnosis": "Acute ischemic stroke",
+            "correct_subtypes": ["stroke", "ischemic stroke", "acute ischemic stroke"],
+            "critical_questions": ["onset_trigger", "associated_symptoms"],
+            "required_investigations": ["ct_head"],
+            "unnecessary_investigations": ["ct_angio"]
+        }
+    }
+
+    # Simulate student who only asked generic questions, missed CT Head, missed Neuro exam, and submitted wrong diagnosis
+    session = models.SimulationSession(
+        id=str(uuid.uuid4()),
+        user_id=1,
+        case_id="stroke_001",
+        status="completed",
+        final_diagnosis="Tension Headache",
+        immediate_priority="Prescribe paracetamol",
+        evidence_justification="Patient has headache and mild fatigue."
+    )
+
+    actions = [
+        models.StudentAction(session_id=session.id, action_type="question", content="Do you have a family history?", category="family_history"),
+        models.StudentAction(session_id=session.id, action_type="examination", content="Requested General Physical Examination", category="general"),
+        models.StudentAction(session_id=session.id, action_type="investigation", content="Complete Blood Count", category="cbc"),
+    ]
+
+    scores, strengths, weaknesses, critical_mistakes = evaluate_session_rules(session, stroke_case, actions)
+
+    # Verify that mistakes are strictly Stroke-specific and DO NOT mention cardiac/ECG
+    mistakes_text = " ".join(critical_mistakes).lower()
+    assert "ct scan of head" in mistakes_text
+    assert "neurological examination" in mistakes_text
+    assert "acute ischemic stroke" in mistakes_text
+    assert "tension headache" in mistakes_text
+    assert "cardiac" not in mistakes_text
+    assert "ecg" not in mistakes_text
+    assert "troponin" not in mistakes_text
+
+
+def test_zero_critical_mistakes_on_perfect_run():
+    from evaluation.scorer import evaluate_session_rules
+    import uuid
+
+    acs_case = {
+        "title": "Chest Discomfort",
+        "specialty": "Emergency Medicine / Cardiology",
+        "patient": {"name": "Daniel Thomas", "chief_complaint": "Chest pressure"},
+        "examinations": [
+            {"type": "cardiovascular", "name": "Cardiovascular Examination", "result": "Tachycardia"},
+            {"type": "general", "name": "General Physical Examination", "result": "Diaphoretic"}
+        ],
+        "investigations": [
+            {"id": "ecg", "name": "12-Lead Electrocardiogram (ECG)", "cost": 100, "result": "ST Elevation"},
+            {"id": "troponin", "name": "Cardiac Troponin I", "cost": 150, "result": "1.85 ng/mL"}
+        ],
+        "evaluation_criteria": {
+            "correct_diagnosis": "Acute coronary syndrome",
+            "correct_subtypes": ["acute coronary syndrome", "stemi", "acs"],
+            "critical_questions": ["pain_characteristics", "lifestyle_risk_factors"],
+            "required_investigations": ["ecg", "troponin"],
+            "unnecessary_investigations": ["ct_angio"]
+        }
+    }
+
+    session = models.SimulationSession(
+        id=str(uuid.uuid4()),
+        user_id=1,
+        case_id="chest_pain_001",
+        status="completed",
+        final_diagnosis="Acute coronary syndrome",
+        immediate_priority="Activate cardiac catheterization lab and aspirin 325mg",
+        evidence_justification="ST-elevation and positive troponin."
+    )
+
+    actions = [
+        models.StudentAction(session_id=session.id, action_type="question", content="Where does the pain radiate?", category="pain_characteristics"),
+        models.StudentAction(session_id=session.id, action_type="question", content="Do you smoke?", category="lifestyle_risk_factors"),
+        models.StudentAction(session_id=session.id, action_type="examination", content="Requested Cardiovascular Examination", category="cardiovascular"),
+        models.StudentAction(session_id=session.id, action_type="investigation", content="12-Lead Electrocardiogram (ECG)", category="ecg"),
+        models.StudentAction(session_id=session.id, action_type="investigation", content="Cardiac Troponin I", category="troponin"),
+        models.StudentAction(session_id=session.id, action_type="diagnosis_update", content="Updated differentials: ACS (80%), GERD (20%)", category="diagnosis"),
+        models.StudentAction(session_id=session.id, action_type="diagnosis_update", content="Updated differentials: Acute STEMI (95%)", category="diagnosis"),
+    ]
+
+    scores, strengths, weaknesses, critical_mistakes = evaluate_session_rules(session, acs_case, actions)
+
+    # Perfect run must have 0 critical mistakes
+    assert len(critical_mistakes) == 0
+    assert scores["history_score"] == 20.0
+    assert scores["investigation_score"] == 20.0
+    assert scores["resource_efficiency_score"] == 5.0
+    assert scores["differential_score"] == 15.0
+    assert scores["decision_score"] == 5.0
+
+
+

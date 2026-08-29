@@ -2,6 +2,18 @@ from typing import List, Dict, Any, Tuple
 import json
 import models
 
+QUESTION_CATEGORY_DESCRIPTIONS: Dict[str, str] = {
+    "pain_characteristics": "symptom onset, location, character, and pain radiation",
+    "lifestyle_risk_factors": "lifestyle risk factors (e.g. smoking, alcohol, diet, activity)",
+    "past_medical_history": "past medical history and pre-existing conditions",
+    "associated_symptoms": "associated symptoms and red-flag features",
+    "family_history": "family medical history",
+    "medications": "current medications and drug allergies",
+    "onset_trigger": "symptom onset and precipitating triggers",
+    "duration": "symptom duration and progression timeline",
+    "severity": "symptom severity and functional impact",
+}
+
 def evaluate_session_rules(
     session: models.SimulationSession,
     case_data: Dict[str, Any],
@@ -23,91 +35,158 @@ def evaluate_session_rules(
     differential_score = 0.0
     decision_score = 0.0
     
-    strengths = []
-    weaknesses = []
-    critical_mistakes = []
+    strengths: List[str] = []
+    weaknesses: List[str] = []
+    critical_mistakes: List[str] = []
     
     criteria = case_data.get("evaluation_criteria", {})
-    correct_diagnosis = criteria.get("correct_diagnosis", "").lower()
+    correct_diagnosis = criteria.get("correct_diagnosis", "")
     correct_subtypes = criteria.get("correct_subtypes", [])
     critical_categories = criteria.get("critical_questions", [])
     required_investigations = criteria.get("required_investigations", [])
     unnecessary_investigations = criteria.get("unnecessary_investigations", [])
     
-    # 1. Evaluate History Taking (Max 20)
-    # Count unique critical question categories asked
+    # Map investigation IDs to human-readable names from case data
+    case_investigations: Dict[str, str] = {}
+    for inv in case_data.get("investigations", []):
+        inv_id = str(inv.get("id", "")).lower()
+        if inv_id:
+            case_investigations[inv_id] = inv.get("name", inv_id.upper())
+            
+    # Map examination types to names
+    case_examinations: Dict[str, str] = {}
+    for ex in case_data.get("examinations", []):
+        ex_type = str(ex.get("type", "")).lower()
+        if ex_type:
+            case_examinations[ex_type] = ex.get("name", ex_type.title() + " Examination")
+    
+    # ── 1. Evaluate History Taking (Max 20) ──────────────────────────────────
     asked_categories = set()
     for act in actions:
         if act.action_type == "question" and act.category:
-            asked_categories.add(act.category)
+            asked_categories.add(act.category.lower())
             
-    matched_critical = [c for c in critical_categories if c in asked_categories]
-    history_score = (len(matched_critical) / len(critical_categories)) * 20.0
-    
-    if len(matched_critical) == len(critical_categories):
-        strengths.append("Systematic history taking; gathered all key cardiac risk factors and pain characteristics.")
+    if critical_categories:
+        matched_critical = [c for c in critical_categories if c.lower() in asked_categories]
+        history_score = (len(matched_critical) / len(critical_categories)) * 20.0
+        
+        if len(matched_critical) == len(critical_categories):
+            strengths.append("Comprehensive clinical history taking; systematically gathered all key symptom characteristics and risk factors.")
+        else:
+            missed = [c for c in critical_categories if c.lower() not in asked_categories]
+            missed_labels = [QUESTION_CATEGORY_DESCRIPTIONS.get(c, c.replace("_", " ")) for c in missed]
+            weaknesses.append(f"Incomplete history taking; failed to inquire about: {', '.join(missed_labels)}.")
+            for c in missed:
+                desc = QUESTION_CATEGORY_DESCRIPTIONS.get(c, c.replace("_", " "))
+                critical_mistakes.append(f"Failed to ask about {desc}.")
     else:
-        missed = [c.replace("_", " ") for c in critical_categories if c not in asked_categories]
-        weaknesses.append(f"Incomplete history taking; did not investigate: {', '.join(missed)}.")
-        if "lifestyle_risk_factors" not in asked_categories:
-            critical_mistakes.append("Failed to ask about cardiac lifestyle risk factors (smoking/diabetes).")
+        history_score = 20.0
 
-    # 2. Evaluate Investigation Selection (Max 20)
+    # ── 2. Evaluate Physical Examination ────────────────────────────────────
+    performed_exams = set()
+    for act in actions:
+        if act.action_type == "examination" and act.category:
+            performed_exams.add(act.category.lower())
+            
+    if case_examinations:
+        if len(performed_exams) == 0:
+            critical_mistakes.append("Failed to perform any focused physical examination.")
+            weaknesses.append("Omitted physical examination; missed vital objective clinical signs.")
+        else:
+            # Check key specialty-specific physical examinations
+            spec_lower = (case_data.get("specialty", "") + " " + case_data.get("title", "") + " " + correct_diagnosis).lower()
+            key_exam_types: List[str] = []
+            if any(k in spec_lower for k in ["stroke", "neuro", "migraine", "headache", "weakness"]):
+                key_exam_types.append("neurological")
+            if any(k in spec_lower for k in ["appendic", "gastro", "gerd", "abdom"]):
+                key_exam_types.append("abdominal")
+            if any(k in spec_lower for k in ["asthma", "pulmon", "wheez", "breath", "broncho"]):
+                key_exam_types.append("respiratory")
+            if any(k in spec_lower for k in ["coronary", "cardio", "angina", "pericard", "chest pain", "heart"]):
+                key_exam_types.append("cardiovascular")
+            if any(k in spec_lower for k in ["pyelonephritis", "flank", "kidney", "urinary"]):
+                key_exam_types.extend(["back", "abdominal"])
+            if any(k in spec_lower for k in ["dvt", "thrombosis", "calf", "leg swelling"]):
+                key_exam_types.extend(["extremity", "cardiovascular"])
+
+            for ket in key_exam_types:
+                if ket in case_examinations and ket not in performed_exams:
+                    exam_name = case_examinations.get(ket, ket.title() + " Examination")
+                    critical_mistakes.append(f"Failed to perform essential {exam_name}.")
+                    weaknesses.append(f"Missed high-priority physical assessment ({exam_name}).")
+
+    # ── 3. Evaluate Investigation Selection (Max 20) ────────────────────────
     ordered_investigations = set()
     for act in actions:
         if act.action_type == "investigation" and act.category:
             ordered_investigations.add(act.category.lower())
             
-    matched_investigations = [i for i in required_investigations if i in ordered_investigations]
-    investigation_score = (len(matched_investigations) / len(required_investigations)) * 20.0
-    
-    if len(matched_investigations) == len(required_investigations):
-        strengths.append("Appropriately ordered all high-value cardiac investigations (ECG, Troponin).")
+    if required_investigations:
+        matched_investigations = [i for i in required_investigations if i.lower() in ordered_investigations]
+        investigation_score = (len(matched_investigations) / len(required_investigations)) * 20.0
+        
+        if len(matched_investigations) == len(required_investigations):
+            req_names = [case_investigations.get(i.lower(), i.upper()) for i in required_investigations]
+            strengths.append(f"Appropriately ordered essential diagnostic investigations ({', '.join(req_names)}).")
+        else:
+            missed_inv = [i for i in required_investigations if i.lower() not in ordered_investigations]
+            missed_names = [case_investigations.get(i.lower(), i.upper()) for i in missed_inv]
+            weaknesses.append(f"Missed essential diagnostic tests: {', '.join(missed_names)}.")
+            for i in missed_inv:
+                test_name = case_investigations.get(i.lower(), i.upper())
+                critical_mistakes.append(f"Failed to order essential investigation: {test_name}.")
     else:
-        missed_inv = [i.upper() for i in required_investigations if i not in ordered_investigations]
-        weaknesses.append(f"Missed essential diagnostic tests: {', '.join(missed_inv)}.")
-        if "ecg" not in ordered_investigations:
-            critical_mistakes.append("Failed to order a standard 12-lead ECG for acute chest pain.")
+        investigation_score = 20.0
 
-    # 3. Evaluate Resource Efficiency (Max 5)
+    # ── 4. Evaluate Resource Efficiency (Max 5) ─────────────────────────────
     # Deduct 2.5 points for each unnecessary test ordered
-    wasted_tests = [i for i in unnecessary_investigations if i in ordered_investigations]
+    wasted_tests = [i for i in unnecessary_investigations if i.lower() in ordered_investigations]
     efficiency_score = max(0.0, 5.0 - (len(wasted_tests) * 2.5))
     
     if len(wasted_tests) > 0:
-        weaknesses.append(f"Ordered low-yield diagnostic imaging (CT Angiography) prior to basic screening.")
-        critical_mistakes.append("Incurred unnecessary delay and cost by ordering advanced chest CT without ECG validation.")
+        wasted_names = [case_investigations.get(i.lower(), i.upper()) for i in wasted_tests]
+        weaknesses.append(f"Ordered low-yield / unnecessary diagnostic testing ({', '.join(wasted_names)}).")
+        for i in wasted_tests:
+            test_name = case_investigations.get(i.lower(), i.upper())
+            critical_mistakes.append(f"Incurred unnecessary cost and delay by ordering low-yield {test_name} prior to standard workup.")
     else:
-        strengths.append("Excellent resource management; avoided high-cost unnecessary imaging tests.")
+        strengths.append("Excellent resource stewardship; avoided high-cost unnecessary investigations.")
 
-    # 4. Evaluate Differential Diagnosis Updates (Max 15)
-    # Count updates
+    # ── 5. Evaluate Differential Diagnosis Updates (Max 15) ──────────────────
     update_count = sum(1 for act in actions if act.action_type == "diagnosis_update")
     if update_count >= 2:
         differential_score = 15.0
         strengths.append("Consistently updated differential diagnoses as new clinical data arrived.")
     elif update_count == 1:
         differential_score = 10.0
-        weaknesses.append("Updated hypothesis only once; consider continuous reassessment as evidence changes.")
+        weaknesses.append("Updated hypothesis only once; continuous reassessment is advised as evidence evolves.")
     else:
         differential_score = 0.0
-        weaknesses.append("Never updated differential diagnoses during the investigation.")
+        weaknesses.append("Did not record or update differential diagnoses during the clinical encounter.")
+        critical_mistakes.append("Failed to formulate and maintain dynamic differential diagnoses during workup.")
 
-    # 5. Evaluate Final Decision (Max 5)
-    final_diag_str = (session.final_diagnosis or "").lower()
+    # ── 6. Evaluate Final Decision (Max 5) ──────────────────────────────────
+    final_diag_str = (session.final_diagnosis or "").lower().strip()
     is_correct = False
+    
     for subtype in correct_subtypes:
-        if subtype in final_diag_str:
+        if subtype.lower() in final_diag_str:
             is_correct = True
             break
             
+    if not is_correct and correct_diagnosis:
+        if correct_diagnosis.lower() in final_diag_str:
+            is_correct = True
+            
+    target_name = correct_diagnosis or case_data.get("title", "the correct condition")
     if is_correct:
         decision_score = 5.0
         strengths.append(f"Correctly identified final diagnosis: {session.final_diagnosis}.")
     else:
         decision_score = 0.0
-        weaknesses.append(f"Incorrect final diagnosis. Submitted: '{session.final_diagnosis}', expected: '{case_data.get('patient', {}).get('chief_complaint')}' related coronary syndrome.")
-        critical_mistakes.append("Failed to diagnose acute coronary syndrome / myocardial infarction.")
+        submitted_label = session.final_diagnosis or "Incomplete"
+        weaknesses.append(f"Incorrect final diagnosis. Submitted: '{submitted_label}', expected: '{target_name}'.")
+        critical_mistakes.append(f"Incorrect final diagnosis: Submitted '{submitted_label}', but the correct clinical diagnosis was '{target_name}'.")
 
     return {
         "history_score": round(history_score, 1),

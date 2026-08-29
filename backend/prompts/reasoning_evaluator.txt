@@ -19,12 +19,12 @@ STUDENT PERFORMANCE DATA:
 
 INSTRUCTIONS:
 Evaluate the student's clinical reasoning across the following dimensions (out of 10):
-1. Clinical Reasoning Coherence (0-10): Did the student connect findings logically? Did they adapt their differentials appropriately when new evidence (like ECG or Troponins) was revealed?
+1. Clinical Reasoning Coherence (0-10): Did the student connect findings logically? Did they adapt their differentials appropriately when new evidence emerged?
 2. Supporting Evidence Quality (0-10): How logical and medically sound is the student's explanation/justification for their final diagnosis?
 3. Decision-Making & Priorities (0-10): Is the immediate management priority appropriate for the diagnosed condition?
 
-Provide constructive, specific clinical feedback. Mention actual actions and files where appropriate.
-DO NOT use generic advice. Identify 2-3 specific strengths, 2-3 specific areas for improvement, and any critical clinical mistakes (e.g. failing to order an ECG, delaying therapy, ordering unnecessary high-risk tests).
+Provide constructive, specific clinical feedback tailored strictly to this patient's presentation.
+DO NOT use generic advice. Identify 2-3 specific strengths, 2-3 specific areas for improvement, and only critical mistakes that were ACTUALLY made by the student based on this case's criteria (e.g. failing to order an essential case-specific investigation, omitting high-priority physical examinations, ordering low-yield tests, or incorrect final diagnosis). If the student performed appropriately with no critical mistakes, return an empty list [] for "critical_mistakes".
 
 You MUST respond strictly in the following JSON format:
 {{

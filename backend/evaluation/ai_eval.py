@@ -19,71 +19,109 @@ def get_offline_ai_eval(
     case_data: Dict[str, Any],
     actions: List[models.StudentAction]
 ) -> Dict[str, Any]:
-    # Formulate a deterministic mock evaluation
-    has_ecg = False
-    has_troponin = False
-    ordered_ct = False
-    ecg_index = 999
-    troponin_index = 999
-    ct_index = 999
-    
+    criteria = case_data.get("evaluation_criteria", {})
+    correct_diagnosis = criteria.get("correct_diagnosis", "")
+    correct_subtypes = criteria.get("correct_subtypes", [])
+    required_invs = [str(i).lower() for i in criteria.get("required_investigations", [])]
+    unnecessary_invs = [str(i).lower() for i in criteria.get("unnecessary_investigations", [])]
+    case_inv_map = {str(inv.get("id", "")).lower(): inv.get("name", inv.get("id")) for inv in case_data.get("investigations", [])}
+    patient_name = case_data.get("patient", {}).get("name", "the patient")
+
+    ordered_invs = []
+    has_unnecessary = False
+    first_exam_idx = 999
+    first_inv_idx = 999
+
     for i, act in enumerate(actions):
-        if act.action_type == "investigation":
-            name = act.content.lower()
-            if "ecg" in name or "electrocardiogram" in name:
-                has_ecg = True
-                ecg_index = i
-            elif "troponin" in name:
-                has_troponin = True
-                troponin_index = i
-            elif "ct" in name:
-                ordered_ct = True
-                ct_index = i
-                
+        if act.action_type == "examination" and first_exam_idx == 999:
+            first_exam_idx = i
+        elif act.action_type == "investigation":
+            if first_inv_idx == 999:
+                first_inv_idx = i
+            inv_cat = str(act.category or "").lower()
+            ordered_invs.append(inv_cat)
+            if inv_cat in unnecessary_invs:
+                has_unnecessary = True
+
     # Base scores out of 10
     reasoning_base = 8.5
-    interpretation_base = 8.0
-    
-    # Sequence checks
-    if has_ecg and has_troponin:
-        if ecg_index < troponin_index:
-            reasoning_base += 1.0 # Good diagnostic flow
+    interpretation_base = 7.5
+
+    # Sequence & testing checks
+    if required_invs:
+        missing_required = [r for r in required_invs if r not in ordered_invs]
+        if not missing_required:
+            reasoning_base += 1.0  # All essential tests ordered
         else:
-            reasoning_base -= 1.0 # Troponin ordered before ECG
-    else:
-        reasoning_base -= 3.0
-        
-    if ordered_ct:
-        if ct_index < ecg_index or ct_index < troponin_index:
-            reasoning_base -= 2.5 # CT ordered too early
-            interpretation_base -= 2.0
-            
-    # Justification text evaluation
+            reasoning_base -= min(4.0, len(missing_required) * 2.0)
+
+    if has_unnecessary:
+        reasoning_base -= 2.0
+        interpretation_base -= 1.5
+
+    if first_exam_idx < first_inv_idx:
+        reasoning_base += 0.5  # Performed physical exam before tests
+
+    # Case-specific justification text evaluation
     justification = (session.evidence_justification or "").lower()
-    justification_keywords = ["elevation", "stemi", "st-segment", "troponin", "inferior", "leads", "ecg", "ischemia"]
-    matched_justification = [kw for kw in justification_keywords if kw in justification]
-    
-    interpretation_base += len(matched_justification) * 0.3
-    
-    # Cap between 1.0 and 10.0
+    keywords = set()
+    for word in (correct_diagnosis or "").replace("-", " ").split():
+        if len(word) > 3:
+            keywords.add(word.lower())
+    for sub in correct_subtypes:
+        for word in sub.replace("-", " ").split():
+            if len(word) > 3:
+                keywords.add(word.lower())
+    for inv in case_data.get("investigations", []):
+        if str(inv.get("id", "")).lower() in required_invs:
+            for word in inv.get("interpretation", "").replace(",", " ").replace(".", " ").split():
+                if len(word) > 4:
+                    keywords.add(word.lower())
+
+    matched_keywords = [kw for kw in keywords if kw in justification]
+    interpretation_base += min(2.5, len(matched_keywords) * 0.4)
+
+    # Diagnostic accuracy check
+    final_diag_str = (session.final_diagnosis or "").lower().strip()
+    is_correct = False
+    for subtype in correct_subtypes:
+        if subtype.lower() in final_diag_str:
+            is_correct = True
+            break
+    if not is_correct and correct_diagnosis:
+        if correct_diagnosis.lower() in final_diag_str:
+            is_correct = True
+
     reasoning_base = max(1.0, min(10.0, reasoning_base))
     interpretation_base = max(1.0, min(10.0, interpretation_base))
-    
-    summary = (
-        f"The student demonstrated a reasonable diagnostic workup. "
-        f"The final diagnosis of {session.final_diagnosis} was medically sound. "
-    )
-    if ordered_ct:
-        summary += "However, ordering a chest CT scan early on represented significant resource waste."
+    decision_score = 9.5 if is_correct else 3.5
+
+    # Dynamic summary
+    if is_correct:
+        summary = f"The student demonstrated structured diagnostic reasoning for {patient_name}. The final diagnosis of '{session.final_diagnosis}' was clinically accurate and supported by evidence."
     else:
-        summary += "The sequence of testing (ECG followed by Troponins) was highly efficient and aligned with clinical guidelines."
-        
+        summary = f"The student evaluated {patient_name}, but the final diagnosis of '{session.final_diagnosis or 'Incomplete'}' did not match the expected clinical condition ({correct_diagnosis})."
+
+    if has_unnecessary:
+        summary += " Note that ordering low-yield diagnostic imaging prior to standard screening led to resource inefficiency."
+    elif required_invs and all(r in ordered_invs for r in required_invs):
+        summary += " Investigation selection was focused, efficient, and well-aligned with clinical guidelines."
+
+    ai_strengths = []
+    ai_weaknesses = []
+    if is_correct:
+        ai_strengths.append(f"Logical synthesis leading to accurate identification of {correct_diagnosis}.")
+    if matched_keywords:
+        ai_strengths.append("Evidence justification effectively cited key clinical findings and interpretations.")
+    if has_unnecessary:
+        ai_weaknesses.append("Avoid ordering advanced diagnostic imaging without primary clinical justification.")
+
     return {
         "reasoning_score": round(reasoning_base, 1),
         "evidence_interpretation_score": round(interpretation_base, 1),
-        "decision_score": 9.0 if (session.final_diagnosis and "coronary" in session.final_diagnosis.lower()) else 4.0,
-        "strengths": ["Logical prioritization of initial cardiac tests."],
-        "weaknesses": ["Consider explaining the specific leads involved in the ECG findings in your documentation." if not "lead" in justification else "No major weaknesses in baseline interpretation."],
+        "decision_score": round(decision_score, 1),
+        "strengths": ai_strengths,
+        "weaknesses": ai_weaknesses,
         "critical_mistakes": [],
         "overall_reasoning_summary": summary
     }

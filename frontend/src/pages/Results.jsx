@@ -229,18 +229,28 @@ export default function Results({ sessionId, onNavigate }) {
             </p>
           </div>
 
-          {/* Critical mistakes warning if any */}
-          {evaluation.critical_mistakes.length > 0 && (
+          {/* Critical mistakes card */}
+          {evaluation.critical_mistakes && evaluation.critical_mistakes.length > 0 ? (
             <div className="bg-red-50 border border-red-150 p-4 rounded-xl space-y-2">
               <div className="flex items-center gap-1.5 text-red-750 font-bold text-xs">
                 <AlertCircle className="w-4.5 h-4.5 text-red-650 shrink-0" />
-                <span>Critical Mistakes Identified:</span>
+                <span>Critical Mistakes Identified ({evaluation.critical_mistakes.length}):</span>
               </div>
               <ul className="list-disc pl-4 text-[11px] font-semibold text-red-700 space-y-1">
                 {evaluation.critical_mistakes.map((mistake, idx) => (
                   <li key={idx}>{mistake}</li>
                 ))}
               </ul>
+            </div>
+          ) : (
+            <div className="bg-emerald-50/80 border border-emerald-150 p-4 rounded-xl space-y-1.5">
+              <div className="flex items-center gap-1.5 text-emerald-800 font-bold text-xs">
+                <CheckCircle className="w-4.5 h-4.5 text-emerald-600 shrink-0" />
+                <span>Critical Mistakes:</span>
+              </div>
+              <p className="text-[11px] font-semibold text-emerald-700 pl-6">
+                No critical mistakes identified. Diagnostic reasoning and investigation selection aligned with clinical guidelines.
+              </p>
             </div>
           )}
         </div>
