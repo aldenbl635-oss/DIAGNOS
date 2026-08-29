@@ -13,7 +13,12 @@ import {
   TrendingUp,
   FileHeart,
   ChevronRight,
-  ShieldAlert
+  ShieldAlert,
+  Building2,
+  Building,
+  Home,
+  Lock,
+  Share2
 } from 'lucide-react';
 import { api } from '../api/client';
 import Loader from '../components/Common/Loader';
@@ -47,6 +52,7 @@ export default function Simulation({ sessionId, onNavigate, onSimulationComplete
   const [finalDiag, setFinalDiag] = useState('Acute coronary syndrome');
   const [immediatePriority, setImmediatePriority] = useState('');
   const [justification, setJustification] = useState('');
+  const [disposition, setDisposition] = useState('manage_locally'); // manage_locally | refer | treat_symptomatically
   const [submittingEvaluation, setSubmittingEvaluation] = useState(false);
   const [submitError, setSubmitError] = useState(null);
   
@@ -242,7 +248,8 @@ export default function Simulation({ sessionId, onNavigate, onSimulationComplete
     const payload = {
       final_diagnosis: finalDiag,
       immediate_priority: immediatePriority,
-      evidence_justification: justification
+      evidence_justification: justification,
+      disposition: disposition
     };
 
     try {
@@ -281,9 +288,28 @@ export default function Simulation({ sessionId, onNavigate, onSimulationComplete
             <HeartPulse className="w-5 h-5 animate-pulse" />
           </div>
           <div>
-            <h2 className="font-extrabold text-slate-900 text-lg tracking-tight">
-              Active Simulation: {caseBrief.patient_name}
-            </h2>
+            <div className="flex items-center gap-2">
+              <h2 className="font-extrabold text-slate-900 text-lg tracking-tight">
+                Active Simulation: {caseBrief.patient_name}
+              </h2>
+              {/* Facility tier badge */}
+              {session?.facility_tier === 'phc' ? (
+                <span className="flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+                  <Home className="w-3 h-3 text-amber-600 shrink-0" />
+                  Rural PHC
+                </span>
+              ) : session?.facility_tier === 'chc' ? (
+                <span className="flex items-center gap-1 text-[11px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">
+                  <Building className="w-3 h-3 text-blue-600 shrink-0" />
+                  District CHC
+                </span>
+              ) : (
+                <span className="flex items-center gap-1 text-[11px] font-bold text-medical-700 bg-medical-50 border border-medical-200 px-2 py-0.5 rounded-full">
+                  <Building2 className="w-3 h-3 text-medical-600 shrink-0" />
+                  Tertiary Hospital
+                </span>
+              )}
+            </div>
             <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 mt-0.5">
               <span>{caseBrief.specialty}</span>
               <span>•</span>
@@ -566,11 +592,32 @@ export default function Simulation({ sessionId, onNavigate, onSimulationComplete
                 <div className="space-y-3">
                   {investigationsList.map((inv) => {
                     const ordered = investigationsOrdered[inv.id];
+                    const tier = session?.facility_tier || 'tertiary';
+                    const isAvailable = inv.is_available_this_session !== undefined
+                      ? inv.is_available_this_session
+                      : (!inv.available_at || inv.available_at.includes(tier));
+
                     return (
-                      <div key={inv.id} className="border border-slate-200/80 rounded-xl p-3.5 bg-slate-50/50 space-y-3">
+                      <div 
+                        key={inv.id} 
+                        className={`border rounded-xl p-3.5 space-y-3 transition-all ${
+                          !isAvailable 
+                            ? 'border-slate-200 bg-slate-100/70' 
+                            : 'border-slate-200/80 bg-slate-50/50'
+                        }`}
+                      >
                         <div className="flex justify-between items-center">
                           <div>
-                            <h6 className="text-xs font-bold text-slate-800">{inv.name}</h6>
+                            <div className="flex items-center gap-2">
+                              <h6 className={`text-xs font-bold ${!isAvailable ? 'text-slate-500' : 'text-slate-800'}`}>
+                                {inv.name}
+                              </h6>
+                              {!isAvailable && (
+                                <span className="text-[9px] font-bold text-amber-750 bg-amber-100/80 border border-amber-250 px-1.5 py-0.2 rounded">
+                                  Not at {tier.toUpperCase()}
+                                </span>
+                              )}
+                            </div>
                             <span className="text-[10px] font-semibold text-slate-400">{inv.category}</span>
                           </div>
                           <span className="text-xs font-extrabold text-slate-800 shrink-0 bg-slate-200/60 px-2 py-0.5 rounded">
@@ -579,13 +626,20 @@ export default function Simulation({ sessionId, onNavigate, onSimulationComplete
                         </div>
                         
                         {!ordered ? (
-                          <button
-                            id={`inv-order-btn-${inv.id}`}
-                            onClick={() => handleOrderInvestigation(inv.id)}
-                            className="w-full text-center py-2 bg-medical-500 hover:bg-medical-700 text-white font-bold text-xs rounded-xl shadow-sm shadow-medical-100 transition-colors"
-                          >
-                            Order Investigation
-                          </button>
+                          isAvailable ? (
+                            <button
+                              id={`inv-order-btn-${inv.id}`}
+                              onClick={() => handleOrderInvestigation(inv.id)}
+                              className="w-full text-center py-2 bg-medical-500 hover:bg-medical-700 text-white font-bold text-xs rounded-xl shadow-sm shadow-medical-100 transition-colors"
+                            >
+                              Order Investigation
+                            </button>
+                          ) : (
+                            <div className="w-full py-2 px-3 bg-slate-200/80 border border-slate-300/60 text-slate-500 font-semibold text-[11px] rounded-xl flex items-center justify-center gap-1.5 text-center cursor-not-allowed">
+                              <Lock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                              <span>Not available at this facility — refer if needed</span>
+                            </div>
+                          )
                         ) : (
                           <div className="bg-white border border-slate-200/60 p-3 rounded-lg space-y-2 text-xs leading-relaxed">
                             <div>
@@ -755,10 +809,51 @@ export default function Simulation({ sessionId, onNavigate, onSimulationComplete
                 />
               </div>
 
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-slate-700">4. Facility Triage & Referral Disposition</label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <div
+                    onClick={() => setDisposition('manage_locally')}
+                    className={`p-2.5 rounded-xl border text-xs cursor-pointer transition-all ${
+                      disposition === 'manage_locally'
+                        ? 'border-medical-500 bg-medical-50/50 text-medical-800 ring-2 ring-medical-500/20 font-bold'
+                        : 'border-slate-200 hover:border-slate-300 text-slate-650 bg-slate-50 font-medium'
+                    }`}
+                  >
+                    <div className="mb-0.5">Manage Locally</div>
+                    <p className="text-[10px] text-slate-500 font-normal leading-tight">Treat and monitor at current facility</p>
+                  </div>
+
+                  <div
+                    onClick={() => setDisposition('refer')}
+                    className={`p-2.5 rounded-xl border text-xs cursor-pointer transition-all ${
+                      disposition === 'refer'
+                        ? 'border-red-500 bg-red-50/60 text-red-800 ring-2 ring-red-500/20 font-bold'
+                        : 'border-slate-200 hover:border-slate-300 text-slate-650 bg-slate-50 font-medium'
+                    }`}
+                  >
+                    <div className="mb-0.5 text-red-650 font-bold">Refer to Higher Tier</div>
+                    <p className="text-[10px] text-slate-500 font-normal leading-tight">Emergency transfer to CHC / Tertiary center</p>
+                  </div>
+
+                  <div
+                    onClick={() => setDisposition('treat_symptomatically')}
+                    className={`p-2.5 rounded-xl border text-xs cursor-pointer transition-all ${
+                      disposition === 'treat_symptomatically'
+                        ? 'border-medical-500 bg-medical-50/50 text-medical-800 ring-2 ring-medical-500/20 font-bold'
+                        : 'border-slate-200 hover:border-slate-300 text-slate-650 bg-slate-50 font-medium'
+                    }`}
+                  >
+                    <div className="mb-0.5">Symptomatic Care</div>
+                    <p className="text-[10px] text-slate-500 font-normal leading-tight">Supportive / palliative stabilization</p>
+                  </div>
+                </div>
+              </div>
+
               <div className="bg-amber-50/60 border border-amber-200/50 p-3 rounded-xl flex gap-2.5 text-[10px] text-amber-800 leading-relaxed">
                 <ShieldAlert className="w-4 h-4 text-amber-600 shrink-0" />
                 <span>
-                  By submitting, you finalize the simulation. The system will process your action logs, investigation priorities, differentials, and justification statements.
+                  By submitting, you finalize the simulation. The system will evaluate diagnostic accuracy, triage disposition, reasoning workflow, and resource utilization.
                 </span>
               </div>
 

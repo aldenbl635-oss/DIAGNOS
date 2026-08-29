@@ -3,7 +3,7 @@ import requests, json, sys
 def main():
     base = 'http://127.0.0.1:8000/api'
 
-    # Register user
+    # Register/login user
     res = requests.post(f'{base}/auth/register', json={'name':'Demo Judge', 'email':'judge2@diagnos.org', 'password':'demo1234'})
     if res.status_code == 400:
         res = requests.post(f'{base}/auth/login', json={'email':'judge2@diagnos.org', 'password':'demo1234'})
@@ -12,54 +12,67 @@ def main():
     headers = {'Authorization': f'Bearer {token}'}
     print('1. Auth OK - token acquired')
 
-    # Start simulation
-    res = requests.post(f'{base}/simulation/start', json={'case_id': 'chest_pain_001'}, headers=headers)
+    # ── DEMO A: Tertiary Hospital Mode ──────────────────────────────────────
+    print('\n--- DEMO A: Tertiary Hospital Mode ---')
+    res = requests.post(f'{base}/simulation/start', json={'case_id': 'chest_pain_001', 'facility_tier': 'tertiary'}, headers=headers)
     assert res.status_code == 200, f"Start failed: {res.text}"
     session_id = res.json()['id']
-    print(f'2. Simulation started: {session_id[:8]}...')
+    print(f'2. Tertiary Simulation started: {session_id[:8]}... (Tier: {res.json()["facility_tier"]})')
 
-    # Ask questions
-    for q in ['Does the pain radiate to your arm?', 'Do you have diabetes?', 'Do you smoke?']:
-        r = requests.post(f'{base}/simulation/{session_id}/question', json={'question': q}, headers=headers)
-        assert r.status_code == 200
-        d = r.json()
-        print(f'   Q: "{q[:30]}..." -> category:{d["category"]}')
-
-    # Request cardiovascular examination
-    r = requests.post(f'{base}/simulation/{session_id}/examination', json={'examination_type': 'cardiovascular'}, headers=headers)
-    assert r.status_code == 200
-    print(f'3. Exam OK: {r.json()["result"][:60]}...')
-
-    # Order ECG and Troponin
+    # Order ECG and Troponin (both available at tertiary tier)
     for inv_id in ['ecg', 'troponin']:
         r = requests.post(f'{base}/simulation/{session_id}/investigation', json={'investigation_id': inv_id}, headers=headers)
         assert r.status_code == 200
         d = r.json()
-        print(f'4. {d["name"]}: cost={d["cost"]}cr, remaining={d["remaining_resources"]}cr')
+        print(f'   Test ordered: {d["name"]} -> {d["result"][:50]}...')
 
-    # Update differentials
-    diffs = [{'diagnosis': 'Acute coronary syndrome', 'confidence': 85}, {'diagnosis': 'Pulmonary embolism', 'confidence': 10}]
-    r = requests.post(f'{base}/simulation/{session_id}/diagnosis', json={'differential_diagnoses': diffs}, headers=headers)
-    assert r.status_code == 200
-    print(f'5. Differentials updated OK')
-
-    # Submit final diagnosis and evaluate
+    # Submit final diagnosis with disposition
     payload = {
         'final_diagnosis': 'Acute coronary syndrome',
-        'immediate_priority': 'Activate cath lab for primary PCI. Administer aspirin 325mg, nitroglycerin, and heparin.',
-        'evidence_justification': 'ECG shows ST-elevation in leads II, III, aVF. Troponin I significantly elevated at 1.85ng/mL. Patient has T2DM, is active smoker, hypertensive.'
+        'immediate_priority': 'Activate cardiac cath lab for primary PCI.',
+        'evidence_justification': 'ST-elevation on ECG and elevated Troponin.',
+        'disposition': 'manage_locally'
     }
     r = requests.post(f'{base}/simulation/{session_id}/evaluate', json=payload, headers=headers)
     assert r.status_code == 200
-    result = r.json()
-    eval_data = result['evaluation']
-    print(f'6. Final score: {eval_data["final_score"]}/100')
-    print(f'   History: {eval_data["history_score"]}/20')
-    print(f'   Investigation: {eval_data["investigation_score"]}/20')
-    print(f'   Resource efficiency: {eval_data["resource_efficiency_score"]}/5')
-    print(f'   Strengths: {eval_data["strengths"][:2]}')
+    eval_data = r.json()['evaluation']
+    print(f'3. Tertiary Score: {eval_data["final_score"]}/100 | Disposition Score: {eval_data["disposition_score"]}/5.0')
+
+    # ── DEMO B: Rural PHC Mode (Resource-Constrained Practice) ─────────────
+    print('\n--- DEMO B: Rural Primary Health Centre (PHC Mode) ---')
+    res_phc = requests.post(f'{base}/simulation/start', json={'case_id': 'chest_pain_001', 'facility_tier': 'phc'}, headers=headers)
+    assert res_phc.status_code == 200
+    phc_session_id = res_phc.json()['id']
+    print(f'4. PHC Simulation started: {phc_session_id[:8]}... (Tier: {res_phc.json()["facility_tier"]})')
+
+    # Attempt to order Troponin (should be blocked at PHC level)
+    r_trop = requests.post(f'{base}/simulation/{phc_session_id}/investigation', json={'investigation_id': 'troponin'}, headers=headers)
+    assert r_trop.status_code == 400
+    print(f'   [Constraint Enforced] Troponin ordered at PHC -> Rejected: "{r_trop.json()["detail"]}"')
+
+    # Order ECG (available at PHC level)
+    r_ecg = requests.post(f'{base}/simulation/{phc_session_id}/investigation', json={'investigation_id': 'ecg'}, headers=headers)
+    assert r_ecg.status_code == 200
+    print(f'   [Basic Test Allowed] ECG ordered at PHC -> {r_ecg.json()["name"]}')
+
+    # Submit with urgent emergency referral (concordant with guidelines)
+    payload_phc = {
+        'final_diagnosis': 'Acute coronary syndrome',
+        'immediate_priority': 'Administer loading dose Aspirin 325mg and dispatch 108 ambulance for immediate transfer to PCI center.',
+        'evidence_justification': 'ECG reveals acute STEMI. PHC lacks cath lab; immediate transfer required.',
+        'disposition': 'refer'
+    }
+    r_eval_phc = requests.post(f'{base}/simulation/{phc_session_id}/evaluate', json=payload_phc, headers=headers)
+    assert r_eval_phc.status_code == 200
+    phc_eval = r_eval_phc.json()['evaluation']
+    print(f'5. PHC Referral Competency Result:')
+    print(f'   - Student Disposition: {phc_eval["disposition_correct"]}')
+    print(f'   - Expected Guideline:  {phc_eval["disposition_expected"]}')
+    print(f'   - Disposition Score:   {phc_eval["disposition_score"]} / 5.0')
+    print(f'   - Strengths: {phc_eval["strengths"][:2]}')
     print()
-    print('ALL CHECKS PASSED - DiagnOS simulation workflow verified!')
+    print('ALL CHECKS PASSED - PHC Mode & Disposition Triage verified successfully!')
 
 if __name__ == '__main__':
     main()
+

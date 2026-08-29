@@ -105,7 +105,12 @@
       "category": "CARDIAC",
       "turnaround": "Immediate",
       "result": "Sinus tachycardia with rate of 120 bpm bpm, normal axis, no ST change.",
-      "interpretation": "Sinus tachycardia, otherwise normal electrocardiogram."
+      "interpretation": "Sinus tachycardia, otherwise normal electrocardiogram.",
+      "available_at": [
+        "tertiary",
+        "chc",
+        "phc"
+      ]
     },
     {
       "id": "troponin",
@@ -114,7 +119,11 @@
       "category": "BLOOD TESTS",
       "turnaround": "30 mins",
       "result": "Troponin I is < 0.01 ng/mL.",
-      "interpretation": "Normal cardiac enzyme profile."
+      "interpretation": "Normal cardiac enzyme profile.",
+      "available_at": [
+        "tertiary",
+        "chc"
+      ]
     },
     {
       "id": "cbc",
@@ -123,7 +132,12 @@
       "category": "BLOOD TESTS",
       "turnaround": "30 mins",
       "result": "WBC: 6.4 x10^9/L, Hb: 13.8 g/dL, Platelets: 220 x10^9/L.",
-      "interpretation": "Complete blood count is within normal references."
+      "interpretation": "Complete blood count is within normal references.",
+      "available_at": [
+        "tertiary",
+        "chc",
+        "phc"
+      ]
     },
     {
       "id": "glucose",
@@ -132,7 +146,12 @@
       "category": "BLOOD TESTS",
       "turnaround": "Immediate",
       "result": "Random Blood Glucose: 98 mg/dL.",
-      "interpretation": "Normal arterial glucose levels."
+      "interpretation": "Normal arterial glucose levels.",
+      "available_at": [
+        "tertiary",
+        "chc",
+        "phc"
+      ]
     },
     {
       "id": "electrolytes",
@@ -141,7 +160,11 @@
       "category": "BLOOD TESTS",
       "turnaround": "30 mins",
       "result": "Sodium: 140 mEq/L, Potassium: 4.0 mEq/L.",
-      "interpretation": "Serum electrolytes are within normal range."
+      "interpretation": "Serum electrolytes are within normal range.",
+      "available_at": [
+        "tertiary",
+        "chc"
+      ]
     },
     {
       "id": "cxr",
@@ -150,7 +173,11 @@
       "category": "IMAGING",
       "turnaround": "15 mins",
       "result": "Both lungs are hypolucent, no vascular congestion or consolidation.",
-      "interpretation": "Normal chest X-ray profile."
+      "interpretation": "Normal chest X-ray profile.",
+      "available_at": [
+        "tertiary",
+        "chc"
+      ]
     },
     {
       "id": "ct_angio",
@@ -159,7 +186,10 @@
       "category": "IMAGING",
       "turnaround": "45 mins",
       "result": "Normal caliber aorta, no luminal narrowing, no dissection flap visible.",
-      "interpretation": "Normal chest CT Angiography."
+      "interpretation": "Normal chest CT Angiography.",
+      "available_at": [
+        "tertiary"
+      ]
     },
     {
       "id": "ct_head",
@@ -168,7 +198,10 @@
       "category": "IMAGING",
       "turnaround": "30 mins",
       "result": "No acute hemorrhage, infarct, or midline shifts found in cranial structures.",
-      "interpretation": "Normal CT Scan of the Head."
+      "interpretation": "Normal CT Scan of the Head.",
+      "available_at": [
+        "tertiary"
+      ]
     },
     {
       "id": "ct_abdomen",
@@ -177,7 +210,10 @@
       "category": "IMAGING",
       "turnaround": "45 mins",
       "result": "Stomach, liver, bowel loops, and appendix are normal size with no inflammatory changes.",
-      "interpretation": "Normal CT Scan of the Abdomen."
+      "interpretation": "Normal CT Scan of the Abdomen.",
+      "available_at": [
+        "tertiary"
+      ]
     },
     {
       "id": "urinalysis",
@@ -186,7 +222,12 @@
       "category": "URINE TESTS",
       "turnaround": "15 mins",
       "result": "Clear yellow appearance, negative nitrite, negative leukocyte esterase.",
-      "interpretation": "Urinalysis is clear of infection signs."
+      "interpretation": "Urinalysis is clear of infection signs.",
+      "available_at": [
+        "tertiary",
+        "chc",
+        "phc"
+      ]
     },
     {
       "id": "leg_ultrasound",
@@ -195,7 +236,10 @@
       "category": "IMAGING",
       "turnaround": "30 mins",
       "result": "Normal patency of left and right femoral veins with complete color Doppler signal.",
-      "interpretation": "Normal leg vascular ultrasound."
+      "interpretation": "Normal leg vascular ultrasound.",
+      "available_at": [
+        "tertiary"
+      ]
     }
   ],
   "differential_diagnoses": [
@@ -265,6 +309,19 @@
     ],
     "unnecessary_investigations": [
       "ct_angio"
-    ]
+    ],
+    "referral_criteria": {
+      "red_flags": [
+        "Atypical chest symptoms with hemodynamic instability",
+        "Persistent tachycardia refractory to reassurance",
+        "Severe psychiatric crisis or suicidal ideation"
+      ],
+      "correct_disposition_by_tier": {
+        "tertiary": "manage_locally",
+        "chc": "manage_locally",
+        "phc": "manage_locally"
+      },
+      "rationale": "Acute panic attacks with normal cardiovascular screening can be managed locally through empathetic reassurance and breathing control."
+    }
   }
 }

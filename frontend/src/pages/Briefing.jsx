@@ -7,7 +7,11 @@ import {
   Award, 
   Activity, 
   ArrowRight,
-  ShieldCheck
+  ShieldCheck,
+  Building2,
+  Building,
+  Home,
+  CheckCircle2
 } from 'lucide-react';
 
 export default function Briefing({ caseId, onStartSimulation, onNavigate }) {
@@ -15,6 +19,7 @@ export default function Briefing({ caseId, onStartSimulation, onNavigate }) {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  const [facilityTier, setFacilityTier] = useState('tertiary'); // 'tertiary' | 'chc' | 'phc'
 
   useEffect(() => {
     async function fetchBrief() {
@@ -34,7 +39,7 @@ export default function Briefing({ caseId, onStartSimulation, onNavigate }) {
     setSubmitting(true);
     setError(null);
     try {
-      const session = await api.startSimulation(caseId);
+      const session = await api.startSimulation(caseId, facilityTier);
       onStartSimulation(session.id);
     } catch (err) {
       setError(err.message || 'Failed to start simulation session.');
@@ -92,6 +97,83 @@ export default function Briefing({ caseId, onStartSimulation, onNavigate }) {
           </div>
         </div>
 
+        {/* Facility Tier Practice Mode Selector */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xs font-bold text-slate-700 uppercase tracking-widest">
+              Select Practice Facility Tier
+            </h3>
+            <span className="text-[11px] font-semibold text-medical-600 bg-medical-50 px-2 py-0.5 rounded-full border border-medical-100">
+              Resource Constraint Mode
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {/* Tertiary */}
+            <div
+              onClick={() => setFacilityTier('tertiary')}
+              className={`p-4 rounded-xl border cursor-pointer transition-all ${
+                facilityTier === 'tertiary'
+                  ? 'border-medical-500 bg-medical-50/40 ring-2 ring-medical-500/20 shadow-sm'
+                  : 'border-slate-200 hover:border-slate-300 bg-white'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <Building2 className={`w-4 h-4 ${facilityTier === 'tertiary' ? 'text-medical-600' : 'text-slate-500'}`} />
+                  <h4 className="text-xs font-bold text-slate-800">Tertiary Hospital</h4>
+                </div>
+                {facilityTier === 'tertiary' && <CheckCircle2 className="w-4 h-4 text-medical-600 shrink-0" />}
+              </div>
+              <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
+                Full diagnostic suite. CT scans, Troponin, CXR, and catheterization lab available.
+              </p>
+            </div>
+
+            {/* CHC */}
+            <div
+              onClick={() => setFacilityTier('chc')}
+              className={`p-4 rounded-xl border cursor-pointer transition-all ${
+                facilityTier === 'chc'
+                  ? 'border-medical-500 bg-medical-50/40 ring-2 ring-medical-500/20 shadow-sm'
+                  : 'border-slate-200 hover:border-slate-300 bg-white'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <Building className={`w-4 h-4 ${facilityTier === 'chc' ? 'text-medical-600' : 'text-slate-500'}`} />
+                  <h4 className="text-xs font-bold text-slate-800">District CHC</h4>
+                </div>
+                {facilityTier === 'chc' && <CheckCircle2 className="w-4 h-4 text-medical-600 shrink-0" />}
+              </div>
+              <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
+                Secondary hospital. ECG, basic labs, CXR available. No advanced CT/Ultrasound.
+              </p>
+            </div>
+
+            {/* PHC */}
+            <div
+              onClick={() => setFacilityTier('phc')}
+              className={`p-4 rounded-xl border cursor-pointer transition-all ${
+                facilityTier === 'phc'
+                  ? 'border-medical-500 bg-medical-50/40 ring-2 ring-medical-500/20 shadow-sm'
+                  : 'border-slate-200 hover:border-slate-300 bg-white'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <Home className={`w-4 h-4 ${facilityTier === 'phc' ? 'text-medical-600' : 'text-slate-500'}`} />
+                  <h4 className="text-xs font-bold text-slate-800">Rural PHC</h4>
+                </div>
+                {facilityTier === 'phc' && <CheckCircle2 className="w-4 h-4 text-medical-600 shrink-0" />}
+              </div>
+              <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
+                Point-of-care only. Basic ECG, CBC, Glucose. Reason from history, exam, and triage referral.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Clinical Brief Details */}
         <div className="space-y-5">
           <div>
@@ -107,11 +189,14 @@ export default function Briefing({ caseId, onStartSimulation, onNavigate }) {
             <h3 className="text-xs font-bold text-slate-450 uppercase tracking-widest block">Scenario Instructions</h3>
             <div className="p-5 bg-slate-50 border border-slate-200/50 rounded-xl leading-relaxed text-sm font-medium text-slate-600">
               <p>
-                The patient reports feeling uncomfortable for approximately 30 minutes. You are the attending physician in the Emergency Department.
+                The patient reports feeling uncomfortable for approximately 30 minutes. You are the attending clinician at a{' '}
+                <strong className="text-slate-800 uppercase">
+                  {facilityTier === 'phc' ? 'Rural Primary Health Centre (PHC)' : facilityTier === 'chc' ? 'Community Health Centre (CHC)' : 'Tertiary Care Hospital'}
+                </strong>.
               </p>
               <p className="mt-3">
-                To evaluate him successfully, you must ask targeted diagnostic questions, perform a physical examination, and order tests like ECGs or laboratory investigations. 
-                Keep track of your resources—unnecessary advanced tests (like CT scans) will negatively impact your resource efficiency score.
+                Conduct targeted diagnostic history taking, perform physical examinations, and order available investigations. 
+                In resource-constrained tiers, investigations outside the facility capabilities are disabled—you must evaluate red flags and formulate an accurate triage disposition (local management vs. emergency referral).
               </p>
             </div>
           </div>
@@ -119,7 +204,7 @@ export default function Briefing({ caseId, onStartSimulation, onNavigate }) {
           <div className="p-4 bg-amber-50/60 border border-amber-250/50 rounded-xl flex gap-3 text-xs text-amber-800">
             <ShieldCheck className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
             <p className="leading-relaxed">
-              <strong>Evaluation Warning:</strong> This simulation evaluates your reasoning workflow. Make sure to update your differential diagnoses list confidence values as you discover new evidence. Do not submit a final diagnosis without ordering high-yield screening investigations first.
+              <strong>Evaluation Warning:</strong> This simulation evaluates your reasoning workflow and referral triage competency. Make sure to update your differential diagnoses list confidence values as you discover new evidence.
             </p>
           </div>
         </div>

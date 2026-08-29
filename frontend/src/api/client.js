@@ -141,10 +141,10 @@ class ApiClient {
   }
 
   // Simulation endpoints
-  async startSimulation(caseId) {
+  async startSimulation(caseId, facilityTier = 'tertiary') {
     return await this.request('/simulation/start', {
       method: 'POST',
-      body: { case_id: caseId }
+      body: { case_id: caseId, facility_tier: facilityTier }
     });
   }
 

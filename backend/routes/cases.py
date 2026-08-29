@@ -26,12 +26,26 @@ def build_case_brief(c: models.Case) -> dict:
 
 from case_engine.pathway import generate_case_expected_pathway
 
-def build_case_detail(c: models.Case) -> dict:
+def build_case_detail(c: models.Case, facility_tier: str = None) -> dict:
     patient = c.data.get("patient", {})
     presentation = c.data.get("presentation", {})
     vitals = c.data.get("vitals") or patient.get("vitals", {})
     brief = build_case_brief(c)
     pathway = generate_case_expected_pathway(c.data)
+    
+    investigations_out = []
+    for inv in c.data.get("investigations", []):
+        avail_tiers = inv.get("available_at", ["tertiary", "chc", "phc"])
+        inv_item = {
+            "id": inv.get("id"),
+            "name": inv.get("name"),
+            "cost": inv.get("cost", 0),
+            "category": inv.get("category", "OTHER"),
+            "available_at": avail_tiers,
+            "is_available_this_session": (facility_tier in avail_tiers) if facility_tier else True,
+        }
+        investigations_out.append(inv_item)
+
     return {
         **brief,
         "patient_name": patient.get("name", "Unknown Patient"),
@@ -45,15 +59,7 @@ def build_case_detail(c: models.Case) -> dict:
             {"type": ex.get("type"), "name": ex.get("name")}
             for ex in c.data.get("examinations", [])
         ],
-        "investigations": [
-            {
-                "id": inv.get("id"),
-                "name": inv.get("name"),
-                "cost": inv.get("cost", 0),
-                "category": inv.get("category", "OTHER"),
-            }
-            for inv in c.data.get("investigations", [])
-        ],
+        "investigations": investigations_out,
         "differential_options": c.data.get("differential_diagnoses", []),
         "initial_briefing": patient.get("initial_briefing") or presentation.get("initial_briefing", ""),
         "expected_pathway": pathway,

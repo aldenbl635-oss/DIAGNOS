@@ -14,13 +14,27 @@ Base = declarative_base()
 def migrate_db():
     """Apply lightweight schema migrations for existing SQLite databases."""
     inspector = inspect(engine)
-    if "evaluations" in inspector.get_table_names():
-        columns = {col["name"] for col in inspector.get_columns("evaluations")}
-        if "differential_score" not in columns:
-            with engine.begin() as conn:
-                conn.execute(text(
-                    "ALTER TABLE evaluations ADD COLUMN differential_score FLOAT DEFAULT 0"
-                ))
+    table_names = inspector.get_table_names()
+    
+    if "evaluations" in table_names:
+        eval_cols = {col["name"] for col in inspector.get_columns("evaluations")}
+        with engine.begin() as conn:
+            if "differential_score" not in eval_cols:
+                conn.execute(text("ALTER TABLE evaluations ADD COLUMN differential_score FLOAT DEFAULT 0"))
+            if "disposition_score" not in eval_cols:
+                conn.execute(text("ALTER TABLE evaluations ADD COLUMN disposition_score FLOAT DEFAULT 0"))
+            if "disposition_correct" not in eval_cols:
+                conn.execute(text("ALTER TABLE evaluations ADD COLUMN disposition_correct TEXT"))
+            if "disposition_expected" not in eval_cols:
+                conn.execute(text("ALTER TABLE evaluations ADD COLUMN disposition_expected TEXT"))
+
+    if "simulation_sessions" in table_names:
+        session_cols = {col["name"] for col in inspector.get_columns("simulation_sessions")}
+        with engine.begin() as conn:
+            if "facility_tier" not in session_cols:
+                conn.execute(text("ALTER TABLE simulation_sessions ADD COLUMN facility_tier TEXT DEFAULT 'tertiary'"))
+            if "disposition" not in session_cols:
+                conn.execute(text("ALTER TABLE simulation_sessions ADD COLUMN disposition TEXT"))
 
 def get_db():
     db = SessionLocal()

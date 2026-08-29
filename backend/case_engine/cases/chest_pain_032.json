@@ -105,7 +105,12 @@
       "category": "CARDIAC",
       "turnaround": "Immediate",
       "result": "Normal sinus rhythm, regular rate 72 bpm, no ST/T abnormalities.",
-      "interpretation": "Normal ECG showing sinus rhythm."
+      "interpretation": "Normal ECG showing sinus rhythm.",
+      "available_at": [
+        "tertiary",
+        "chc",
+        "phc"
+      ]
     },
     {
       "id": "troponin",
@@ -114,7 +119,11 @@
       "category": "BLOOD TESTS",
       "turnaround": "30 mins",
       "result": "Troponin I is < 0.01 ng/mL.",
-      "interpretation": "Normal cardiac enzyme profile."
+      "interpretation": "Normal cardiac enzyme profile.",
+      "available_at": [
+        "tertiary",
+        "chc"
+      ]
     },
     {
       "id": "cbc",
@@ -123,7 +132,12 @@
       "category": "BLOOD TESTS",
       "turnaround": "30 mins",
       "result": "WBC: 15.2 x10^9/L (Elevated), Hb: 12.8 g/dL, Platelets: 280 x10^9/L.",
-      "interpretation": "Marked leukocytosis confirming active systemic bacterial infection."
+      "interpretation": "Marked leukocytosis confirming active systemic bacterial infection.",
+      "available_at": [
+        "tertiary",
+        "chc",
+        "phc"
+      ]
     },
     {
       "id": "glucose",
@@ -132,7 +146,12 @@
       "category": "BLOOD TESTS",
       "turnaround": "Immediate",
       "result": "Random Blood Glucose: 98 mg/dL.",
-      "interpretation": "Normal arterial glucose levels."
+      "interpretation": "Normal arterial glucose levels.",
+      "available_at": [
+        "tertiary",
+        "chc",
+        "phc"
+      ]
     },
     {
       "id": "electrolytes",
@@ -141,7 +160,11 @@
       "category": "BLOOD TESTS",
       "turnaround": "30 mins",
       "result": "Sodium: 140 mEq/L, Potassium: 4.0 mEq/L.",
-      "interpretation": "Serum electrolytes are within normal range."
+      "interpretation": "Serum electrolytes are within normal range.",
+      "available_at": [
+        "tertiary",
+        "chc"
+      ]
     },
     {
       "id": "cxr",
@@ -150,7 +173,11 @@
       "category": "IMAGING",
       "turnaround": "15 mins",
       "result": "Both lungs are hypolucent, no vascular congestion or consolidation.",
-      "interpretation": "Normal chest X-ray profile."
+      "interpretation": "Normal chest X-ray profile.",
+      "available_at": [
+        "tertiary",
+        "chc"
+      ]
     },
     {
       "id": "ct_angio",
@@ -159,7 +186,10 @@
       "category": "IMAGING",
       "turnaround": "45 mins",
       "result": "Normal caliber aorta, no luminal narrowing, no dissection flap visible.",
-      "interpretation": "Normal chest CT Angiography."
+      "interpretation": "Normal chest CT Angiography.",
+      "available_at": [
+        "tertiary"
+      ]
     },
     {
       "id": "ct_head",
@@ -168,7 +198,10 @@
       "category": "IMAGING",
       "turnaround": "30 mins",
       "result": "No acute hemorrhage, infarct, or midline shifts found in cranial structures.",
-      "interpretation": "Normal CT Scan of the Head."
+      "interpretation": "Normal CT Scan of the Head.",
+      "available_at": [
+        "tertiary"
+      ]
     },
     {
       "id": "ct_abdomen",
@@ -177,7 +210,10 @@
       "category": "IMAGING",
       "turnaround": "45 mins",
       "result": "Stomach, liver, bowel loops, and appendix are normal size with no inflammatory changes.",
-      "interpretation": "Normal CT Scan of the Abdomen."
+      "interpretation": "Normal CT Scan of the Abdomen.",
+      "available_at": [
+        "tertiary"
+      ]
     },
     {
       "id": "urinalysis",
@@ -186,7 +222,12 @@
       "category": "URINE TESTS",
       "turnaround": "15 mins",
       "result": "Turbid color, pH 6.5, Positive Nitrites, Positive Leukocyte Esterase, WBC: >50 per high-power-field (hpf), Urine Bacteria: Moderate.",
-      "interpretation": "Active bacterial urinary tract infection (UTI) involving pyuria and bacteriuria; matches Pyelonephritis."
+      "interpretation": "Active bacterial urinary tract infection (UTI) involving pyuria and bacteriuria; matches Pyelonephritis.",
+      "available_at": [
+        "tertiary",
+        "chc",
+        "phc"
+      ]
     },
     {
       "id": "leg_ultrasound",
@@ -195,7 +236,10 @@
       "category": "IMAGING",
       "turnaround": "30 mins",
       "result": "Normal patency of left and right femoral veins with complete color Doppler signal.",
-      "interpretation": "Normal leg vascular ultrasound."
+      "interpretation": "Normal leg vascular ultrasound.",
+      "available_at": [
+        "tertiary"
+      ]
     }
   ],
   "differential_diagnoses": [
@@ -272,6 +316,19 @@
     ],
     "unnecessary_investigations": [
       "ct_head"
-    ]
+    ],
+    "referral_criteria": {
+      "red_flags": [
+        "High fever (>38.5C) with systemic rigors",
+        "Exquisite costovertebral angle (CVA) tenderness",
+        "Intractable nausea/vomiting and inability to maintain oral hydration"
+      ],
+      "correct_disposition_by_tier": {
+        "tertiary": "manage_locally",
+        "chc": "manage_locally",
+        "phc": "refer"
+      },
+      "rationale": "Systemic bacterial upper urinary tract infection requiring parenteral antibiotic therapy and close inpatient observation."
+    }
   }
 }

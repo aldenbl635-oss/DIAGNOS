@@ -612,6 +612,7 @@ def generate_50_cases():
                     "cost": 100,
                     "category": "CARDIAC",
                     "turnaround": "Immediate",
+                    "available_at": ["tertiary", "chc", "phc"],
                     "result": n_ecg_res,
                     "interpretation": n_ecg_int
                 },
@@ -621,6 +622,7 @@ def generate_50_cases():
                     "cost": 150,
                     "category": "BLOOD TESTS",
                     "turnaround": "30 mins",
+                    "available_at": ["tertiary", "chc"],
                     "result": n_trop_res,
                     "interpretation": n_trop_int
                 },
@@ -630,6 +632,7 @@ def generate_50_cases():
                     "cost": 80,
                     "category": "BLOOD TESTS",
                     "turnaround": "30 mins",
+                    "available_at": ["tertiary", "chc", "phc"],
                     "result": n_cbc_res,
                     "interpretation": n_cbc_int
                 },
@@ -639,6 +642,7 @@ def generate_50_cases():
                     "cost": 50,
                     "category": "BLOOD TESTS",
                     "turnaround": "Immediate",
+                    "available_at": ["tertiary", "chc", "phc"],
                     "result": n_gluc_res,
                     "interpretation": n_gluc_int
                 },
@@ -648,6 +652,7 @@ def generate_50_cases():
                     "cost": 90,
                     "category": "BLOOD TESTS",
                     "turnaround": "30 mins",
+                    "available_at": ["tertiary", "chc"],
                     "result": n_elec_res,
                     "interpretation": n_elec_int
                 },
@@ -657,6 +662,7 @@ def generate_50_cases():
                     "cost": 180,
                     "category": "IMAGING",
                     "turnaround": "15 mins",
+                    "available_at": ["tertiary", "chc"],
                     "result": n_cxr_res,
                     "interpretation": n_cxr_int
                 },
@@ -666,6 +672,7 @@ def generate_50_cases():
                     "cost": 550,
                     "category": "IMAGING",
                     "turnaround": "45 mins",
+                    "available_at": ["tertiary"],
                     "result": n_ct_angio_res,
                     "interpretation": n_ct_angio_int
                 },
@@ -675,6 +682,7 @@ def generate_50_cases():
                     "cost": 350,
                     "category": "IMAGING",
                     "turnaround": "30 mins",
+                    "available_at": ["tertiary"],
                     "result": n_ct_head_res,
                     "interpretation": n_ct_head_int
                 },
@@ -684,6 +692,7 @@ def generate_50_cases():
                     "cost": 450,
                     "category": "IMAGING",
                     "turnaround": "45 mins",
+                    "available_at": ["tertiary"],
                     "result": n_ct_abd_res,
                     "interpretation": n_ct_abd_int
                 },
@@ -693,6 +702,7 @@ def generate_50_cases():
                     "cost": 70,
                     "category": "URINE TESTS",
                     "turnaround": "15 mins",
+                    "available_at": ["tertiary", "chc", "phc"],
                     "result": n_uri_res,
                     "interpretation": n_uri_int
                 },
@@ -702,6 +712,7 @@ def generate_50_cases():
                     "cost": 220,
                     "category": "IMAGING",
                     "turnaround": "30 mins",
+                    "available_at": ["tertiary"],
                     "result": n_us_res,
                     "interpretation": n_us_int
                 }
@@ -732,7 +743,16 @@ def generate_50_cases():
                     "family_history"
                 ],
                 "required_investigations": req_inv,
-                "unnecessary_investigations": unnec_inv
+                "unnecessary_investigations": unnec_inv,
+                "referral_criteria": {
+                    "red_flags": symptoms[:3],
+                    "correct_disposition_by_tier": {
+                        "tertiary": "manage_locally",
+                        "chc": "refer" if diag_choice in ["ACS", "Stroke", "Appendicitis"] else "manage_locally",
+                        "phc": "manage_locally" if diag_choice in ["GERD", "Migraine", "Panic Attack"] else "refer"
+                    },
+                    "rationale": f"Guidelines disposition for {diag_choice} across facility tiers."
+                }
             }
         }
         

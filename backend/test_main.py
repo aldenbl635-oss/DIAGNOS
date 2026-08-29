@@ -440,7 +440,7 @@ def test_case_specific_critical_mistakes_stroke():
         models.StudentAction(session_id=session.id, action_type="investigation", content="Complete Blood Count", category="cbc"),
     ]
 
-    scores, strengths, weaknesses, critical_mistakes = evaluate_session_rules(session, stroke_case, actions)
+    scores, strengths, weaknesses, critical_mistakes, *_ = evaluate_session_rules(session, stroke_case, actions)
 
     # Verify that mistakes are strictly Stroke-specific and DO NOT mention cardiac/ECG
     mistakes_text = " ".join(critical_mistakes).lower()
@@ -498,7 +498,7 @@ def test_zero_critical_mistakes_on_perfect_run():
         models.StudentAction(session_id=session.id, action_type="diagnosis_update", content="Updated differentials: Acute STEMI (95%)", category="diagnosis"),
     ]
 
-    scores, strengths, weaknesses, critical_mistakes = evaluate_session_rules(session, acs_case, actions)
+    scores, strengths, weaknesses, critical_mistakes, *_ = evaluate_session_rules(session, acs_case, actions)
 
     # Perfect run must have 0 critical mistakes
     assert len(critical_mistakes) == 0
@@ -509,4 +509,98 @@ def test_zero_critical_mistakes_on_perfect_run():
     assert scores["decision_score"] == 5.0
 
 
+def test_phc_mode_investigation_restrictions_and_referral_scoring(client):
+    # Register student to get auth token
+    email = "phc_student1@diagnos.org"
+    res = client.post("/api/auth/register", json={"name": "PHC Student 1", "email": email, "password": "password123"})
+    token = res.json()["access_token"]
+    headers = {"Authorization": f"Bearer {token}"}
 
+    # 1. Start simulation in PHC mode on chest_pain_001
+    start_res = client.post(
+        "/api/simulation/start",
+        json={"case_id": "chest_pain_001", "facility_tier": "phc"},
+        headers=headers
+    )
+    assert start_res.status_code == 200
+    session_id = start_res.json()["id"]
+    assert start_res.json()["facility_tier"] == "phc"
+    assert start_res.json()["remaining_resources"] == 1000
+
+    # 2. Attempt to order troponin (unavailable at PHC tier)
+    trop_res = client.post(
+        f"/api/simulation/{session_id}/investigation",
+        json={"investigation_id": "troponin"},
+        headers=headers
+    )
+    assert trop_res.status_code == 400
+    assert "not available at PHC facility level" in trop_res.json()["detail"]
+
+    # 3. Assert remaining resources were NOT deducted for the unavailable test
+    session_res = client.get(f"/api/simulation/{session_id}", headers=headers)
+    assert session_res.status_code == 200
+    assert session_res.json()["session"]["remaining_resources"] == 1000
+
+    # 4. Order ECG (available at PHC tier)
+    ecg_res = client.post(
+        f"/api/simulation/{session_id}/investigation",
+        json={"investigation_id": "ecg"},
+        headers=headers
+    )
+    assert ecg_res.status_code == 200
+    assert ecg_res.json()["remaining_resources"] == 900
+
+    # 5. Submit final diagnosis with disposition="refer" (guideline-concordant for acute STEMI at a PHC)
+    eval_res = client.post(
+        f"/api/simulation/{session_id}/evaluate",
+        json={
+            "final_diagnosis": "Acute Coronary Syndrome",
+            "immediate_priority": "Loading dose Aspirin 325mg and emergent 108 ambulance referral to tertiary PCI center",
+            "evidence_justification": "ECG confirms acute ST elevation. Resource-constrained PHC requires urgent transfer.",
+            "disposition": "refer"
+        },
+        headers=headers
+    )
+    assert eval_res.status_code == 200
+    eval_data = eval_res.json()["evaluation"]
+    assert eval_data["disposition_score"] == 5.0
+    assert eval_data["disposition_correct"] == "refer"
+    assert eval_data["disposition_expected"] == "refer"
+
+
+def test_phc_mode_wrong_disposition_penalty(client):
+    # Register student to get auth token
+    email = "phc_student2@diagnos.org"
+    res = client.post("/api/auth/register", json={"name": "PHC Student 2", "email": email, "password": "password123"})
+    token = res.json()["access_token"]
+    headers = {"Authorization": f"Bearer {token}"}
+
+    # Start session in PHC mode on chest_pain_001
+    start_res = client.post(
+        "/api/simulation/start",
+        json={"case_id": "chest_pain_001", "facility_tier": "phc"},
+        headers=headers
+    )
+    assert start_res.status_code == 200
+    session_id = start_res.json()["id"]
+
+    # Submit final diagnosis with inappropriate local management at a PHC
+    eval_res = client.post(
+        f"/api/simulation/{session_id}/evaluate",
+        json={
+            "final_diagnosis": "Acute Coronary Syndrome",
+            "immediate_priority": "Oral medication only and observe in ward",
+            "evidence_justification": "Suspected ACS.",
+            "disposition": "manage_locally"
+        },
+        headers=headers
+    )
+    assert eval_res.status_code == 200
+    eval_data = eval_res.json()["evaluation"]
+    assert eval_data["disposition_score"] == 0.0
+    assert eval_data["disposition_correct"] == "manage_locally"
+    assert eval_data["disposition_expected"] == "refer"
+    
+    # Assert critical mistake flagged for attempting to manage emergency at PHC without referral
+    critical_text = " ".join(eval_data["critical_mistakes"]).lower()
+    assert "referral" in critical_text or "phc" in critical_text

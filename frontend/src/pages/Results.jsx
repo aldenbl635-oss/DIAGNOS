@@ -14,7 +14,12 @@ import {
   CornerDownRight,
   ShieldCheck,
   Heart,
-  MessageSquare
+  MessageSquare,
+  Building2,
+  Building,
+  Home,
+  Compass,
+  Share2
 } from 'lucide-react';
 
 export default function Results({ sessionId, onNavigate }) {
@@ -255,6 +260,89 @@ export default function Results({ sessionId, onNavigate }) {
           )}
         </div>
 
+      </div>
+
+      {/* Facility Triage & Referral Disposition Competency Card */}
+      <div className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm space-y-5">
+        <div className="border-b border-slate-100 pb-3 flex justify-between items-center flex-wrap gap-4">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 bg-indigo-50 text-indigo-600 rounded-xl border border-indigo-100">
+              <Compass className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="font-bold text-slate-800">Referral & Facility Triage Disposition Assessment</h3>
+              <p className="text-xs text-slate-500 font-semibold mt-0.5">
+                Evaluating resource-constrained triage accuracy, red flag recognition, and transfer decision safety.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            {/* Facility Tier Badge */}
+            <span className="flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-lg border bg-slate-50 text-slate-700 border-slate-200">
+              {session.facility_tier === 'phc' ? (
+                <>
+                  <Home className="w-3.5 h-3.5 text-amber-600" /> Rural PHC Tier
+                </>
+              ) : session.facility_tier === 'chc' ? (
+                <>
+                  <Building className="w-3.5 h-3.5 text-blue-600" /> District CHC Tier
+                </>
+              ) : (
+                <>
+                  <Building2 className="w-3.5 h-3.5 text-medical-600" /> Tertiary Hospital Tier
+                </>
+              )}
+            </span>
+
+            {/* Disposition Score Badge */}
+            <div className="flex items-center gap-2 bg-indigo-50/70 border border-indigo-100 px-3 py-1 rounded-lg text-xs font-bold text-indigo-900">
+              <span>Competency Score:</span>
+              <span className="text-sm font-extrabold text-indigo-700">
+                {evaluation.disposition_score !== undefined ? evaluation.disposition_score : 5.0} / 5.0
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Triage Decision Comparison Grid */}
+        <div className="grid md:grid-cols-2 gap-4">
+          {/* Student Choice */}
+          <div className="p-4 rounded-xl border border-slate-200/80 bg-slate-50/50 space-y-2">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Student Disposition Choice</span>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-bold text-slate-800 capitalize">
+                {(evaluation.disposition_correct || session.disposition || 'manage_locally').replace(/_/g, ' ')}
+              </span>
+              {((evaluation.disposition_correct || session.disposition || 'manage_locally') === (evaluation.disposition_expected || 'manage_locally') || session.facility_tier === 'tertiary') ? (
+                <span className="flex items-center gap-1 text-xs font-bold text-emerald-750 bg-emerald-100/70 border border-emerald-200 px-2 py-0.5 rounded-md">
+                  <CheckCircle className="w-3.5 h-3.5" /> Guideline Concordant
+                </span>
+              ) : (
+                <span className="flex items-center gap-1 text-xs font-bold text-red-750 bg-red-100/70 border border-red-200 px-2 py-0.5 rounded-md">
+                  <AlertCircle className="w-3.5 h-3.5" /> Suboptimal Triage
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Expected Guideline */}
+          <div className="p-4 rounded-xl border border-slate-200/80 bg-slate-50/50 space-y-2">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Guideline Expected Disposition</span>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-bold text-slate-800 capitalize">
+                {(evaluation.disposition_expected || 'manage_locally').replace(/_/g, ' ')}
+              </span>
+              <span className="text-[11px] font-semibold text-slate-500">
+                {session.facility_tier === 'phc'
+                  ? 'Based on PHC equipment limits & clinical red flags'
+                  : session.facility_tier === 'chc'
+                  ? 'Based on CHC secondary capacity'
+                  : 'Full tertiary intervention available'}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Therapeutic Communication & Empathy Card */}

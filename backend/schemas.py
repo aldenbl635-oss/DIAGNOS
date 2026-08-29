@@ -59,6 +59,8 @@ class InvestigationBriefOut(BaseModel):
     name: str
     cost: int
     category: str
+    available_at: List[str] = ["tertiary", "chc", "phc"]
+    is_available_this_session: Optional[bool] = None
 
 class PathwayNodeOut(BaseModel):
     label: str
@@ -76,10 +78,12 @@ class CaseDetailOut(CaseBriefOut):
 # Simulation schemas
 class SimulationStart(BaseModel):
     case_id: str
+    facility_tier: str = "tertiary"  # "tertiary" | "chc" | "phc"
 
 class SimulationSessionOut(BaseModel):
     id: str
     case_id: str
+    facility_tier: str = "tertiary"
     remaining_resources: int
     elapsed_seconds: int
     status: str
@@ -87,6 +91,7 @@ class SimulationSessionOut(BaseModel):
     final_diagnosis: Optional[str] = None
     immediate_priority: Optional[str] = None
     evidence_justification: Optional[str] = None
+    disposition: Optional[str] = None
     created_at: datetime
     completed_at: Optional[datetime] = None
 
@@ -135,6 +140,7 @@ class FinalDiagnosisSubmit(BaseModel):
     final_diagnosis: str
     immediate_priority: str
     evidence_justification: str
+    disposition: str = "manage_locally"  # "manage_locally" | "refer" | "treat_symptomatically"
 
 # Evaluation & dashboard schemas
 class ChatMessageOut(BaseModel):
@@ -150,6 +156,7 @@ class InvestigationStateOut(BaseModel):
     cost: int
     result: str
     interpretation: str
+    available_at: List[str] = ["tertiary", "chc", "phc"]
 
 class SimulationSessionDetailOut(BaseModel):
     session: SimulationSessionOut
@@ -169,6 +176,9 @@ class EvaluationOut(BaseModel):
     reasoning_score: float
     decision_score: float
     resource_efficiency_score: float
+    disposition_score: float = 0.0
+    disposition_correct: Optional[str] = None
+    disposition_expected: Optional[str] = None
     final_score: float
     strengths: List[str]
     weaknesses: List[str]

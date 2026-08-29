@@ -132,7 +132,7 @@ def evaluate_clinical_reasoning(
     actions: List[models.StudentAction]
 ) -> models.Evaluation:
     # 1. Compute rule-based metrics
-    rules_scores, rule_strengths, rule_weaknesses, rule_critical = evaluate_session_rules(session, case_data, actions)
+    rules_scores, rule_strengths, rule_weaknesses, rule_critical, disp_score, disp_chosen, disp_expected = evaluate_session_rules(session, case_data, actions)
     
     ai_eval_result = {}
     
@@ -353,6 +353,8 @@ def evaluate_clinical_reasoning(
     merged_critical = list(set(rule_critical + ai_eval_result.get("critical_mistakes", []) + comm_critical))
     
     # Construct Evaluation model
+    # Note: disposition_score is an additive 5-point competency dimension specifically assessing
+    # resource-constrained triage and referral decision accuracy at CHC and PHC facility tiers.
     evaluation = models.Evaluation(
         session_id=session.id,
         history_score=rules_scores["history_score"],
@@ -362,6 +364,9 @@ def evaluate_clinical_reasoning(
         reasoning_score=round(ai_reasoning_scaled, 1),
         decision_score=rules_scores["decision_score"],
         resource_efficiency_score=rules_scores["resource_efficiency_score"],
+        disposition_score=round(disp_score, 1),
+        disposition_correct=disp_chosen,
+        disposition_expected=disp_expected,
         communication_score=round(comm_score, 1),
         empathy_score=round(empathy, 1),
         patient_interaction_score=round(interaction, 1),

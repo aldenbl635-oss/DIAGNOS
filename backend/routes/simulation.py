@@ -221,7 +221,7 @@ def get_session(
 
     workspace = rebuild_workspace_state(session, case.data, actions)
 
-    case_detail = build_case_detail(case)
+    case_detail = build_case_detail(case, session.facility_tier)
     if session.patient_agent_state:
         current_emotion = session.patient_agent_state.get("emotion", {})
         case_detail["vitals"] = get_dynamic_vitals(case.data.get("patient", {}).get("vitals", {}), current_emotion, case.data)
@@ -252,6 +252,7 @@ def start_simulation(
         id=session_id,
         user_id=current_user.id,
         case_id=case.id,
+        facility_tier=payload.facility_tier or "tertiary",
         remaining_resources=1000,
         elapsed_seconds=0,
         status="in_progress",
@@ -483,6 +484,15 @@ def order_investigation(
     if not selected_inv:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Investigation not found in this case")
         
+    # Check facility tier availability
+    avail_tiers = selected_inv.get("available_at", ["tertiary", "chc", "phc"])
+    tier = session.facility_tier or "tertiary"
+    if tier not in avail_tiers:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Investigation '{selected_inv.get('name')}' is not available at {tier.upper()} facility level."
+        )
+
     cost = selected_inv.get("cost", 0)
     
     # Check budget
@@ -602,7 +612,7 @@ def submit_and_evaluate(
     case = db.query(models.Case).filter(models.Case.id == session.case_id).first()
     case_data = case.data if case else (case_engine.get_case(session.case_id) or {})
     expected_pathway = generate_case_expected_pathway(case_data)
-    case_detail = build_case_detail(case) if case else None
+    case_detail = build_case_detail(case, session.facility_tier) if case else None
 
     if session.status == "completed":
         # Check if already evaluated, if yes just return the evaluation
@@ -621,6 +631,7 @@ def submit_and_evaluate(
     session.final_diagnosis = payload.final_diagnosis
     session.immediate_priority = payload.immediate_priority
     session.evidence_justification = payload.evidence_justification
+    session.disposition = payload.disposition
     session.status = "completed"
     session.completed_at = datetime.datetime.now(timezone.utc)
     
@@ -665,7 +676,7 @@ def get_results(
     case = db.query(models.Case).filter(models.Case.id == session.case_id).first()
     case_data = case.data if case else (case_engine.get_case(session.case_id) or {})
     expected_pathway = generate_case_expected_pathway(case_data)
-    case_detail = build_case_detail(case) if case else None
+    case_detail = build_case_detail(case, session.facility_tier) if case else None
     
     return {
         "session": session,

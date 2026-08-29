@@ -188,10 +188,37 @@ def evaluate_session_rules(
         weaknesses.append(f"Incorrect final diagnosis. Submitted: '{submitted_label}', expected: '{target_name}'.")
         critical_mistakes.append(f"Incorrect final diagnosis: Submitted '{submitted_label}', but the correct clinical diagnosis was '{target_name}'.")
 
-    return {
+    # ── 7. Evaluate Referral / Triage Disposition (Additive Competency) ───────
+    referral_criteria = criteria.get("referral_criteria", {})
+    tier = getattr(session, "facility_tier", "tertiary") or "tertiary"
+    tier_map = referral_criteria.get("correct_disposition_by_tier", {})
+    correct_disposition = tier_map.get(tier, "manage_locally" if tier == "tertiary" else "refer")
+    student_disposition = getattr(session, "disposition", None) or "manage_locally"
+    
+    if tier == "tertiary":
+        # At tertiary hospital, all modalities are available; standard local management is accepted
+        disposition_score = 5.0 if student_disposition in ["manage_locally", correct_disposition] else 2.5
+    else:
+        # At CHC or PHC, triage and referral thresholds are strictly evaluated
+        disposition_score = 5.0 if student_disposition == correct_disposition else 0.0
+
+    if tier != "tertiary":
+        if student_disposition == correct_disposition:
+            strengths.append(f"Correctly recognized the limits of this {tier.upper()} facility tier and executed safe disposition ('{student_disposition.replace('_', ' ')}').")
+        else:
+            weaknesses.append(f"Inappropriate facility disposition. Selected '{student_disposition.replace('_', ' ')}', but clinical guidelines indicate '{correct_disposition.replace('_', ' ')}' for {tier.upper()} tier.")
+            if correct_disposition == "refer" and student_disposition == "manage_locally":
+                critical_mistakes.append(f"Attempted to manage a case requiring referral at a {tier.upper()} facility without the resources to safely do so.")
+            elif correct_disposition == "manage_locally" and student_disposition == "refer":
+                weaknesses.append(f"Unnecessary referral from {tier.upper()} tier for a condition that can be safely managed locally.")
+
+    scores = {
         "history_score": round(history_score, 1),
         "investigation_score": round(investigation_score, 1),
         "resource_efficiency_score": round(efficiency_score, 1),
         "differential_score": round(differential_score, 1),
         "decision_score": round(decision_score, 1),
-    }, strengths, weaknesses, critical_mistakes
+        "disposition_score": round(disposition_score, 1),
+    }
+
+    return scores, strengths, weaknesses, critical_mistakes, disposition_score, student_disposition, correct_disposition

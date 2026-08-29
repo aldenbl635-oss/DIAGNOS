@@ -48,10 +48,14 @@ class SimulationSession(Base):
     # Virtual patient agent state (emotion, memory, personality, beliefs)
     patient_agent_state = Column(JSON, nullable=True, default=None)
 
+    # Facility tier mode ("tertiary" | "chc" | "phc")
+    facility_tier = Column(String, default="tertiary")
+
     # Final submission
     final_diagnosis = Column(String, nullable=True)
     immediate_priority = Column(Text, nullable=True)
     evidence_justification = Column(Text, nullable=True)
+    disposition = Column(String, nullable=True)  # "manage_locally" | "refer" | "treat_symptomatically"
 
     created_at = Column(DateTime, default=lambda: datetime.datetime.now(timezone.utc))
     completed_at = Column(DateTime, nullable=True)
@@ -94,7 +98,12 @@ class Evaluation(Base):
     decision_score = Column(Float, default=0)
     resource_efficiency_score = Column(Float, default=0)
 
-    # New: Communication and patient interaction scores
+    # Disposition / Referral Triage score
+    disposition_score = Column(Float, default=0)
+    disposition_correct = Column(String, nullable=True)  # what the student chose
+    disposition_expected = Column(String, nullable=True)  # what was correct for this tier
+
+    # Communication and patient interaction scores
     communication_score = Column(Float, default=0)
     empathy_score = Column(Float, default=0)
     patient_interaction_score = Column(Float, default=0)
