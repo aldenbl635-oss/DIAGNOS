@@ -37,7 +37,16 @@ class ApiClient {
 
     try {
       const response = await fetch(url, config);
-      const data = await response.json();
+      const text = await response.text();
+
+      let data = {};
+      if (text) {
+        try {
+          data = JSON.parse(text);
+        } catch (e) {
+          throw new Error(`Invalid JSON from server. Response starts with: ${text.slice(0, 60)}`);
+        }
+      }
 
       if (!response.ok) {
         let errorMessage = 'An unexpected error occurred.';
@@ -79,10 +88,10 @@ class ApiClient {
   }
 
   // Auth endpoints
-  async register(name, email, password) {
+  async register(name, email, password, specialization) {
     const res = await this.request('/auth/register', {
       method: 'POST',
-      body: { name, email, password }
+      body: { name, email, password, specialization }
     });
     this.setToken(res.access_token);
     return res.user;
@@ -99,6 +108,13 @@ class ApiClient {
 
   logout() {
     this.setToken(null);
+  }
+
+  async updateSpecialization(specialization) {
+    return this.request('/auth/me/specialization', {
+      method: 'PUT',
+      body: { specialization }
+    });
   }
 
   async getMe() {
@@ -181,6 +197,10 @@ class ApiClient {
   // Dashboard endpoints
   async getDashboard() {
     return await this.request('/dashboard');
+  }
+
+  async getDataSources() {
+    return await this.request('/simulation/data-sources/status');
   }
 }
 

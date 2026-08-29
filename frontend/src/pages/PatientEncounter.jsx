@@ -98,10 +98,11 @@ function MessageBubble({ msg, patientName }) {
             msg.communication_state === 'frightened' ? 'Frightened' :
               msg.communication_state === 'shocked' ? 'Shocked' :
                 msg.communication_state === 'concerned' ? 'Concerned' :
-                  msg.communication_state === 'guarded' ? 'Anxious' :
+                  (msg.communication_state === 'guarded' || msg.communication_state === 'anxious') ? 'Anxious' :
                     msg.communication_state === 'reassured' ? 'Reassured' :
-                      msg.communication_state === 'angry' ? 'Angry' :
-                        msg.communication_state === 'confused' ? 'Confused' : 'Calm'
+                      (msg.communication_state === 'angry' || msg.communication_state === 'frustrated') ? 'Angry' :
+                        (msg.communication_state === 'devastated' || msg.communication_state === 'distressed') ? 'Distressed' :
+                          msg.communication_state === 'confused' ? 'Confused' : 'Calm'
           } size="sm" />
         </div>
       )}
@@ -225,6 +226,16 @@ export default function PatientEncounter({ sessionId, onNavigate, onEncounterCom
       const resp = await api.performExamination(sessionId, examType);
       setExamsRevealed(prev => ({ ...prev, [examType]: resp.result }));
       setRemainingResources(resp.remaining_resources);
+      if (resp.patient_reaction) {
+        const reactionMsg = {
+          role: 'patient',
+          text: resp.patient_reaction,
+          emotion_label: emotionLabel,
+        };
+        setTimeout(() => {
+          setMessages(prev => [...prev, reactionMsg]);
+        }, 600);
+      }
     } catch (err) { console.error(err); }
   };
 
@@ -239,19 +250,24 @@ export default function PatientEncounter({ sessionId, onNavigate, onEncounterCom
       }));
       setRemainingResources(resp.remaining_resources);
       if (resp.elapsed_seconds > elapsedSeconds) setElapsedSeconds(resp.elapsed_seconds);
-      // Patient reacts — add contextual message
+
+      // Patient reacts — add contextual message from server or fallback
+      const reactionVal = resp.patient_reaction || (
+        resp.name?.toLowerCase().includes('ecg') || resp.name?.toLowerCase().includes('electrocardiogram')
+          ? "An ECG? Is there something wrong with my heart? That's what I was afraid of..."
+          : resp.name?.toLowerCase().includes('troponin') || resp.name?.toLowerCase().includes('cardiac')
+            ? "What's that blood test checking for? Is it serious?"
+            : resp.name?.toLowerCase().includes('ct') || resp.name?.toLowerCase().includes('scan')
+              ? "A scan? Oh... that sounds serious. What are you looking for?"
+              : `You've gone quiet... ${resp.name ? `Is that ${resp.name} for me?` : 'Is something wrong?'}`
+      );
+
       const reactionMsg = {
         role: 'patient',
-        text: `You've gone quiet... ${resp.name ? `Is that ${resp.name} for me?` : 'Is something wrong?'}`,
+        text: reactionVal,
         emotion_label: emotionLabel,
       };
-      if (['ECG', 'Electrocardiogram', '12-Lead ECG'].some(n => resp.name?.includes(n))) {
-        reactionMsg.text = "An ECG? Is there something wrong with my heart? That's what I was afraid of...";
-      } else if (resp.name?.toLowerCase().includes('troponin') || resp.name?.toLowerCase().includes('cardiac')) {
-        reactionMsg.text = "What's that blood test checking for? Is it serious?";
-      } else if (resp.name?.toLowerCase().includes('ct') || resp.name?.toLowerCase().includes('scan')) {
-        reactionMsg.text = "A scan? Oh... that sounds serious. What are you looking for?";
-      }
+
       setTimeout(() => {
         setMessages(prev => [...prev, reactionMsg]);
       }, 600);
@@ -322,7 +338,7 @@ export default function PatientEncounter({ sessionId, onNavigate, onEncounterCom
   }
 
   return (
-    <div className="encounter-room" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div className="encounter-room text-slate-200" style={{ position: 'fixed', inset: 0, height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', zIndex: 40 }}>
 
       {/* ─── TOP BAR ─────────────────────────────────────── */}
       <div

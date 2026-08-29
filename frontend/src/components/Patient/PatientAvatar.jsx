@@ -7,27 +7,27 @@ import React from 'react';
  */
 
 const EMOTION_CONFIG = {
-  Calm:       { eyebrowY: 0, eyeOpen: 1,    mouth: 'neutral',  color: '#14b8a6', shadow: 'rgba(20,184,166,0.15)' },
-  Concerned:  { eyebrowY: -3, eyeOpen: 1.1,  mouth: 'slight-frown', color: '#f59e0b', shadow: 'rgba(245,158,11,0.15)' },
-  Anxious:    { eyebrowY: -5, eyeOpen: 1.2,  mouth: 'frown',   color: '#f97316', shadow: 'rgba(249,115,22,0.2)' },
-  Distressed: { eyebrowY: -7, eyeOpen: 1.3,  mouth: 'open',    color: '#ef4444', shadow: 'rgba(239,68,68,0.2)' },
-  Frightened: { eyebrowY: -9, eyeOpen: 1.5,  mouth: 'wide',    color: '#dc2626', shadow: 'rgba(220,38,38,0.3)' },
-  Shocked:    { eyebrowY: -11, eyeOpen: 1.7, mouth: 'shocked', color: '#8b5cf6', shadow: 'rgba(139,92,246,0.35)' },
-  Reassured:  { eyebrowY: 1,  eyeOpen: 0.9,  mouth: 'smile',   color: '#22c55e', shadow: 'rgba(34,197,94,0.15)' },
-  Angry:      { eyebrowY: 3,  eyeOpen: 1.1,  mouth: 'slight-frown', color: '#f87171', shadow: 'rgba(248,113,113,0.2)' },
-  Confused:   { eyebrowY: -4, eyeOpen: 1.15, mouth: 'slight-frown', color: '#94a3b8', shadow: 'rgba(148,163,184,0.15)' },
+  Calm: { eyebrowY: 0, eyeOpen: 1, mouth: 'neutral', color: '#14b8a6', shadow: 'rgba(20,184,166,0.15)' },
+  Concerned: { eyebrowY: -3, eyeOpen: 1.1, mouth: 'slight-frown', color: '#f59e0b', shadow: 'rgba(245,158,11,0.15)' },
+  Anxious: { eyebrowY: -5, eyeOpen: 1.2, mouth: 'frown', color: '#f97316', shadow: 'rgba(249,115,22,0.2)' },
+  Distressed: { eyebrowY: -7, eyeOpen: 1.3, mouth: 'open', color: '#ef4444', shadow: 'rgba(239,68,68,0.2)' },
+  Frightened: { eyebrowY: -9, eyeOpen: 1.5, mouth: 'wide', color: '#dc2626', shadow: 'rgba(220,38,38,0.3)' },
+  Shocked: { eyebrowY: -11, eyeOpen: 1.7, mouth: 'shocked', color: '#8b5cf6', shadow: 'rgba(139,92,246,0.35)' },
+  Reassured: { eyebrowY: 1, eyeOpen: 0.9, mouth: 'smile', color: '#22c55e', shadow: 'rgba(34,197,94,0.15)' },
+  Angry: { eyebrowY: 3, eyeOpen: 1.1, mouth: 'slight-frown', color: '#f87171', shadow: 'rgba(248,113,113,0.2)' },
+  Confused: { eyebrowY: -4, eyeOpen: 1.15, mouth: 'slight-frown', color: '#94a3b8', shadow: 'rgba(148,163,184,0.15)' },
 };
 
 function getMouthPath(type) {
   switch (type) {
-    case 'smile':        return 'M 80 175 Q 100 192 120 175';
+    case 'smile': return 'M 80 175 Q 100 192 120 175';
     case 'slight-frown': return 'M 80 180 Q 100 170 120 180';
-    case 'frown':        return 'M 78 183 Q 100 168 122 183';
-    case 'neutral':      return 'M 82 178 Q 100 180 118 178';
-    case 'open':         return 'M 82 175 Q 100 195 118 175';
-    case 'wide':         return 'M 78 173 Q 100 200 122 173';
-    case 'shocked':      return 'M 86 172 Q 100 204 114 172';
-    default:             return 'M 82 178 Q 100 180 118 178';
+    case 'frown': return 'M 78 183 Q 100 168 122 183';
+    case 'neutral': return 'M 82 178 Q 100 180 118 178';
+    case 'open': return 'M 82 175 Q 100 195 118 175';
+    case 'wide': return 'M 78 173 Q 100 200 122 173';
+    case 'shocked': return 'M 86 172 Q 100 204 114 172';
+    default: return 'M 82 178 Q 100 180 118 178';
   }
 }
 
@@ -163,10 +163,35 @@ export default function PatientAvatar({ emotionLabel = 'Calm', size = 200, anima
         </g>
 
         {/* ── Sweat drop (when frightened/shocked) ── */}
-        {isDistressed && (
-          <g opacity="0.8">
-            <ellipse cx="145" cy="108" rx="3" ry="4.5" fill="#93c5fd" />
-            <circle cx="145" cy="104" r="2.5" fill="#93c5fd" />
+        {/* ── Flushed face when angry ── */}
+        {emotionLabel === 'Angry' && (
+          <ellipse cx="100" cy="120" rx="46" ry="52" fill="#ef4444" opacity="0.15" />
+        )}
+
+        {/* ── Forehead worry lines ── */}
+        {['Concerned', 'Anxious', 'Distressed', 'Frightened', 'Shocked', 'Confused'].includes(emotionLabel) && (
+          <g stroke="#9c6d4c" strokeWidth="1" fill="none" opacity="0.65">
+            <path d="M 82 92 Q 100 88 118 92" />
+            <path d="M 85 97 Q 100 93 115 97" />
+          </g>
+        )}
+
+        {/* ── Tension lines under eyes ── */}
+        {(['Concerned', 'Anxious', 'Distressed', 'Frightened', 'Shocked', 'Confused', 'Angry'].includes(emotionLabel)) && (
+          <g stroke="#9c6d4c" strokeWidth="0.8" fill="none" opacity="0.5">
+            <path d="M 72 147 Q 80 149 88 147" />
+            <path d="M 112 147 Q 120 149 128 147" />
+          </g>
+        )}
+
+        {/* ── Sweat / tear drop (when frightened/shocked/distressed/anxious) ── */}
+        {(isDistressed || emotionLabel === 'Anxious') && (
+          <g opacity="0.85" fill="#93c5fd">
+            {/* Sweat drop on forehead side */}
+            <path d="M 144 110 Q 146 122 146 124 M 143 124 Q 146 124 148 119 Z" />
+            {/* Tear drop on cheek */}
+            <ellipse cx="128" cy="158" rx="2.5" ry="4" fill="#93c5fd" />
+            <path d="M 128 154 L 126 157 L 130 157 Z" fill="#93c5fd" />
           </g>
         )}
 

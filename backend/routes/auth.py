@@ -74,7 +74,8 @@ def register(user_data: schemas.UserRegister, db: Session = Depends(get_db)):
     new_user = models.User(
         name=user_data.name,
         email=user_data.email,
-        password_hash=hash_password(user_data.password)
+        password_hash=hash_password(user_data.password),
+        specialization=user_data.specialization
     )
     db.add(new_user)
     db.commit()
@@ -106,4 +107,15 @@ def login(credentials: schemas.UserLogin, db: Session = Depends(get_db)):
 
 @router.get("/me", response_model=schemas.UserOut)
 def get_me(current_user: models.User = Depends(get_current_user)):
+    return current_user
+
+@router.put("/me/specialization", response_model=schemas.UserOut)
+def update_specialization(
+    payload: schemas.UserUpdateSpecialization,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    current_user.specialization = payload.specialization
+    db.commit()
+    db.refresh(current_user)
     return current_user

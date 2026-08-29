@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { 
-  Flame, 
-  Award, 
-  Activity, 
+import {
+  Flame,
+  Award,
+  Activity,
   History,
   TrendingUp,
   AlertCircle,
@@ -11,16 +11,21 @@ import {
   Clock,
   ArrowRight,
   HeartPulse,
-  UserCheck
+  UserCheck,
+  ShieldCheck
 } from 'lucide-react';
 import { api } from '../api/client';
 import Loader from '../components/Common/Loader';
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar } from 'recharts';
 
-export default function Dashboard({ user, onNavigate, onSelectSession }) {
+export default function Dashboard({ user: initialUser, onNavigate, onSelectSession }) {
+  const [user, setUser] = useState(initialUser);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [updatingSpec, setUpdatingSpec] = useState(false);
+  const [specInput, setSpecInput] = useState('');
 
   useEffect(() => {
     async function fetchStats() {
@@ -41,6 +46,19 @@ export default function Dashboard({ user, onNavigate, onSelectSession }) {
     if (hr < 12) return 'Good morning';
     if (hr < 18) return 'Good afternoon';
     return 'Good evening';
+  };
+
+  const handleUpdateSpecialization = async () => {
+    if (!specInput) return;
+    setUpdatingSpec(true);
+    try {
+      const updatedUser = await api.updateSpecialization(specInput);
+      setUser(updatedUser);
+    } catch (err) {
+      alert(err.message || 'Failed to update specialization');
+    } finally {
+      setUpdatingSpec(false);
+    }
   };
 
   if (loading) return <Loader text="Connecting to Virtual Patient Lab..." />;
@@ -64,15 +82,56 @@ export default function Dashboard({ user, onNavigate, onSelectSession }) {
   const hasSimulations = stats.cases_completed > 0 || stats.recent_simulations.length > 0;
   const activeSession = stats.recent_simulations.find(s => s.status === 'in_progress');
 
+  if (!user.specialization) {
+    return (
+      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-50">
+        <div className="max-w-md w-full space-y-8 bg-white p-8 border border-slate-200/80 rounded-2xl shadow-xl shadow-slate-100 animate-slide-up text-center">
+          <ShieldCheck className="w-12 h-12 text-medical-600 mx-auto" />
+          <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">Select your specialization</h2>
+          <p className="text-sm text-slate-500">Please choose a medical specialization to see relevant cases before you access the dashboard.</p>
+          <div className="space-y-4 text-left">
+            <select
+              value={specInput}
+              onChange={(e) => setSpecInput(e.target.value)}
+              className="w-full px-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-medical-500/20 focus:border-medical-500 appearance-none"
+            >
+              <option value="" disabled>Select Specialization ▼</option>
+              <option value="Cardiology">Cardiology</option>
+              <option value="Gastroenterology">Gastroenterology</option>
+              <option value="Neurology">Neurology</option>
+              <option value="Psychiatry">Psychiatry</option>
+              <option value="General Surgery">General Surgery</option>
+              <option value="Pulmonology">Pulmonology</option>
+              <option value="Urology">Urology</option>
+              <option value="Vascular Medicine">Vascular Medicine</option>
+              <option value="Emergency Medicine">Emergency Medicine (General)</option>
+            </select>
+            <button
+              onClick={handleUpdateSpecialization}
+              disabled={updatingSpec || !specInput}
+              className="w-full py-2.5 px-4 text-sm font-semibold text-white bg-medical-500 hover:bg-medical-700 disabled:bg-slate-300 rounded-lg transition-all"
+            >
+              {updatingSpec ? 'Saving...' : 'Continue'}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fade-in">
-      
+
       {/* ─── Hero Header ─── */}
       <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-teal-950 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="space-y-2 z-10 max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-300 text-xs font-bold uppercase tracking-wider">
             <HeartPulse className="w-3.5 h-3.5 animate-pulse" />
             Virtual Patient Lab
+          </div>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-300 text-xs font-bold uppercase tracking-wider ml-2">
+            <UserCheck className="w-3.5 h-3.5" />
+            Specialization: {user.specialization}
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
             {getGreeting()}, Dr. {user.name?.split(' ')[0] || user.name}.
@@ -92,7 +151,7 @@ export default function Dashboard({ user, onNavigate, onSelectSession }) {
             <Play className="w-4 h-4 fill-current" />
             Start New Patient Encounter
           </button>
-          
+
           {activeSession && (
             <button
               id="dash-btn-continue-encounter"
@@ -168,7 +227,7 @@ export default function Dashboard({ user, onNavigate, onSelectSession }) {
 
       {/* ─── Main Content Grid: Competencies & Encounters ─── */}
       <div className="grid lg:grid-cols-12 gap-8">
-        
+
         {/* Radar Competency Chart */}
         <div className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm lg:col-span-7 flex flex-col">
           <div className="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -178,7 +237,7 @@ export default function Dashboard({ user, onNavigate, onSelectSession }) {
             </div>
             <span className="text-xs font-semibold text-slate-400">Evaluated across encounters</span>
           </div>
-          
+
           <div className="flex-1 min-h-[300px] flex items-center justify-center pt-4">
             {hasSimulations ? (
               <ResponsiveContainer width="100%" height={320}>
@@ -213,7 +272,7 @@ export default function Dashboard({ user, onNavigate, onSelectSession }) {
           <div className="flex-1 overflow-y-auto max-h-[320px] space-y-3">
             {stats.recent_simulations.length > 0 ? (
               stats.recent_simulations.map((sim) => (
-                <div 
+                <div
                   key={sim.session_id}
                   onClick={() => onSelectSession(sim.session_id, sim.status)}
                   className="p-3.5 border border-slate-100 hover:border-teal-200 hover:bg-teal-50/20 rounded-xl cursor-pointer transition-all duration-200 flex justify-between items-center group"

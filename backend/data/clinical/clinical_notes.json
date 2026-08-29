@@ -1,0 +1,17 @@
+[
+    {
+        "subject_id": 10001,
+        "category": "Discharge Summary",
+        "text": "Chief Complaint: Chest pressure radiating to left arm.\nHistory of Present Illness: 52-year-old male with type 2 diabetes and hypertension presents with subacute onset of central squeezing chest pressure (onset 30 mins ago) triggered by climbing stairs. Patient noted cold diaphoresis, dyspnea, and mild nausea. Denies pleuritic chest pain or positional relief.\nPast Medical History: Type 2 Diabetes Mellitus, Hypertension, Hypercholesterolemia.\nMedications: Metformin 1000mg BID, Lisinopril 10mg daily, Atorvastatin 40mg daily.\nPhysical Exam: Vitals: HR 102, BP 150/90, RR 18, SpO2 96% on room air. Lungs clear, cardiac examination reveals normal S1/S2 without murmurs, rubs or gallops.\nECG findings: ST-segment elevation in inferior leads II, III, aVF. Diagnosis: Acute Inferior Myocardial Infarction (STEMI).\nTreatment plan: Immediate dual antiplatelet therapy (Aspirin 325mg, Clopidogrel 600mg), emergent cardiac catheterization for primary coronary intervention (PCI)."
+    },
+    {
+        "subject_id": 10002,
+        "category": "Clinical Case Summary",
+        "text": "Clinical Presentation of Acute Coronary Syndrome (ACS):\n- Ischemic symptoms: pressure/squeezing in chest, neck, jaw, left arm.\n- Accompanying features: diaphoresis, dyspnea, nausea, vomiting, dizziness.\n- High-risk factors: active smoking history, type 2 diabetes mellitus, hypertension, hypercholesterolemia, positive family history of early coronary artery disease (early MI or CABG in first-degree relative).\nStandard of care pathway:\n1. 12-lead Electrocardiogram (ECG/EKG) within 10 minutes of presentation (mandatory to rule in or rule out STEMI/ST-segment elevation).\n2. Serial Cardiac Troponin (High-Sensitivity Troponin I or T) to detect myocardial injury.\n3. Aspirin 325mg PO chewed immediately when ischemia is suspected.\n4. Avoid premature computed tomography (CT) pulmonary angiogram unless acute pulmonary embolism is highly suspected, as this causes clinical resource waste."
+    },
+    {
+        "subject_id": 10003,
+        "category": "ECG Interpretation Guide",
+        "text": "ECG Guideline for Myocardial Ischemia:\n- Inferior wall STEMI shows ST-segment elevation of >= 1mm in at least two contiguous limb leads: II, III, and aVF. Often accompanied by reciprocal ST depression in lead aVL.\n- Anterior wall STEMI shows ST-segment elevation in precordial leads V1-V4, representing left anterior descending artery (LAD) occlusion.\n- Lateral wall ischemia shows ST elevation or depression in leads I, aVL, V5, V6, representing left circumflex artery (LCx) occlusion."
+    }
+]

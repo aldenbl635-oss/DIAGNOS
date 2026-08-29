@@ -113,6 +113,12 @@ def test_simulation_workflow(client):
     assert "answer" in q_data
     assert q_data["category"] == "pain_characteristics"
 
+    # Ask non-relevant question
+    res = client.post(f"/api/simulation/{session_id}/question", json={"question": "What is the color of the sky?"}, headers=headers)
+    assert res.status_code == 200
+    q_data = res.json()
+    assert "answer" in q_data
+
     # Order ECG investigation
     res = client.post(f"/api/simulation/{session_id}/investigation", json={"investigation_id": "ecg"}, headers=headers)
     assert res.status_code == 200
@@ -173,3 +179,141 @@ def test_case_detail_includes_metadata(client):
     assert len(data["examinations"]) >= 5
     assert len(data["investigations"]) >= 5
     assert "vitals" in data
+
+
+def test_communication_analyzer():
+    from ai.communication_analyzer import CommunicationAnalyzer
+    analyzer = CommunicationAnalyzer()
+    
+    # Test alarmist statement
+    res = analyzer.analyze("I think you are going to die right now!")
+    assert res["intent"] == "alarmist"
+    assert res["alarmist"] is True
+    assert res["severity"] >= 80
+
+    # Test empathy/supportive statement
+    res2 = analyzer.analyze("Take your time, I am right here beside you.")
+    assert res2["intent"] == "empathy"
+    assert res2["empathetic"] is True
+
+    # Test apology
+    res3 = analyzer.analyze("I apologize, I didn't mean to say it like that.")
+    assert res3["intent"] == "apology"
+    assert res3["apology"] is True
+
+
+def test_emotional_state_transitions():
+    from ai.patient_emotion import EmotionalState
+    from ai.patient_personality import PersonalityProfile
+    
+    # Baseline
+    state = EmotionalState(trust=50, fear=20, frustration=10, cooperation=50)
+    pers = PersonalityProfile(emotional_sensitivity=80, distrust_of_medical=60, fear_of_death=90, assertiveness=50, cooperativeness=50)
+    
+    # Apply an alarmist statement and check scaling
+    analysis = {
+        "intent": "alarmist",
+        "tone": "frightening",
+        "severity": 90,
+        "alarmist": True,
+        "empathetic": False,
+        "reassurance": False,
+        "dismissive": False,
+        "threat": False,
+        "insult": False,
+        "apology": False
+    }
+    
+    delta = state.calculate_transitions(analysis, personality=pers, turn_count=1)
+    
+    # Should scale higher due to emotional_sensitivity=80 and fear_of_death=90
+    assert delta["fear"] > 0
+    assert delta["shock"] > 0
+    assert delta["frustration"] > 0
+    
+    # Apply changes
+    state.apply_update(delta)
+    assert state.fear > 20
+    assert state.frustration > 10
+
+
+def test_patient_agent_memory_reference_and_dataset():
+    from ai.patient_agent import PatientAgent
+    from ai.patient_state import PatientAgentState
+    from case_engine.engine import case_engine
+    
+    # Load chest pain case
+    case = case_engine.cases["chest_pain_001"]
+    agent = PatientAgent(case)
+    
+    state = PatientAgentState()
+    state.personality.fear_of_death = 90
+    state.personality.assertiveness = 50
+    state.emotion.anxiety = 70
+    
+    # First, student makes an alarmist remark statement
+    res1 = agent.generate_response(
+        state,
+        conversation_history=[],
+        student_message="You are about to die! Your heart is failing!"
+    )
+    new_state = res1[0]
+    
+    # Ensure memory event logged
+    has_alarm_mem = False
+    for ev in new_state.memory.events:
+        if "student_asked:" in ev.event and "die" in ev.event.lower():
+            has_alarm_mem = True
+            break
+    assert has_alarm_mem is True
+    
+    # Now student asks "Are you feeling anxious?"
+    res2 = agent.generate_response(
+        new_state,
+        conversation_history=[{"role": "student", "text": "You are about to die! Your heart is failing!"}, {"role": "patient", "text": res1[1]["response"]}],
+        student_message="Are you feeling anxious?"
+    )
+    
+    response_text = res2[1]["response"]
+    
+    # Since there was an alarming memory, the patient response must reference the panic/frightening news!
+    assert "Especially after you told me earlier" in response_text or "told me earlier" in response_text or "you told me" in response_text
+
+
+def test_non_relevant_questions():
+    from ai.patient_agent import PatientAgent
+    from ai.patient_state import PatientAgentState
+    from case_engine.engine import case_engine
+    
+    case = case_engine.cases["chest_pain_001"]
+    agent = PatientAgent(case)
+    
+    state = PatientAgentState()
+    
+    # 1. Ask a non-relevant question like "How many legs does a dog have?"
+    res1 = agent.generate_response(
+        state,
+        conversation_history=[],
+        student_message="How many legs does a dog have?"
+    )
+    
+    # Check that it did NOT trigger the pain site response ("radiation" or "legs" related pain)
+    response_text = res1[1]["response"]
+    assert "radiate" not in response_text.lower()
+    assert "arm" not in response_text.lower()
+    assert "shoulder" not in response_text.lower()
+    assert "jaw" not in response_text.lower()
+    
+    # Check that it returned a query fallback explanation or standard warning
+    assert "chest pain" in response_text.lower() or "look up" in response_text.lower() or "not sure" in response_text.lower() or "focus on" in response_text.lower()
+
+    # 2. Ask a relevant question like "Where is the pain located?"
+    res2 = agent.generate_response(
+        state,
+        conversation_history=[],
+        student_message="Where is the pain located?"
+    )
+    
+    response_text2 = res2[1]["response"]
+    assert "chest" in response_text2.lower() or "discomfort" in response_text2.lower() or "pain" in response_text2.lower()
+

@@ -7,6 +7,7 @@ class UserRegister(BaseModel):
     name: str = Field(..., min_length=2)
     email: EmailStr
     password: str = Field(..., min_length=6)
+    specialization: str = Field(..., description="Student's medical specialization")
 
 class UserLogin(BaseModel):
     email: EmailStr
@@ -16,7 +17,11 @@ class UserOut(BaseModel):
     id: int
     name: str
     email: str
+    specialization: Optional[str] = None
     created_at: datetime
+    
+class UserUpdateSpecialization(BaseModel):
+    specialization: str = Field(..., description="Student's medical specialization")
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -102,6 +107,7 @@ class ExamResponse(BaseModel):
     result: str
     remaining_resources: int
     elapsed_seconds: int
+    patient_reaction: Optional[str] = None
 
 class InvestigationSubmit(BaseModel):
     investigation_id: str
@@ -114,6 +120,7 @@ class InvestigationResponse(BaseModel):
     interpretation: str
     remaining_resources: int
     elapsed_seconds: int
+    patient_reaction: Optional[str] = None
 
 class DiagnosisUpdateSubmit(BaseModel):
     # e.g., [{"diagnosis": "Acute Coronary Syndrome", "confidence": 60}]

@@ -7,6 +7,7 @@ export default function Login({ isRegisterInitial = false, onLoginSuccess, onNav
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [specialization, setSpecialization] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -18,7 +19,12 @@ export default function Login({ isRegisterInitial = false, onLoginSuccess, onNav
     try {
       let user;
       if (isRegister) {
-        user = await api.register(name, email, password);
+        if (!specialization) {
+          setError('Please select a specialization.');
+          setLoading(false);
+          return;
+        }
+        user = await api.register(name, email, password, specialization);
       } else {
         user = await api.login(email, password);
       }
@@ -58,7 +64,7 @@ export default function Login({ isRegisterInitial = false, onLoginSuccess, onNav
   return (
     <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-50">
       <div className="max-w-md w-full space-y-8 bg-white p-8 border border-slate-200/80 rounded-2xl shadow-xl shadow-slate-100 animate-slide-up">
-        
+
         {/* Header */}
         <div className="text-center space-y-2">
           <div className="inline-flex bg-medical-50 text-medical-600 p-2.5 rounded-xl border border-medical-100/50 mb-2">
@@ -96,6 +102,33 @@ export default function Login({ isRegisterInitial = false, onLoginSuccess, onNav
                   placeholder="Alex Mercer"
                   className="w-full pl-9 pr-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-medical-500/20 focus:border-medical-500 transition-all"
                 />
+              </div>
+            </div>
+          )}
+
+          {isRegister && (
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-700" htmlFor="reg-specialization">Specialization</label>
+              <div className="relative">
+                <ShieldCheck className="absolute left-3 top-3 w-4 h-4 text-slate-400 pointer-events-none" />
+                <select
+                  id="reg-specialization"
+                  required
+                  value={specialization}
+                  onChange={(e) => setSpecialization(e.target.value)}
+                  className="w-full pl-9 pr-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-medical-500/20 focus:border-medical-500 transition-all appearance-none"
+                >
+                  <option value="" disabled>Select Specialization ▼</option>
+                  <option value="Cardiology">Cardiology</option>
+                  <option value="Gastroenterology">Gastroenterology</option>
+                  <option value="Neurology">Neurology</option>
+                  <option value="Psychiatry">Psychiatry</option>
+                  <option value="General Surgery">General Surgery</option>
+                  <option value="Pulmonology">Pulmonology</option>
+                  <option value="Urology">Urology</option>
+                  <option value="Vascular Medicine">Vascular Medicine</option>
+                  <option value="Emergency Medicine">Emergency Medicine (General)</option>
+                </select>
               </div>
             </div>
           )}

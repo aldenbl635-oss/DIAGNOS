@@ -183,10 +183,18 @@ def evaluate_clinical_reasoning(
     
     # 4. Compute communication and patient interaction metrics
     emotional_events = []
-    if session.patient_agent_state and isinstance(session.patient_agent_state, dict):
-        emotional_events = session.patient_agent_state.get("emotional_events", [])
+    if session.patient_agent_state:
+        if isinstance(session.patient_agent_state, str):
+            try:
+                state_dict = json.loads(session.patient_agent_state)
+            except Exception:
+                state_dict = {}
+        else:
+            state_dict = session.patient_agent_state
+        emotional_events = state_dict.get("emotional_events", [])
 
-    from ai.patient_reasoning import analyze_student_communication_rule_based
+    from ai.interaction_analyzer import InteractionAnalyzer
+    analyzer = InteractionAnalyzer()
     
     comm_score = 100.0
     empathy = 50.0
@@ -206,30 +214,30 @@ def evaluate_clinical_reasoning(
     
     for act in actions:
         if act.action_type == "question":
-            analysis = analyze_student_communication_rule_based(act.content)
-            intent = analysis.get("intent", "respectful")
+            analysis = analyzer.analyze(act.content)
+            intent = analysis.get("intent", "neutral")
             
-            if analysis.get("contains_threat") or intent == "threatening":
+            if analysis.get("threat") or intent == "threatening" or intent == "threat":
                 had_threat = True
                 threat_count += 1
                 comm_score -= 40
                 empathy -= 30
-            elif analysis.get("contains_insult") or intent == "insulting":
+            elif analysis.get("insult") or intent == "insulting" or intent == "insult":
                 had_rude = True
                 insult_count += 1
                 comm_score -= 30
                 empathy -= 25
-            elif intent == "rude":
+            elif analysis.get("tone") == "rude" or intent == "rude":
                 had_rude = True
                 rude_count += 1
                 comm_score -= 20
                 empathy -= 20
-            elif intent == "dismissive":
+            elif analysis.get("dismissive") or intent == "dismissive":
                 had_rude = True
                 dismissive_count += 1
                 comm_score -= 15
                 empathy -= 15
-            elif intent == "alarmist" or intent == "frightening":
+            elif analysis.get("alarmist") or intent == "alarmist" or intent == "frightening":
                 frightening_count += 1
                 comm_score -= 15
                 empathy -= 15
@@ -237,26 +245,35 @@ def evaluate_clinical_reasoning(
                 rushed_count += 1
                 comm_score -= 10
                 empathy -= 5
-            elif intent == "empathetic":
+            elif analysis.get("empathetic") or intent == "empathetic":
                 empathetic_count += 1
                 empathy += 15
                 comm_score += 5
                 if had_rude or had_threat:
                     used_empathetic_after = True
-            elif intent == "reassuring":
+            elif analysis.get("reassurance") or intent == "reassuring":
                 reassuring_count += 1
                 empathy += 10
                 comm_score += 5
                 if had_rude or had_threat:
                     used_empathetic_after = True
-            elif intent == "respectful":
+            elif intent == "respectful" or intent == "neutral":
                 empathy += 5
                 comm_score += 3
     
+    interaction = 100.0
+    # Deduct for student-induced distress
+    interaction -= threat_count * 30
+    interaction -= insult_count * 20
+    interaction -= rude_count * 15
+    interaction -= dismissive_count * 15
+    interaction -= frightening_count * 20
+    interaction -= rushed_count * 10
+
     distressed_count = 0
     for e in emotional_events:
         lbl = e.get("emotion_label", "")
-        if lbl in ["Shocked", "Frightened", "Distressed", "Angry"]:
+        if lbl in ["Shocked", "Angry"]:
             distressed_count += 1
             interaction -= 10
             

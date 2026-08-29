@@ -12,6 +12,7 @@ class User(Base):
     name = Column(String, nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
     password_hash = Column(String, nullable=False)
+    specialization = Column(String, nullable=True)
     created_at = Column(DateTime, default=lambda: datetime.datetime.now(timezone.utc))
 
     sessions = relationship("SimulationSession", back_populates="user", cascade="all, delete-orphan")

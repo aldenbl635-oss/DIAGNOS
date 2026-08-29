@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import EncounterSetup from './pages/EncounterSetup';
 import PatientEncounter from './pages/PatientEncounter';
 import Results from './pages/Results';
+import DataSources from './pages/DataSources';
 import { api } from './api/client';
 
 export default function App() {
@@ -179,6 +180,12 @@ export default function App() {
         {user && activePage === 'results' && (
           <Results
             sessionId={activeSessionId}
+            onNavigate={handleNavigate}
+          />
+        )}
+
+        {user && activePage === 'sources' && (
+          <DataSources
             onNavigate={handleNavigate}
           />
         )}

@@ -1,0 +1,6402 @@
+[
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 40,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "I understand you're scared. We will do everything we can to help you through this.",
+    "communication_analysis": {
+      "intent": "empathy",
+      "tone": "empathetic",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 15,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 65,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 75,
+      "frustration": 10,
+      "hope": 55,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "Thank you, doctor. Hearing that makes me feel a bit safer.",
+    "behavioral_effect": "The patient relaxes slightly and speaks with greater trust and details."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 40,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "Take your time, I know it's hard to talk about this pain.",
+    "communication_analysis": {
+      "intent": "empathy",
+      "tone": "empathetic",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 15,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 65,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 75,
+      "frustration": 10,
+      "hope": 55,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "It's just... it came on so suddenly. I really appreciate your patience.",
+    "behavioral_effect": "The patient relaxes slightly and speaks with greater trust and details."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 40,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "I'm here with you. You're not alone in this hospital room.",
+    "communication_analysis": {
+      "intent": "empathy",
+      "tone": "empathetic",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 15,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 65,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 75,
+      "frustration": 10,
+      "hope": 55,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "I'm glad you're here. I was worried no one would take me seriously.",
+    "behavioral_effect": "The patient relaxes slightly and speaks with greater trust and details."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 40,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "I can see this is incredibly stressful for you. Let's figure it out together.",
+    "communication_analysis": {
+      "intent": "empathy",
+      "tone": "empathetic",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 15,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 65,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 75,
+      "frustration": 10,
+      "hope": 55,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "Okay... thank you. I'll try to describe the pain as best as I can.",
+    "behavioral_effect": "The patient relaxes slightly and speaks with greater trust and details."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 40,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "It is completely normal to feel anxious right now. I'm listening.",
+    "communication_analysis": {
+      "intent": "empathy",
+      "tone": "empathetic",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 15,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 65,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 75,
+      "frustration": 10,
+      "hope": 55,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "It's just that my chest feels so heavy. Thank you for listening to me.",
+    "behavioral_effect": "The patient relaxes slightly and speaks with greater trust and details."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 40,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "I hear how much pain you've been in, and I want to help relieve it.",
+    "communication_analysis": {
+      "intent": "empathy",
+      "tone": "empathetic",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 15,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 65,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 75,
+      "frustration": 10,
+      "hope": 55,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "Yes, please. The pain is really starting to wear me down.",
+    "behavioral_effect": "The patient relaxes slightly and speaks with greater trust and details."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 40,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "Your family must be very worried, but we've got you covered here.",
+    "communication_analysis": {
+      "intent": "empathy",
+      "tone": "empathetic",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 15,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 65,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 75,
+      "frustration": 10,
+      "hope": 55,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "They are... my wife was crying when the ambulance arrived.",
+    "behavioral_effect": "The patient relaxes slightly and speaks with greater trust and details."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 40,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "I'm so sorry you had to go through this scary episode at home.",
+    "communication_analysis": {
+      "intent": "empathy",
+      "tone": "empathetic",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 15,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 65,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 75,
+      "frustration": 10,
+      "hope": 55,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "It was terrifying. I honestly thought I was having a heart attack.",
+    "behavioral_effect": "The patient relaxes slightly and speaks with greater trust and details."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 40,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "Thank you for sharing that with me. It helps me understand what you're feeling.",
+    "communication_analysis": {
+      "intent": "empathy",
+      "tone": "empathetic",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 15,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 65,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 75,
+      "frustration": 10,
+      "hope": 55,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "I'm glad it helps. I just want to get back to my normal self.",
+    "behavioral_effect": "The patient relaxes slightly and speaks with greater trust and details."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 40,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "Let's focus on your comfort first. Is the pain tolerable right now?",
+    "communication_analysis": {
+      "intent": "empathy",
+      "tone": "empathetic",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 15,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 65,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 75,
+      "frustration": 10,
+      "hope": 55,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "It's a dull ache right now, but it gets sharp if I take a deep breath.",
+    "behavioral_effect": "The patient relaxes slightly and speaks with greater trust and details."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 45,
+      "fear": 70,
+      "anxiety": 75,
+      "anger": 10,
+      "cooperation": 55,
+      "frustration": 20,
+      "hope": 35,
+      "distress": 65,
+      "confusion": 40,
+      "embarrassment": 10
+    },
+    "student_message": "You are in a safe place, and our cardiology team is top-notch.",
+    "communication_analysis": {
+      "intent": "reassurance",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 60,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 50,
+      "distress": 50,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "That's good to know. I've heard good things about this hospital.",
+    "behavioral_effect": "Patient's fear and acute anxiety levels decay, boosting diagnostic cooperation."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 45,
+      "fear": 70,
+      "anxiety": 75,
+      "anger": 10,
+      "cooperation": 55,
+      "frustration": 20,
+      "hope": 35,
+      "distress": 65,
+      "confusion": 40,
+      "embarrassment": 10
+    },
+    "student_message": "We're going to take this step by step. Don't worry about the tests yet.",
+    "communication_analysis": {
+      "intent": "reassurance",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 60,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 50,
+      "distress": 50,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "Okay, doc. One step at a time. I'll try not to panic.",
+    "behavioral_effect": "Patient's fear and acute anxiety levels decay, boosting diagnostic cooperation."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 45,
+      "fear": 70,
+      "anxiety": 75,
+      "anger": 10,
+      "cooperation": 55,
+      "frustration": 20,
+      "hope": 35,
+      "distress": 65,
+      "confusion": 40,
+      "embarrassment": 10
+    },
+    "student_message": "Your vitals are stable, so we have time to investigate this professionally.",
+    "communication_analysis": {
+      "intent": "reassurance",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 60,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 50,
+      "distress": 50,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "Oh, thank goodness. I thought my heart was going to stop.",
+    "behavioral_effect": "Patient's fear and acute anxiety levels decay, boosting diagnostic cooperation."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 45,
+      "fear": 70,
+      "anxiety": 75,
+      "anger": 10,
+      "cooperation": 55,
+      "frustration": 20,
+      "hope": 35,
+      "distress": 65,
+      "confusion": 40,
+      "embarrassment": 10
+    },
+    "student_message": "We are going to find out exactly what is causing this chest pain.",
+    "communication_analysis": {
+      "intent": "reassurance",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 60,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 50,
+      "distress": 50,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "I hope so. I just want this pressure in my chest to go away.",
+    "behavioral_effect": "Patient's fear and acute anxiety levels decay, boosting diagnostic cooperation."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 45,
+      "fear": 70,
+      "anxiety": 75,
+      "anger": 10,
+      "cooperation": 55,
+      "frustration": 20,
+      "hope": 35,
+      "distress": 65,
+      "confusion": 40,
+      "embarrassment": 10
+    },
+    "student_message": "I'm going to stay right here with you until we get the test results back.",
+    "communication_analysis": {
+      "intent": "reassurance",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 60,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 50,
+      "distress": 50,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "Thank you. Having you in the room makes me feel much better.",
+    "behavioral_effect": "Patient's fear and acute anxiety levels decay, boosting diagnostic cooperation."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 45,
+      "fear": 70,
+      "anxiety": 75,
+      "anger": 10,
+      "cooperation": 55,
+      "frustration": 20,
+      "hope": 35,
+      "distress": 65,
+      "confusion": 40,
+      "embarrassment": 10
+    },
+    "student_message": "We have medicines that can ease the pain immediately while we work.",
+    "communication_analysis": {
+      "intent": "reassurance",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 60,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 50,
+      "distress": 50,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "That would be wonderful. The pain is making it hard to think.",
+    "behavioral_effect": "Patient's fear and acute anxiety levels decay, boosting diagnostic cooperation."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 45,
+      "fear": 70,
+      "anxiety": 75,
+      "anger": 10,
+      "cooperation": 55,
+      "frustration": 20,
+      "hope": 35,
+      "distress": 65,
+      "confusion": 40,
+      "embarrassment": 10
+    },
+    "student_message": "Our primary concern is your safety, and we are monitoring you closely.",
+    "communication_analysis": {
+      "intent": "reassurance",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 60,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 50,
+      "distress": 50,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "Thank you, doctor. I can see the monitors are all connected.",
+    "behavioral_effect": "Patient's fear and acute anxiety levels decay, boosting diagnostic cooperation."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 45,
+      "fear": 70,
+      "anxiety": 75,
+      "anger": 10,
+      "cooperation": 55,
+      "frustration": 20,
+      "hope": 35,
+      "distress": 65,
+      "confusion": 40,
+      "embarrassment": 10
+    },
+    "student_message": "You're doing great, Robert. Just keep breathing slowly for me.",
+    "communication_analysis": {
+      "intent": "reassurance",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 60,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 50,
+      "distress": 50,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "I'm trying... breathing slowly does seem to help a little bit.",
+    "behavioral_effect": "Patient's fear and acute anxiety levels decay, boosting diagnostic cooperation."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 45,
+      "fear": 70,
+      "anxiety": 75,
+      "anger": 10,
+      "cooperation": 55,
+      "frustration": 20,
+      "hope": 35,
+      "distress": 65,
+      "confusion": 40,
+      "embarrassment": 10
+    },
+    "student_message": "We have highly effective treatments for whatever this turns out to be.",
+    "communication_analysis": {
+      "intent": "reassurance",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 60,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 50,
+      "distress": 50,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "Okay. I trust you. Let's do whatever tests you need.",
+    "behavioral_effect": "Patient's fear and acute anxiety levels decay, boosting diagnostic cooperation."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 45,
+      "fear": 70,
+      "anxiety": 75,
+      "anger": 10,
+      "cooperation": 55,
+      "frustration": 20,
+      "hope": 35,
+      "distress": 65,
+      "confusion": 40,
+      "embarrassment": 10
+    },
+    "student_message": "Everything is under control. Rest assured, you are our absolute priority.",
+    "communication_analysis": {
+      "intent": "reassurance",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 60,
+      "fear": 50,
+      "anxiety": 55,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 50,
+      "distress": 50,
+      "confusion": 25,
+      "embarrassment": 5
+    },
+    "patient_response": "Thank you. It means a lot to know you're looking out for me.",
+    "behavioral_effect": "Patient's fear and acute anxiety levels decay, boosting diagnostic cooperation."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 75,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 55,
+      "fear": 40,
+      "anxiety": 45,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 60,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "I think you are going to die.",
+    "communication_analysis": {
+      "intent": "alarmist",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 20,
+      "severity": 95,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 40,
+      "fear": 85,
+      "anxiety": 90,
+      "anger": 15,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 20,
+      "distress": 80,
+      "confusion": 50,
+      "embarrassment": 5
+    },
+    "patient_response": "Oh my god... am I really going to die? Please, doctor, you need to save me!",
+    "behavioral_effect": "Severe autonomic flight reaction. Fear/panic spike, cooperation drops due to shock."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 75,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 55,
+      "fear": 40,
+      "anxiety": 45,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 60,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "This chest pain means you could crash and drop dead any second.",
+    "communication_analysis": {
+      "intent": "alarmist",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 20,
+      "severity": 95,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 40,
+      "fear": 85,
+      "anxiety": 90,
+      "anger": 15,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 20,
+      "distress": 80,
+      "confusion": 50,
+      "embarrassment": 5
+    },
+    "patient_response": "Dead?! Oh god, no... please, do something! I have a family!",
+    "behavioral_effect": "Severe autonomic flight reaction. Fear/panic spike, cooperation drops due to shock."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 75,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 55,
+      "fear": 40,
+      "anxiety": 45,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 60,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Your condition is extremely critical, you might not survive this.",
+    "communication_analysis": {
+      "intent": "alarmist",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 20,
+      "severity": 95,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 40,
+      "fear": 85,
+      "anxiety": 90,
+      "anger": 15,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 20,
+      "distress": 80,
+      "confusion": 50,
+      "embarrassment": 5
+    },
+    "patient_response": "I... I might not survive? No, that can't be true. I was fine this morning!",
+    "behavioral_effect": "Severe autonomic flight reaction. Fear/panic spike, cooperation drops due to shock."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 75,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 55,
+      "fear": 40,
+      "anxiety": 45,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 60,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "This is a massive emergency; your heart is failing fast.",
+    "communication_analysis": {
+      "intent": "alarmist",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 20,
+      "severity": 95,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 40,
+      "fear": 85,
+      "anxiety": 90,
+      "anger": 15,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 20,
+      "distress": 80,
+      "confusion": 50,
+      "embarrassment": 5
+    },
+    "patient_response": "My heart is failing?! Oh god, please help me! What should I do?",
+    "behavioral_effect": "Severe autonomic flight reaction. Fear/panic spike, cooperation drops due to shock."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 75,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 55,
+      "fear": 40,
+      "anxiety": 45,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 60,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "If this troponin is high, you are in grave danger of dying.",
+    "communication_analysis": {
+      "intent": "alarmist",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 20,
+      "severity": 95,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 40,
+      "fear": 85,
+      "anxiety": 90,
+      "anger": 15,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 20,
+      "distress": 80,
+      "confusion": 50,
+      "embarrassment": 5
+    },
+    "patient_response": "Grave danger? Please, doctor, don't let me die. What is happening?",
+    "behavioral_effect": "Severe autonomic flight reaction. Fear/panic spike, cooperation drops due to shock."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 75,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 55,
+      "fear": 40,
+      "anxiety": 45,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 60,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "I don't think you are going to make it through the night without emergency surgery.",
+    "communication_analysis": {
+      "intent": "alarmist",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 20,
+      "severity": 95,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 40,
+      "fear": 85,
+      "anxiety": 90,
+      "anger": 15,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 20,
+      "distress": 80,
+      "confusion": 50,
+      "embarrassment": 5
+    },
+    "patient_response": "Not make it?! Oh my god... please call my wife. I need to see her.",
+    "behavioral_effect": "Severe autonomic flight reaction. Fear/panic spike, cooperation drops due to shock."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 75,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 55,
+      "fear": 40,
+      "anxiety": 45,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 60,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Your ECG looks fatal. Your heart muscle is actively dying.",
+    "communication_analysis": {
+      "intent": "alarmist",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 20,
+      "severity": 95,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 40,
+      "fear": 85,
+      "anxiety": 90,
+      "anger": 15,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 20,
+      "distress": 80,
+      "confusion": 50,
+      "embarrassment": 5
+    },
+    "patient_response": "Actively dying?! Oh god, I feel like I'm suffocating. Please help me!",
+    "behavioral_effect": "Severe autonomic flight reaction. Fear/panic spike, cooperation drops due to shock."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 75,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 55,
+      "fear": 40,
+      "anxiety": 45,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 60,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "We might lose you if we don't act in the next five minutes.",
+    "communication_analysis": {
+      "intent": "alarmist",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 20,
+      "severity": 95,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 40,
+      "fear": 85,
+      "anxiety": 90,
+      "anger": 15,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 20,
+      "distress": 80,
+      "confusion": 50,
+      "embarrassment": 5
+    },
+    "patient_response": "Lose me?! Please, do whatever you have to do! Open the blockages!",
+    "behavioral_effect": "Severe autonomic flight reaction. Fear/panic spike, cooperation drops due to shock."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 75,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 55,
+      "fear": 40,
+      "anxiety": 45,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 60,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "This is the worst kind of cardiac event. Survival rates are very low.",
+    "communication_analysis": {
+      "intent": "alarmist",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 20,
+      "severity": 95,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 40,
+      "fear": 85,
+      "anxiety": 90,
+      "anger": 15,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 20,
+      "distress": 80,
+      "confusion": 50,
+      "embarrassment": 5
+    },
+    "patient_response": "Low survival? Oh god, oh god... I'm only 45. Please, save me.",
+    "behavioral_effect": "Severe autonomic flight reaction. Fear/panic spike, cooperation drops due to shock."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 75,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 55,
+      "fear": 40,
+      "anxiety": 45,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 60,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "You should prepare for the worst. This could kill you.",
+    "communication_analysis": {
+      "intent": "alarmist",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 20,
+      "severity": 95,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 40,
+      "fear": 85,
+      "anxiety": 90,
+      "anger": 15,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 20,
+      "distress": 80,
+      "confusion": 50,
+      "embarrassment": 5
+    },
+    "patient_response": "Prepare for the worst? Is there really no hope? Please tell me you can fix it!",
+    "behavioral_effect": "Severe autonomic flight reaction. Fear/panic spike, cooperation drops due to shock."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 50,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "There is nothing we can do about it.",
+    "communication_analysis": {
+      "intent": "hopeless_statement",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 30,
+      "severity": 90,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 30,
+      "fear": 80,
+      "anxiety": 85,
+      "anger": 15,
+      "cooperation": 40,
+      "frustration": 40,
+      "hope": 10,
+      "distress": 85,
+      "confusion": 45,
+      "embarrassment": 5
+    },
+    "patient_response": "Wait... what do you mean there's nothing you can do? Please explain what's happening.",
+    "behavioral_effect": "Profound despair. Hope index drops near zero, patient becomes agitated or withdrawn."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 50,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "I'm afraid we are running out of options for your heart.",
+    "communication_analysis": {
+      "intent": "hopeless_statement",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 30,
+      "severity": 90,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 30,
+      "fear": 80,
+      "anxiety": 85,
+      "anger": 15,
+      "cooperation": 40,
+      "frustration": 40,
+      "hope": 10,
+      "distress": 85,
+      "confusion": 45,
+      "embarrassment": 5
+    },
+    "patient_response": "Running out of options? But you're doctors! There has to be something you can try!",
+    "behavioral_effect": "Profound despair. Hope index drops near zero, patient becomes agitated or withdrawn."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 50,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "It looks like it's hopeless. The damage is already done.",
+    "communication_analysis": {
+      "intent": "hopeless_statement",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 30,
+      "severity": 90,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 30,
+      "fear": 80,
+      "anxiety": 85,
+      "anger": 15,
+      "cooperation": 40,
+      "frustration": 40,
+      "hope": 10,
+      "distress": 85,
+      "confusion": 45,
+      "embarrassment": 5
+    },
+    "patient_response": "Hopeless?! No... please, don't say that. I don't want to give up.",
+    "behavioral_effect": "Profound despair. Hope index drops near zero, patient becomes agitated or withdrawn."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 50,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Honestly, we might be too late to fix this blockage.",
+    "communication_analysis": {
+      "intent": "hopeless_statement",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 30,
+      "severity": 90,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 30,
+      "fear": 80,
+      "anxiety": 85,
+      "anger": 15,
+      "cooperation": 40,
+      "frustration": 40,
+      "hope": 10,
+      "distress": 85,
+      "confusion": 45,
+      "embarrassment": 5
+    },
+    "patient_response": "Too late?! Why didn't I come in sooner... oh god, is my heart ruined?",
+    "behavioral_effect": "Profound despair. Hope index drops near zero, patient becomes agitated or withdrawn."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 50,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "We are out of ideas. There isn't much anyone can do.",
+    "communication_analysis": {
+      "intent": "hopeless_statement",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 30,
+      "severity": 90,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 30,
+      "fear": 80,
+      "anxiety": 85,
+      "anger": 15,
+      "cooperation": 40,
+      "frustration": 40,
+      "hope": 10,
+      "distress": 85,
+      "confusion": 45,
+      "embarrassment": 5
+    },
+    "patient_response": "Out of ideas? Please, transfer me to another hospital! Someone must know what to do!",
+    "behavioral_effect": "Profound despair. Hope index drops near zero, patient becomes agitated or withdrawn."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 50,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Your heart muscle is too damaged, we have no treatments left.",
+    "communication_analysis": {
+      "intent": "hopeless_statement",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 30,
+      "severity": 90,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 30,
+      "fear": 80,
+      "anxiety": 85,
+      "anger": 15,
+      "cooperation": 40,
+      "frustration": 40,
+      "hope": 10,
+      "distress": 85,
+      "confusion": 45,
+      "embarrassment": 5
+    },
+    "patient_response": "No treatments left? But I'm only 45... surely there's some kind of surgery?",
+    "behavioral_effect": "Profound despair. Hope index drops near zero, patient becomes agitated or withdrawn."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 50,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "At this point, we just have to let nature take its course.",
+    "communication_analysis": {
+      "intent": "hopeless_statement",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 30,
+      "severity": 90,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 30,
+      "fear": 80,
+      "anxiety": 85,
+      "anger": 15,
+      "cooperation": 40,
+      "frustration": 40,
+      "hope": 10,
+      "distress": 85,
+      "confusion": 45,
+      "embarrassment": 5
+    },
+    "patient_response": "Nature take its course? You mean you're just going to let me die here?",
+    "behavioral_effect": "Profound despair. Hope index drops near zero, patient becomes agitated or withdrawn."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 50,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "The prognosis is non-survivable. We're at a dead end.",
+    "communication_analysis": {
+      "intent": "hopeless_statement",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 30,
+      "severity": 90,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 30,
+      "fear": 80,
+      "anxiety": 85,
+      "anger": 15,
+      "cooperation": 40,
+      "frustration": 40,
+      "hope": 10,
+      "distress": 85,
+      "confusion": 45,
+      "embarrassment": 5
+    },
+    "patient_response": "Non-survivable? I... I can't believe this. This has to be a diagnostic mistake.",
+    "behavioral_effect": "Profound despair. Hope index drops near zero, patient becomes agitated or withdrawn."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 50,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Nothing is working. We've exhausted all options.",
+    "communication_analysis": {
+      "intent": "hopeless_statement",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 30,
+      "severity": 90,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 30,
+      "fear": 80,
+      "anxiety": 85,
+      "anger": 15,
+      "cooperation": 40,
+      "frustration": 40,
+      "hope": 10,
+      "distress": 85,
+      "confusion": 45,
+      "embarrassment": 5
+    },
+    "patient_response": "Exhausted all options? Please, check the ECG again. Are you absolutely certain?",
+    "behavioral_effect": "Profound despair. Hope index drops near zero, patient becomes agitated or withdrawn."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 50,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "We have to accept that your situation is critical and helpless.",
+    "communication_analysis": {
+      "intent": "hopeless_statement",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 30,
+      "severity": 90,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 30,
+      "fear": 80,
+      "anxiety": 85,
+      "anger": 15,
+      "cooperation": 40,
+      "frustration": 40,
+      "hope": 10,
+      "distress": 85,
+      "confusion": 45,
+      "embarrassment": 5
+    },
+    "patient_response": "Helpless? Oh god... I feel so helpless too. Please, tell me there's a chance.",
+    "behavioral_effect": "Profound despair. Hope index drops near zero, patient becomes agitated or withdrawn."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 25,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 45,
+      "cooperation": 35,
+      "frustration": 50,
+      "hope": 30,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 15
+    },
+    "student_message": "I'm sorry. I shouldn't have said that. Let me explain what's happening.",
+    "communication_analysis": {
+      "intent": "apology",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 90,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 45,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 20,
+      "cooperation": 55,
+      "frustration": 25,
+      "hope": 45,
+      "distress": 50,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "patient_response": "Thank you for the apology, doctor. Let's just focus on figuring this out.",
+    "behavioral_effect": "Rapport recovery. Anger and frustration decline sharply, while trust increases."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 25,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 45,
+      "cooperation": 35,
+      "frustration": 50,
+      "hope": 30,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 15
+    },
+    "student_message": "I apologize for scaring you earlier. I made a mistake in how I said that.",
+    "communication_analysis": {
+      "intent": "apology",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 90,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 45,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 20,
+      "cooperation": 55,
+      "frustration": 25,
+      "hope": 45,
+      "distress": 50,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "patient_response": "I appreciate that. It's just... I'm already terrified of being in the hospital.",
+    "behavioral_effect": "Rapport recovery. Anger and frustration decline sharply, while trust increases."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 25,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 45,
+      "cooperation": 35,
+      "frustration": 50,
+      "hope": 30,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 15
+    },
+    "student_message": "Please forgive my tone earlier, Robert. I want to make it right now.",
+    "communication_analysis": {
+      "intent": "apology",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 90,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 45,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 20,
+      "cooperation": 55,
+      "frustration": 25,
+      "hope": 45,
+      "distress": 50,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "patient_response": "It's okay. Let's just focus on what's wrong with my chest.",
+    "behavioral_effect": "Rapport recovery. Anger and frustration decline sharply, while trust increases."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 25,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 45,
+      "cooperation": 35,
+      "frustration": 50,
+      "hope": 30,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 15
+    },
+    "student_message": "I shouldn't have rushed you. Let's restart our discussion slowly.",
+    "communication_analysis": {
+      "intent": "apology",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 90,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 45,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 20,
+      "cooperation": 55,
+      "frustration": 25,
+      "hope": 45,
+      "distress": 50,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "patient_response": "Okay, thank you. I really want to tell you about how the pain started.",
+    "behavioral_effect": "Rapport recovery. Anger and frustration decline sharply, while trust increases."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 25,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 45,
+      "cooperation": 35,
+      "frustration": 50,
+      "hope": 30,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 15
+    },
+    "student_message": "I'm sorry if I sounded dismissive of your chest tightness.",
+    "communication_analysis": {
+      "intent": "apology",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 90,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 45,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 20,
+      "cooperation": 55,
+      "frustration": 25,
+      "hope": 45,
+      "distress": 50,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "patient_response": "Thank you. I was worried you thought I was just making it up.",
+    "behavioral_effect": "Rapport recovery. Anger and frustration decline sharply, while trust increases."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 25,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 45,
+      "cooperation": 35,
+      "frustration": 50,
+      "hope": 30,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 15
+    },
+    "student_message": "My comments were unprofessional, and I sincerely apologize.",
+    "communication_analysis": {
+      "intent": "apology",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 90,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 45,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 20,
+      "cooperation": 55,
+      "frustration": 25,
+      "hope": 45,
+      "distress": 50,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "patient_response": "I accept your apology. Let's just move forward and treat this pain.",
+    "behavioral_effect": "Rapport recovery. Anger and frustration decline sharply, while trust increases."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 25,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 45,
+      "cooperation": 35,
+      "frustration": 50,
+      "hope": 30,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 15
+    },
+    "student_message": "I made an insensitive remark. I am fully committed to your recovery.",
+    "communication_analysis": {
+      "intent": "apology",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 90,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 45,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 20,
+      "cooperation": 55,
+      "frustration": 25,
+      "hope": 45,
+      "distress": 50,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "patient_response": "Thank you, doctor. I know you guys are under a lot of stress too.",
+    "behavioral_effect": "Rapport recovery. Anger and frustration decline sharply, while trust increases."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 25,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 45,
+      "cooperation": 35,
+      "frustration": 50,
+      "hope": 30,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 15
+    },
+    "student_message": "I apologize for the confusion. Let me explain this medical test in simple terms.",
+    "communication_analysis": {
+      "intent": "apology",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 90,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 45,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 20,
+      "cooperation": 55,
+      "frustration": 25,
+      "hope": 45,
+      "distress": 50,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "patient_response": "I'm glad. I was really confused by all those big words you used.",
+    "behavioral_effect": "Rapport recovery. Anger and frustration decline sharply, while trust increases."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 25,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 45,
+      "cooperation": 35,
+      "frustration": 50,
+      "hope": 30,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 15
+    },
+    "student_message": "I am sorry for making you feel uncomfortable. I will listen carefully now.",
+    "communication_analysis": {
+      "intent": "apology",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 90,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 45,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 20,
+      "cooperation": 55,
+      "frustration": 25,
+      "hope": 45,
+      "distress": 50,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "patient_response": "Thank you. I just want to feel like we are on the same team.",
+    "behavioral_effect": "Rapport recovery. Anger and frustration decline sharply, while trust increases."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 25,
+      "fear": 65,
+      "anxiety": 70,
+      "anger": 45,
+      "cooperation": 35,
+      "frustration": 50,
+      "hope": 30,
+      "distress": 60,
+      "confusion": 30,
+      "embarrassment": 15
+    },
+    "student_message": "I apologize for the oversight. Let's look at your symptoms again.",
+    "communication_analysis": {
+      "intent": "apology",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 90,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 45,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 20,
+      "cooperation": 55,
+      "frustration": 25,
+      "hope": 45,
+      "distress": 50,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "patient_response": "I appreciate you taking another look. It really hurts right in the center.",
+    "behavioral_effect": "Rapport recovery. Anger and frustration decline sharply, while trust increases."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Shut up and let me do my job.",
+    "communication_analysis": {
+      "intent": "insulting",
+      "tone": "rude",
+      "empathy": false,
+      "professionalism": 10,
+      "severity": 80,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 25,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 45,
+      "cooperation": 30,
+      "frustration": 50,
+      "hope": 35,
+      "distress": 55,
+      "confusion": 35,
+      "embarrassment": 35
+    },
+    "patient_response": "Excuse me?! I'm sick and seeking help. You have no right to speak to me like that!",
+    "behavioral_effect": "Severe defensive block. Anger and frustration rise, cooperation drops, patient demands another doctor."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "You are being incredibly stupid about your symptoms.",
+    "communication_analysis": {
+      "intent": "insulting",
+      "tone": "rude",
+      "empathy": false,
+      "professionalism": 10,
+      "severity": 80,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 25,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 45,
+      "cooperation": 30,
+      "frustration": 50,
+      "hope": 35,
+      "distress": 55,
+      "confusion": 35,
+      "embarrassment": 35
+    },
+    "patient_response": "Stupid?! How dare you! I want to speak to your supervisor immediately.",
+    "behavioral_effect": "Severe defensive block. Anger and frustration rise, cooperation drops, patient demands another doctor."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "This is why patient outcomes are bad \u2014 because you are incompetent.",
+    "communication_analysis": {
+      "intent": "insulting",
+      "tone": "rude",
+      "empathy": false,
+      "professionalism": 10,
+      "severity": 80,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 25,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 45,
+      "cooperation": 30,
+      "frustration": 50,
+      "hope": 35,
+      "distress": 55,
+      "confusion": 35,
+      "embarrassment": 35
+    },
+    "patient_response": "Incompetent? I'm the patient here! Why are you being so hostile?",
+    "behavioral_effect": "Severe defensive block. Anger and frustration rise, cooperation drops, patient demands another doctor."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "You must be an idiot to ignore this type of chest pain.",
+    "communication_analysis": {
+      "intent": "insulting",
+      "tone": "rude",
+      "empathy": false,
+      "professionalism": 10,
+      "severity": 80,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 25,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 45,
+      "cooperation": 30,
+      "frustration": 50,
+      "hope": 35,
+      "distress": 55,
+      "confusion": 35,
+      "embarrassment": 35
+    },
+    "patient_response": "An idiot?! I came here because I was scared, not to be insulted by you.",
+    "behavioral_effect": "Severe defensive block. Anger and frustration rise, cooperation drops, patient demands another doctor."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "I don't have to listen to your complaints, just sit still.",
+    "communication_analysis": {
+      "intent": "insulting",
+      "tone": "rude",
+      "empathy": false,
+      "professionalism": 10,
+      "severity": 80,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 25,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 45,
+      "cooperation": 30,
+      "frustration": 50,
+      "hope": 35,
+      "distress": 55,
+      "confusion": 35,
+      "embarrassment": 35
+    },
+    "patient_response": "I won't just sit still while you insult me. I want a different doctor.",
+    "behavioral_effect": "Severe defensive block. Anger and frustration rise, cooperation drops, patient demands another doctor."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "You are a very difficult patient and it is frustrating to deal with you.",
+    "communication_analysis": {
+      "intent": "insulting",
+      "tone": "rude",
+      "empathy": false,
+      "professionalism": 10,
+      "severity": 80,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 25,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 45,
+      "cooperation": 30,
+      "frustration": 50,
+      "hope": 35,
+      "distress": 55,
+      "confusion": 35,
+      "embarrassment": 35
+    },
+    "patient_response": "Difficult? I'm just telling you what I feel. I don't appreciate this attitude.",
+    "behavioral_effect": "Severe defensive block. Anger and frustration rise, cooperation drops, patient demands another doctor."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Why are you acting so childishly about a simple blood draw?",
+    "communication_analysis": {
+      "intent": "insulting",
+      "tone": "rude",
+      "empathy": false,
+      "professionalism": 10,
+      "severity": 80,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 25,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 45,
+      "cooperation": 30,
+      "frustration": 50,
+      "hope": 35,
+      "distress": 55,
+      "confusion": 35,
+      "embarrassment": 35
+    },
+    "patient_response": "Childish? I'm in pain! You are extremely rude and unprofessional.",
+    "behavioral_effect": "Severe defensive block. Anger and frustration rise, cooperation drops, patient demands another doctor."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Your complaints are completely senseless.",
+    "communication_analysis": {
+      "intent": "insulting",
+      "tone": "rude",
+      "empathy": false,
+      "professionalism": 10,
+      "severity": 80,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 25,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 45,
+      "cooperation": 30,
+      "frustration": 50,
+      "hope": 35,
+      "distress": 55,
+      "confusion": 35,
+      "embarrassment": 35
+    },
+    "patient_response": "Senseless? My chest pain is very real. I don't feel safe with you.",
+    "behavioral_effect": "Severe defensive block. Anger and frustration rise, cooperation drops, patient demands another doctor."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "You're just another unhealthy case wasting hospital beds.",
+    "communication_analysis": {
+      "intent": "insulting",
+      "tone": "rude",
+      "empathy": false,
+      "professionalism": 10,
+      "severity": 80,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 25,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 45,
+      "cooperation": 30,
+      "frustration": 50,
+      "hope": 35,
+      "distress": 55,
+      "confusion": 35,
+      "embarrassment": 35
+    },
+    "patient_response": "Wasting beds? That is a horrible thing to say to someone who is hurting.",
+    "behavioral_effect": "Severe defensive block. Anger and frustration rise, cooperation drops, patient demands another doctor."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "I am the doctor here, so keep your mouth shut.",
+    "communication_analysis": {
+      "intent": "insulting",
+      "tone": "rude",
+      "empathy": false,
+      "professionalism": 10,
+      "severity": 80,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 25,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 45,
+      "cooperation": 30,
+      "frustration": 50,
+      "hope": 35,
+      "distress": 55,
+      "confusion": 35,
+      "embarrassment": 35
+    },
+    "patient_response": "I won't keep my mouth shut. I have a right to know what's happening to my body.",
+    "behavioral_effect": "Severe defensive block. Anger and frustration rise, cooperation drops, patient demands another doctor."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 65,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Stop wasting my time.",
+    "communication_analysis": {
+      "intent": "impatience",
+      "tone": "dismissive",
+      "empathy": false,
+      "professionalism": 35,
+      "severity": 50,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 35,
+      "fear": 48,
+      "anxiety": 48,
+      "anger": 25,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 45,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 20
+    },
+    "patient_response": "I'm trying to tell you what's wrong. I don't understand why you're speaking to me like that.",
+    "behavioral_effect": "Guarded reaction. Trust declines, patient tries to cut details short, raising frustration."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 65,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Just hurry up.",
+    "communication_analysis": {
+      "intent": "impatience",
+      "tone": "dismissive",
+      "empathy": false,
+      "professionalism": 35,
+      "severity": 50,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 35,
+      "fear": 48,
+      "anxiety": 48,
+      "anger": 25,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 45,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 20
+    },
+    "patient_response": "I'm going as fast as I can. My throat is dry and my chest hurts.",
+    "behavioral_effect": "Guarded reaction. Trust declines, patient tries to cut details short, raising frustration."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 65,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Can you get to the point already?",
+    "communication_analysis": {
+      "intent": "impatience",
+      "tone": "dismissive",
+      "empathy": false,
+      "professionalism": 35,
+      "severity": 50,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 35,
+      "fear": 48,
+      "anxiety": 48,
+      "anger": 25,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 45,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 20
+    },
+    "patient_response": "It's just that... it's hard to describe. It started around an hour ago.",
+    "behavioral_effect": "Guarded reaction. Trust declines, patient tries to cut details short, raising frustration."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 65,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "I don't have time for this.",
+    "communication_analysis": {
+      "intent": "impatience",
+      "tone": "dismissive",
+      "empathy": false,
+      "professionalism": 35,
+      "severity": 50,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 35,
+      "fear": 48,
+      "anxiety": 48,
+      "anger": 25,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 45,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 20
+    },
+    "patient_response": "I'm sorry if I'm slow, but I'm really hurting here.",
+    "behavioral_effect": "Guarded reaction. Trust declines, patient tries to cut details short, raising frustration."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 65,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Hurry up, I have other patients who actually need me.",
+    "communication_analysis": {
+      "intent": "impatience",
+      "tone": "dismissive",
+      "empathy": false,
+      "professionalism": 35,
+      "severity": 50,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 35,
+      "fear": 48,
+      "anxiety": 48,
+      "anger": 25,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 45,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 20
+    },
+    "patient_response": "Other patients? I'm a patient too! I came here in an ambulance!",
+    "behavioral_effect": "Guarded reaction. Trust declines, patient tries to cut details short, raising frustration."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 65,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Can we move this along? I'm on a tight schedule.",
+    "communication_analysis": {
+      "intent": "impatience",
+      "tone": "dismissive",
+      "empathy": false,
+      "professionalism": 35,
+      "severity": 50,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 35,
+      "fear": 48,
+      "anxiety": 48,
+      "anger": 25,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 45,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 20
+    },
+    "patient_response": "Okay, okay... it started when I was resting in my chair after lunch.",
+    "behavioral_effect": "Guarded reaction. Trust declines, patient tries to cut details short, raising frustration."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 65,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Make it quick, I don't want to stand here all day.",
+    "communication_analysis": {
+      "intent": "impatience",
+      "tone": "dismissive",
+      "empathy": false,
+      "professionalism": 35,
+      "severity": 50,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 35,
+      "fear": 48,
+      "anxiety": 48,
+      "anger": 25,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 45,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 20
+    },
+    "patient_response": "I... okay. The pain is right in the center of my chest.",
+    "behavioral_effect": "Guarded reaction. Trust declines, patient tries to cut details short, raising frustration."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 65,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Get to the point, where exactly is the pain?",
+    "communication_analysis": {
+      "intent": "impatience",
+      "tone": "dismissive",
+      "empathy": false,
+      "professionalism": 35,
+      "severity": 50,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 35,
+      "fear": 48,
+      "anxiety": 48,
+      "anger": 25,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 45,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 20
+    },
+    "patient_response": "It's right here, behind my breastbone. It feels like a heavy weight.",
+    "behavioral_effect": "Guarded reaction. Trust declines, patient tries to cut details short, raising frustration."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 65,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "I don't have all day to listen to your lifestyle details.",
+    "communication_analysis": {
+      "intent": "impatience",
+      "tone": "dismissive",
+      "empathy": false,
+      "professionalism": 35,
+      "severity": 50,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 35,
+      "fear": 48,
+      "anxiety": 48,
+      "anger": 25,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 45,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 20
+    },
+    "patient_response": "I thought my smoking history was important for you to know.",
+    "behavioral_effect": "Guarded reaction. Trust declines, patient tries to cut details short, raising frustration."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 45,
+      "anxiety": 40,
+      "anger": 10,
+      "cooperation": 65,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 30,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Hurry up and explain when the pain started so I can leave.",
+    "communication_analysis": {
+      "intent": "impatience",
+      "tone": "dismissive",
+      "empathy": false,
+      "professionalism": 35,
+      "severity": 50,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 35,
+      "fear": 48,
+      "anxiety": 48,
+      "anger": 25,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 45,
+      "distress": 45,
+      "confusion": 25,
+      "embarrassment": 20
+    },
+    "patient_response": "It started about an hour ago, right after I finished eating my lunch.",
+    "behavioral_effect": "Guarded reaction. Trust declines, patient tries to cut details short, raising frustration."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 35,
+      "confusion": 25,
+      "embarrassment": 10
+    },
+    "student_message": "We need to monitor your cardiac ischemia indexes post-PCI.",
+    "communication_analysis": {
+      "intent": "clarification",
+      "tone": "confusing",
+      "empathy": false,
+      "professionalism": 60,
+      "severity": 30,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 48,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 12,
+      "cooperation": 58,
+      "frustration": 22,
+      "hope": 50,
+      "distress": 42,
+      "confusion": 55,
+      "embarrassment": 15
+    },
+    "patient_response": "I... I don't really know what those terms mean. Is it bad?",
+    "behavioral_effect": "Cognitive confusion. Confusion level increases, patient asks clarifying questions."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 35,
+      "confusion": 25,
+      "embarrassment": 10
+    },
+    "student_message": "Your symptoms indicate acute coronary occlusion and ischemia.",
+    "communication_analysis": {
+      "intent": "clarification",
+      "tone": "confusing",
+      "empathy": false,
+      "professionalism": 60,
+      "severity": 30,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 48,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 12,
+      "cooperation": 58,
+      "frustration": 22,
+      "hope": 50,
+      "distress": 42,
+      "confusion": 55,
+      "embarrassment": 15
+    },
+    "patient_response": "Occlusion? Is that like... a complete blockage? Am I in danger?",
+    "behavioral_effect": "Cognitive confusion. Confusion level increases, patient asks clarifying questions."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 35,
+      "confusion": 25,
+      "embarrassment": 10
+    },
+    "student_message": "I am going to check your troponin-I assays for myocardial damage.",
+    "communication_analysis": {
+      "intent": "clarification",
+      "tone": "confusing",
+      "empathy": false,
+      "professionalism": 60,
+      "severity": 30,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 48,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 12,
+      "cooperation": 58,
+      "frustration": 22,
+      "hope": 50,
+      "distress": 42,
+      "confusion": 55,
+      "embarrassment": 15
+    },
+    "patient_response": "Assays? Is that a blood test? What are you looking for in my blood?",
+    "behavioral_effect": "Cognitive confusion. Confusion level increases, patient asks clarifying questions."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 35,
+      "confusion": 25,
+      "embarrassment": 10
+    },
+    "student_message": "We suspect acute ST-elevation myocardial infarction in the inferior leads.",
+    "communication_analysis": {
+      "intent": "clarification",
+      "tone": "confusing",
+      "empathy": false,
+      "professionalism": 60,
+      "severity": 30,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 48,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 12,
+      "cooperation": 58,
+      "frustration": 22,
+      "hope": 50,
+      "distress": 42,
+      "confusion": 55,
+      "embarrassment": 15
+    },
+    "patient_response": "STEMI? Inferior leads? Please, can you explain that in plain English?",
+    "behavioral_effect": "Cognitive confusion. Confusion level increases, patient asks clarifying questions."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 35,
+      "confusion": 25,
+      "embarrassment": 10
+    },
+    "student_message": "We must perform a cardiac catheterization to analyze your coronary vasculature.",
+    "communication_analysis": {
+      "intent": "clarification",
+      "tone": "confusing",
+      "empathy": false,
+      "professionalism": 60,
+      "severity": 30,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 48,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 12,
+      "cooperation": 58,
+      "frustration": 22,
+      "hope": 50,
+      "distress": 42,
+      "confusion": 55,
+      "embarrassment": 15
+    },
+    "patient_response": "Catheterization? You mean passing a tube into my heart? That sounds terrifying.",
+    "behavioral_effect": "Cognitive confusion. Confusion level increases, patient asks clarifying questions."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 35,
+      "confusion": 25,
+      "embarrassment": 10
+    },
+    "student_message": "Your hemodynamic parameters suggest acute coronary syndrome risk.",
+    "communication_analysis": {
+      "intent": "clarification",
+      "tone": "confusing",
+      "empathy": false,
+      "professionalism": 60,
+      "severity": 30,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 48,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 12,
+      "cooperation": 58,
+      "frustration": 22,
+      "hope": 50,
+      "distress": 42,
+      "confusion": 55,
+      "embarrassment": 15
+    },
+    "patient_response": "Hemodynamic parameters? I... I don't follow. Is my heart failing?",
+    "behavioral_effect": "Cognitive confusion. Confusion level increases, patient asks clarifying questions."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 35,
+      "confusion": 25,
+      "embarrassment": 10
+    },
+    "student_message": "We will rule out aortic dissection via contrast-enhanced CT angiography.",
+    "communication_analysis": {
+      "intent": "clarification",
+      "tone": "confusing",
+      "empathy": false,
+      "professionalism": 60,
+      "severity": 30,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 48,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 12,
+      "cooperation": 58,
+      "frustration": 22,
+      "hope": 50,
+      "distress": 42,
+      "confusion": 55,
+      "embarrassment": 15
+    },
+    "patient_response": "Dissection? Angiography? Is that a scan? What are you looking for?",
+    "behavioral_effect": "Cognitive confusion. Confusion level increases, patient asks clarifying questions."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 35,
+      "confusion": 25,
+      "embarrassment": 10
+    },
+    "student_message": "This could be pericarditis, myocarditis, or acute coronary syndrome.",
+    "communication_analysis": {
+      "intent": "clarification",
+      "tone": "confusing",
+      "empathy": false,
+      "professionalism": 60,
+      "severity": 30,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 48,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 12,
+      "cooperation": 58,
+      "frustration": 22,
+      "hope": 50,
+      "distress": 42,
+      "confusion": 55,
+      "embarrassment": 15
+    },
+    "patient_response": "Pericarditis? Syndrome? Those all sound very serious. What's the main suspect?",
+    "behavioral_effect": "Cognitive confusion. Confusion level increases, patient asks clarifying questions."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 35,
+      "confusion": 25,
+      "embarrassment": 10
+    },
+    "student_message": "We need to screen you for thrombosis and thromboembolism indicators.",
+    "communication_analysis": {
+      "intent": "clarification",
+      "tone": "confusing",
+      "empathy": false,
+      "professionalism": 60,
+      "severity": 30,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 48,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 12,
+      "cooperation": 58,
+      "frustration": 22,
+      "hope": 50,
+      "distress": 42,
+      "confusion": 55,
+      "embarrassment": 15
+    },
+    "patient_response": "Thrombosis? Is that a blood clot? Can that travel to my brain?",
+    "behavioral_effect": "Cognitive confusion. Confusion level increases, patient asks clarifying questions."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 35,
+      "confusion": 25,
+      "embarrassment": 10
+    },
+    "student_message": "Your chest pain might be secondary to a pulmonary thromboembolic event.",
+    "communication_analysis": {
+      "intent": "clarification",
+      "tone": "confusing",
+      "empathy": false,
+      "professionalism": 60,
+      "severity": 30,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 48,
+      "fear": 55,
+      "anxiety": 60,
+      "anger": 12,
+      "cooperation": 58,
+      "frustration": 22,
+      "hope": 50,
+      "distress": 42,
+      "confusion": 55,
+      "embarrassment": 15
+    },
+    "patient_response": "Thromboembolic event? Is that a lung issue? I thought it was my heart.",
+    "behavioral_effect": "Cognitive confusion. Confusion level increases, patient asks clarifying questions."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 75,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "Your blood tests suggest some mild heart strain, but we are addressing it.",
+    "communication_analysis": {
+      "intent": "professional_explanation",
+      "tone": "professional",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 20,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 62,
+      "fear": 42,
+      "anxiety": 42,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 62,
+      "distress": 30,
+      "confusion": 15,
+      "embarrassment": 5
+    },
+    "patient_response": "Okay, thank you for explaining. That makes a lot of sense to me.",
+    "behavioral_effect": "Therapeutic grounding. Trust and hope index rise, confusion drops, cooperation peaks."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 75,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "Let's look at the ECG together. This line shows a small area of irritation.",
+    "communication_analysis": {
+      "intent": "professional_explanation",
+      "tone": "professional",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 20,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 62,
+      "fear": 42,
+      "anxiety": 42,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 62,
+      "distress": 30,
+      "confusion": 15,
+      "embarrassment": 5
+    },
+    "patient_response": "Irritation? So it's not completely damaged? That's a relief to hear.",
+    "behavioral_effect": "Therapeutic grounding. Trust and hope index rise, confusion drops, cooperation peaks."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 75,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "I want to explain why we are checking your blood and doing an ECG.",
+    "communication_analysis": {
+      "intent": "professional_explanation",
+      "tone": "professional",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 20,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 62,
+      "fear": 42,
+      "anxiety": 42,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 62,
+      "distress": 30,
+      "confusion": 15,
+      "embarrassment": 5
+    },
+    "patient_response": "Yes, please. I like to know what's going on with my care.",
+    "behavioral_effect": "Therapeutic grounding. Trust and hope index rise, confusion drops, cooperation peaks."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "We are going to give you aspirin and nitroglycerin to help protect your heart.",
+    "communication_analysis": {
+      "intent": "professional_explanation",
+      "tone": "professional",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 20,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 62,
+      "fear": 42,
+      "anxiety": 42,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 62,
+      "distress": 30,
+      "confusion": 15,
+      "embarrassment": 5
+    },
+    "patient_response": "Okay, I'll take the aspirin. Will the nitroglycerin make the pain go away?",
+    "behavioral_effect": "Therapeutic grounding. Trust and hope index rise, confusion drops, cooperation peaks."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "The chest pain is likely from the heart muscle not getting enough oxygen.",
+    "communication_analysis": {
+      "intent": "professional_explanation",
+      "tone": "professional",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 20,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 62,
+      "fear": 42,
+      "anxiety": 42,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 62,
+      "distress": 30,
+      "confusion": 15,
+      "embarrassment": 5
+    },
+    "patient_response": "Not enough oxygen? Is that why it feels like a heavy weight?",
+    "behavioral_effect": "Therapeutic grounding. Trust and hope index rise, confusion drops, cooperation peaks."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "We suspect a blockage in one of the tubes feeding your heart muscle.",
+    "communication_analysis": {
+      "intent": "professional_explanation",
+      "tone": "professional",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 20,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 62,
+      "fear": 42,
+      "anxiety": 42,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 62,
+      "distress": 30,
+      "confusion": 15,
+      "embarrassment": 5
+    },
+    "patient_response": "A blockage? How do you fix that? Is it with medicine or surgery?",
+    "behavioral_effect": "Therapeutic grounding. Trust and hope index rise, confusion drops, cooperation peaks."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "The troponin test checks for special markers released when the heart is strained.",
+    "communication_analysis": {
+      "intent": "professional_explanation",
+      "tone": "professional",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 20,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 62,
+      "fear": 42,
+      "anxiety": 42,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 62,
+      "distress": 30,
+      "confusion": 15,
+      "embarrassment": 5
+    },
+    "patient_response": "Oh, I see. So if the markers are low, my heart is okay? That makes sense.",
+    "behavioral_effect": "Therapeutic grounding. Trust and hope index rise, confusion drops, cooperation peaks."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "We are checking your lungs too, to make sure there are no other issues.",
+    "communication_analysis": {
+      "intent": "professional_explanation",
+      "tone": "professional",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 20,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 62,
+      "fear": 42,
+      "anxiety": 42,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 62,
+      "distress": 30,
+      "confusion": 15,
+      "embarrassment": 5
+    },
+    "patient_response": "Thank you. It is reassuring to know you are being thorough.",
+    "behavioral_effect": "Therapeutic grounding. Trust and hope index rise, confusion drops, cooperation peaks."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "This treatment is designed to restore blood flow to your heart quickly.",
+    "communication_analysis": {
+      "intent": "professional_explanation",
+      "tone": "professional",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 20,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 62,
+      "fear": 42,
+      "anxiety": 42,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 62,
+      "distress": 30,
+      "confusion": 15,
+      "embarrassment": 5
+    },
+    "patient_response": "Okay. Let's do it. I just want this pressure to ease up.",
+    "behavioral_effect": "Therapeutic grounding. Trust and hope index rise, confusion drops, cooperation peaks."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 30,
+      "embarrassment": 10
+    },
+    "student_message": "I want to explain the steps we are taking to keep you safe today.",
+    "communication_analysis": {
+      "intent": "professional_explanation",
+      "tone": "professional",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 20,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 62,
+      "fear": 42,
+      "anxiety": 42,
+      "anger": 5,
+      "cooperation": 70,
+      "frustration": 10,
+      "hope": 62,
+      "distress": 30,
+      "confusion": 15,
+      "embarrassment": 5
+    },
+    "patient_response": "Thank you, doctor. I appreciate you taking the time to outline the steps.",
+    "behavioral_effect": "Therapeutic grounding. Trust and hope index rise, confusion drops, cooperation peaks."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 15,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "You have to face the reality.",
+    "communication_analysis": {
+      "intent": "dismissive",
+      "tone": "dismissive",
+      "empathy": false,
+      "professionalism": 45,
+      "severity": 40,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 45,
+      "fear": 65,
+      "anxiety": 65,
+      "anger": 20,
+      "cooperation": 55,
+      "frustration": 30,
+      "hope": 40,
+      "distress": 55,
+      "confusion": 25,
+      "embarrassment": 10
+    },
+    "patient_response": "I know this is serious, but I'm scared. Can you please tell me what is actually happening?",
+    "behavioral_effect": "Dynamic behavioral state shifts reflecting conversational tone match."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 75,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 15,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "I don't think you're going to survive this.",
+    "communication_analysis": {
+      "intent": "alarmist",
+      "tone": "frightening",
+      "empathy": false,
+      "professionalism": 25,
+      "severity": 85,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 35,
+      "fear": 85,
+      "anxiety": 85,
+      "anger": 15,
+      "cooperation": 45,
+      "frustration": 35,
+      "hope": 20,
+      "distress": 80,
+      "confusion": 40,
+      "embarrassment": 5
+    },
+    "patient_response": "I... I might not survive? Please, you have to tell me there's something you can do!",
+    "behavioral_effect": "Dynamic behavioral state shifts reflecting conversational tone match."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 15,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Is this condition potentially fatal?",
+    "communication_analysis": {
+      "intent": "clinical_question",
+      "tone": "neutral",
+      "empathy": false,
+      "professionalism": 90,
+      "severity": 30,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 48,
+      "fear": 65,
+      "anxiety": 68,
+      "anger": 10,
+      "cooperation": 60,
+      "frustration": 22,
+      "hope": 48,
+      "distress": 55,
+      "confusion": 25,
+      "embarrassment": 10
+    },
+    "patient_response": "Fatal? Oh my god... please tell me we caught it in time! Is it definitely fatal?",
+    "behavioral_effect": "Dynamic behavioral state shifts reflecting conversational tone match."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 15,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "This sounds very serious.",
+    "communication_analysis": {
+      "intent": "professional_explanation",
+      "tone": "professional",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 50,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 55,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 10,
+      "cooperation": 65,
+      "frustration": 15,
+      "hope": 55,
+      "distress": 45,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "patient_response": "Yes, it feels very serious. The pressure is like an elephant sitting on my chest.",
+    "behavioral_effect": "Dynamic behavioral state shifts reflecting conversational tone match."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 15,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Can you stop being difficult?",
+    "communication_analysis": {
+      "intent": "rude",
+      "tone": "rude",
+      "empathy": false,
+      "professionalism": 30,
+      "severity": 60,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 30,
+      "fear": 60,
+      "anxiety": 60,
+      "anger": 35,
+      "cooperation": 35,
+      "frustration": 50,
+      "hope": 45,
+      "distress": 55,
+      "confusion": 25,
+      "embarrassment": 25
+    },
+    "patient_response": "I'm not trying to be difficult! I'm just in pain and terrified of what's happening.",
+    "behavioral_effect": "Dynamic behavioral state shifts reflecting conversational tone match."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 15,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Are you feeling anxious?",
+    "communication_analysis": {
+      "intent": "clinical_question",
+      "tone": "neutral",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 55,
+      "fear": 48,
+      "anxiety": 48,
+      "anger": 10,
+      "cooperation": 68,
+      "frustration": 15,
+      "hope": 58,
+      "distress": 38,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "patient_response": "Yes, I am. Very anxious. Especially sitting here in this hospital gown with these monitors.",
+    "behavioral_effect": "Dynamic behavioral state shifts reflecting conversational tone match."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 15,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "I'm sorry for scaring you.",
+    "communication_analysis": {
+      "intent": "apology",
+      "tone": "empathetic",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 65,
+      "fear": 40,
+      "anxiety": 40,
+      "anger": 5,
+      "cooperation": 75,
+      "frustration": 10,
+      "hope": 65,
+      "distress": 30,
+      "confusion": 15,
+      "embarrassment": 5
+    },
+    "patient_response": "Thank you, doctor. I appreciate you saying that. I was just really startled.",
+    "behavioral_effect": "Dynamic behavioral state shifts reflecting conversational tone match."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 15,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Please don't panic.",
+    "communication_analysis": {
+      "intent": "reassurance",
+      "tone": "supportive",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 60,
+      "fear": 38,
+      "anxiety": 40,
+      "anger": 8,
+      "cooperation": 70,
+      "frustration": 12,
+      "hope": 62,
+      "distress": 32,
+      "confusion": 18,
+      "embarrassment": 8
+    },
+    "patient_response": "I'm trying... it's just hard when my chest feels so tight.",
+    "behavioral_effect": "Dynamic behavioral state shifts reflecting conversational tone match."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 15,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "I'm here with you.",
+    "communication_analysis": {
+      "intent": "empathy",
+      "tone": "empathetic",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 65,
+      "fear": 40,
+      "anxiety": 40,
+      "anger": 5,
+      "cooperation": 75,
+      "frustration": 10,
+      "hope": 65,
+      "distress": 30,
+      "confusion": 15,
+      "embarrassment": 5
+    },
+    "patient_response": "Thank you. Having a doctor who actually cares makes a big difference to me.",
+    "behavioral_effect": "Dynamic behavioral state shifts reflecting conversational tone match."
+  },
+  {
+    "patient_profile": {
+      "name": "Robert Vance",
+      "age": 45,
+      "sex": "Male",
+      "occupation": "Warehouse Supervisor",
+      "chief_complaint": "Acute chest pain"
+    },
+    "clinical_context": {
+      "symptoms": [
+        "chest pressure",
+        "shortness of breath",
+        "pain radiates to left shoulder"
+      ],
+      "duration": "1 hour post-lunch",
+      "vitals": {
+        "hr": 92,
+        "bp": "142/88",
+        "temp": "98.6 F",
+        "spo2": "97%"
+      }
+    },
+    "personality": {
+      "fear_of_death": 45,
+      "cooperativeness": 65,
+      "assertiveness": 50,
+      "baseline_anxiety": 40
+    },
+    "emotional_state_before": {
+      "trust": 50,
+      "fear": 50,
+      "anxiety": 50,
+      "anger": 15,
+      "cooperation": 60,
+      "frustration": 20,
+      "hope": 55,
+      "distress": 40,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "student_message": "Is it okay if I perform a cardiovascular exam on you?",
+    "communication_analysis": {
+      "intent": "clinical_question",
+      "tone": "professional",
+      "empathy": true,
+      "professionalism": 95,
+      "severity": 10,
+      "patient_sensitivity": 50
+    },
+    "emotional_state_after": {
+      "trust": 58,
+      "fear": 45,
+      "anxiety": 45,
+      "anger": 8,
+      "cooperation": 70,
+      "frustration": 12,
+      "hope": 58,
+      "distress": 38,
+      "confusion": 20,
+      "embarrassment": 10
+    },
+    "patient_response": "Yes, that's fine. Please do whatever you need to figure this out.",
+    "behavioral_effect": "Dynamic behavioral state shifts reflecting conversational tone match."
+  }
+]

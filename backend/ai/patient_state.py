@@ -112,7 +112,7 @@ class PatientAgentState:
 
     def _apply_case_defaults(self, case_data: Dict[str, Any]) -> None:
         """Initialize from case JSON configuration."""
-        personality_data = case_data.get("patient_personality", {})
+        personality_data = case_data.get("patient_personality") or case_data.get("personality", {})
         if personality_data:
             self.personality = PersonalityProfile.from_dict(personality_data)
 
@@ -120,9 +120,22 @@ class PatientAgentState:
         self.emotion.anxiety = min(100, self.personality.baseline_anxiety + 10)
         self.emotion.fear = max(0, self.personality.baseline_anxiety - 15)
         self.emotion.trust = max(20, 100 - self.personality.distrust_of_medical - 10)
+        self.emotion.cooperation = max(10, self.personality.cooperativeness)
 
-        self.beliefs = list(case_data.get("patient_beliefs", []))
-        self.goals = list(case_data.get("patient_goals", []))
+        # Extract pain severity dynamically from clinical facts
+        pain_val = 45 # default
+        history_of_illness = case_data.get("clinical_facts", {}).get("history_of_illness", [])
+        import re
+        for line in history_of_illness:
+            if "severity" in line.lower() or "pain" in line.lower():
+                match = re.search(r"(\d+)\s*/\s*10", line)
+                if match:
+                    pain_val = int(match.group(1)) * 10
+                    break
+        self.emotion.pain = pain_val
+
+        self.beliefs = list(case_data.get("patient_beliefs") or case_data.get("beliefs", []))
+        self.goals = list(case_data.get("patient_goals") or case_data.get("goals", []))
 
     @classmethod
     def initialize_from_case(cls, case_data: Dict[str, Any]) -> "PatientAgentState":

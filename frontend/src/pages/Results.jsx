@@ -164,10 +164,10 @@ export default function Results({ sessionId, onNavigate }) {
                 <div className="w-full bg-slate-100 rounded-full h-2">
                   <div
                     className={`h-2 rounded-full transition-all duration-500 ${(cat.score / cat.max) >= 0.85
-                        ? 'bg-emerald-500'
-                        : (cat.score / cat.max) >= 0.70
-                          ? 'bg-medical-500'
-                          : 'bg-amber-500'
+                      ? 'bg-emerald-500'
+                      : (cat.score / cat.max) >= 0.70
+                        ? 'bg-medical-500'
+                        : 'bg-amber-500'
                       }`}
                     style={{ width: `${(cat.score / cat.max) * 100}%` }}
                   />
@@ -278,38 +278,152 @@ export default function Results({ sessionId, onNavigate }) {
         </div>
 
         {/* Chronological Timeline */}
-        {evaluation.emotional_timeline && evaluation.emotional_timeline.length > 0 && (
-          <div className="pt-4 border-t border-slate-100 space-y-3">
-            <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest block font-mono">Patient Emotional Journey Log</span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-              {evaluation.emotional_timeline.map((event, index) => {
-                const labelColors = {
-                  Shocked: 'bg-amber-50/80 text-amber-800 border-amber-200',
-                  Frightened: 'bg-red-50/80 text-red-800 border-red-200',
-                  Distressed: 'bg-purple-50/80 text-purple-800 border-purple-200',
-                  Anxious: 'bg-orange-50/80 text-orange-900 border-orange-200',
-                  Concerned: 'bg-yellow-50 text-yellow-800 border-yellow-205',
-                  Reassured: 'bg-emerald-50/80 text-emerald-800 border-emerald-200',
-                  Angry: 'bg-rose-50/80 text-rose-800 border-rose-200',
-                  Confused: 'bg-blue-50/80 text-blue-800 border-blue-200',
-                  Calm: 'bg-slate-50/80 text-slate-800 border-slate-200'
-                };
-                const colorClass = labelColors[event.emotion_label] || 'bg-slate-50 text-slate-700 border-slate-200';
-                return (
-                  <div key={index} className={`flex items-start gap-2.5 p-3 rounded-xl border ${colorClass} text-xs font-semibold transition-all hover:shadow-sm`}>
-                    <div className="w-5 h-5 bg-white/90 border border-slate-100 rounded-full flex items-center justify-center shrink-0 font-mono text-[10px] font-black shadow-sm">
-                      {event.turn}
-                    </div>
-                    <div className="space-y-0.5">
-                      <div className="font-extrabold uppercase text-[9px] tracking-wide opacity-80">{event.emotion_label}</div>
-                      <div className="text-[10px] leading-tight font-medium opacity-90">{event.description}</div>
-                    </div>
+        {evaluation.emotional_timeline && evaluation.emotional_timeline.length > 0 && (() => {
+          const chartWidth = 550;
+          const chartHeight = 130;
+          const paddingX = 40;
+          const paddingY = 20;
+
+          const points = evaluation.emotional_timeline.map((event) => {
+            const turn = event.turn;
+            const label = event.emotion_label;
+            let val = 50;
+            if (label === 'Calm') val = 90;
+            else if (label === 'Reassured') val = 95;
+            else if (label === 'Concerned') val = 70;
+            else if (label === 'Confused') val = 60;
+            else if (label === 'Anxious') val = 40;
+            else if (label === 'Shocked') val = 30;
+            else if (label === 'Angry') val = 25;
+            else if (label === 'Frightened') val = 20;
+            else if (label === 'Distressed') val = 10;
+            return { turn, val, label };
+          });
+
+          let polylinePoints = '';
+          let svgPoints = [];
+          if (points.length > 0) {
+            const minTurn = Math.min(...points.map(p => p.turn));
+            const maxTurn = Math.max(...points.map(p => p.turn));
+            const turnRange = maxTurn - minTurn || 1;
+
+            const getX = (t) => paddingX + ((t - minTurn) / turnRange) * (chartWidth - paddingX * 2);
+            const getY = (v) => chartHeight - paddingY - (v / 100) * (chartHeight - paddingY * 2);
+
+            svgPoints = points.map(p => ({
+              x: getX(p.turn),
+              y: getY(p.val),
+              label: p.label,
+              turn: p.turn,
+              val: p.val
+            }));
+
+            polylinePoints = svgPoints.map(p => `${p.x},${p.y}`).join(' ');
+          }
+
+          return (
+            <div className="pt-4 border-t border-slate-100 space-y-4">
+
+              {/* Visual SVG Trend Sparkline */}
+              {svgPoints.length > 1 && (
+                <div className="bg-slate-50 border border-slate-200/60 p-4 rounded-xl flex flex-col md:flex-row gap-4 items-center justify-between">
+                  <div className="space-y-1 text-xs shrink-0 max-w-xs">
+                    <h4 className="font-extrabold text-slate-800">Patient Response Timeline Graph</h4>
+                    <p className="text-slate-450 leading-relaxed font-semibold">
+                      Tracks patient cooperative trust and emotional levels. High valences show confidence and reassurance; steep valleys represent trauma or fear reaction spikes.
+                    </p>
                   </div>
-                );
-              })}
+                  <div className="w-full max-w-xl bg-white p-2 border border-slate-100 rounded-lg shadow-inner flex justify-center overflow-x-auto">
+                    <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} className="overflow-visible min-w-[450px] w-full h-[120px]">
+                      {/* Grid lines */}
+                      <line x1={paddingX} y1={paddingY} x2={chartWidth - paddingX} y2={paddingY} stroke="#f8fafc" strokeWidth="1" />
+                      <line x1={paddingX} y1={chartHeight / 2} x2={chartWidth - paddingX} y2={chartHeight / 2} stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3" />
+                      <line x1={paddingX} y1={chartHeight - paddingY} x2={chartWidth - paddingX} y2={chartHeight - paddingY} stroke="#cbd5e1" strokeWidth="1.5" />
+
+                      {/* Legend Labels */}
+                      <text x={paddingX - 8} y={paddingY + 3} textAnchor="end" className="text-[9px] font-bold fill-slate-400 font-mono">100%</text>
+                      <text x={paddingX - 8} y={chartHeight / 2 + 3} textAnchor="end" className="text-[9px] font-bold fill-slate-400 font-mono">50%</text>
+                      <text x={paddingX - 8} y={chartHeight - paddingY + 3} textAnchor="end" className="text-[9px] font-bold fill-slate-400 font-mono">0%</text>
+
+                      {/* Area Fill */}
+                      <polygon
+                        points={`${paddingX},${chartHeight - paddingY} ${polylinePoints} ${svgPoints[svgPoints.length - 1].x},${chartHeight - paddingY}`}
+                        className="fill-teal-500/5"
+                      />
+
+                      {/* Smooth Sparkline */}
+                      <polyline
+                        fill="none"
+                        stroke="#0d9488"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        points={polylinePoints}
+                      />
+
+                      {/* Nodes */}
+                      {svgPoints.map((node, i) => (
+                        <g key={i}>
+                          <circle
+                            cx={node.x}
+                            cy={node.y}
+                            r="3.5"
+                            className="fill-teal-600 stroke-white stroke-2 shadow-sm"
+                          />
+                          <text
+                            x={node.x}
+                            y={node.y - 7}
+                            textAnchor="middle"
+                            className="text-[8px] font-extrabold fill-slate-700"
+                          >
+                            {node.label}
+                          </text>
+                          <text
+                            x={node.x}
+                            y={chartHeight - paddingY + 11}
+                            textAnchor="middle"
+                            className="text-[8px] font-extrabold fill-slate-400"
+                          >
+                            Turn {node.turn}
+                          </text>
+                        </g>
+                      ))}
+                    </svg>
+                  </div>
+                </div>
+              )}
+
+              <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest block font-mono">Patient Emotional Journey Log</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                {evaluation.emotional_timeline.map((event, index) => {
+                  const labelColors = {
+                    Shocked: 'bg-amber-50/80 text-amber-800 border-amber-200',
+                    Frightened: 'bg-red-50/80 text-red-800 border-red-200',
+                    Distressed: 'bg-purple-50/80 text-purple-800 border-purple-200',
+                    Anxious: 'bg-orange-50/80 text-orange-900 border-orange-200',
+                    Concerned: 'bg-yellow-50 text-yellow-800 border-yellow-205',
+                    Reassured: 'bg-emerald-50/80 text-emerald-800 border-emerald-200',
+                    Angry: 'bg-rose-50/80 text-rose-800 border-rose-200',
+                    Confused: 'bg-blue-50/80 text-blue-800 border-blue-200',
+                    Calm: 'bg-slate-50/80 text-slate-800 border-slate-200'
+                  };
+                  const colorClass = labelColors[event.emotion_label] || 'bg-slate-50 text-slate-700 border-slate-200';
+                  return (
+                    <div key={index} className={`flex items-start gap-2.5 p-3 rounded-xl border ${colorClass} text-xs font-semibold transition-all hover:shadow-sm`}>
+                      <div className="w-5 h-5 bg-white/90 border border-slate-100 rounded-full flex items-center justify-center shrink-0 font-mono text-[10px] font-black shadow-sm">
+                        {event.turn}
+                      </div>
+                      <div className="space-y-0.5">
+                        <div className="font-extrabold uppercase text-[9px] tracking-wide opacity-80">{event.emotion_label}</div>
+                        <div className="text-[10px] leading-tight font-medium opacity-90">{event.description}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
       </div>
 
       {/* Strengths & Improvements checklists */}
@@ -421,12 +535,12 @@ export default function Results({ sessionId, onNavigate }) {
                   </td>
                   <td className="py-3">
                     <span className={`px-2 py-0.5 rounded font-bold text-[9px] uppercase tracking-wider ${act.action_type === 'question'
-                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-100'
-                        : act.action_type === 'investigation'
-                          ? 'bg-medical-50 text-medical-700 border border-medical-100'
-                          : act.action_type === 'examination'
-                            ? 'bg-purple-50 text-purple-700 border border-purple-100'
-                            : 'bg-slate-100 text-slate-650'
+                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-100'
+                      : act.action_type === 'investigation'
+                        ? 'bg-medical-50 text-medical-700 border border-medical-100'
+                        : act.action_type === 'examination'
+                          ? 'bg-purple-50 text-purple-700 border border-purple-100'
+                          : 'bg-slate-100 text-slate-650'
                       }`}>
                       {act.action_type}
                     </span>

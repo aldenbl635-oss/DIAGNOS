@@ -8,8 +8,8 @@ export default function Navbar({ user, activePage, onNavigate, onLogout, theme, 
         <div className="flex justify-between h-16">
           <div className="flex items-center gap-8">
             {/* Logo */}
-            <div 
-              className="flex items-center gap-2.5 cursor-pointer" 
+            <div
+              className="flex items-center gap-2.5 cursor-pointer"
               onClick={() => user ? onNavigate('dashboard') : onNavigate('landing')}
               id="nav-logo"
             >
@@ -27,11 +27,10 @@ export default function Navbar({ user, activePage, onNavigate, onLogout, theme, 
                 <button
                   id="nav-btn-dashboard"
                   onClick={() => onNavigate('dashboard')}
-                  className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                    activePage === 'dashboard'
+                  className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${activePage === 'dashboard'
                       ? 'bg-slate-100 text-slate-900'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                  }`}
+                    }`}
                 >
                   <LayoutDashboard className="w-4 h-4" />
                   Virtual Patient Lab
@@ -39,14 +38,24 @@ export default function Navbar({ user, activePage, onNavigate, onLogout, theme, 
                 <button
                   id="nav-btn-encounter"
                   onClick={() => onNavigate('encounter-setup')}
-                  className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                    activePage === 'encounter-setup' || activePage === 'simulation'
+                  className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${activePage === 'encounter-setup' || activePage === 'simulation'
                       ? 'bg-slate-100 text-slate-900'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                  }`}
+                    }`}
                 >
                   <HeartPulse className="w-4 h-4 text-medical-600" />
                   New Encounter
+                </button>
+                <button
+                  id="nav-btn-sources"
+                  onClick={() => onNavigate('sources')}
+                  className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${activePage === 'sources'
+                      ? 'bg-slate-100 text-slate-900'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                    }`}
+                >
+                  <BookOpen className="w-4 h-4 text-emerald-600" />
+                  Data Sources
                 </button>
               </div>
             )}

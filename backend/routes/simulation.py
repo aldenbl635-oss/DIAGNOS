@@ -17,7 +17,7 @@ from evaluation.ai_eval import evaluate_clinical_reasoning
 
 router = APIRouter(prefix="/simulation", tags=["Simulation"])
 
-def get_dynamic_vitals(base_vitals: dict, emotion_dict: dict) -> dict:
+def get_dynamic_vitals(base_vitals: dict, emotion_dict: dict, case_data: dict = None) -> dict:
     import re
     hr_str = base_vitals.get("hr", "")
     bp_str = base_vitals.get("bp", "")
@@ -32,24 +32,44 @@ def get_dynamic_vitals(base_vitals: dict, emotion_dict: dict) -> dict:
         sys_base, dia_base = 120, 80
         
     # Get current emotions, default to baseline if not provided
-    # Standard initial emotions for Daniel Thomas: anxiety=75, fear=50, anger=10, pain=45, trust=62
-    anxiety = emotion_dict.get("anxiety", 75)
-    fear = emotion_dict.get("fear", 50)
+    anxiety = emotion_dict.get("anxiety", 60)
+    fear = emotion_dict.get("fear", 35)
     anger = emotion_dict.get("anger", 10)
-    trust = emotion_dict.get("trust", 62)
+    trust = emotion_dict.get("trust", 60)
     pain = emotion_dict.get("pain", 45)
     
     # Calculate current stress index (incorporating physical pain and emotions)
     stress_index = (anxiety * 0.35 + fear * 0.35 + anger * 0.15 + pain * 0.15 - (trust - 50) * 0.20)
     
-    # Daniel Thomas's baseline stress index
-    baseline_stress_index = 49.6
+    # Calculate baseline stress index dynamically based on case config/personality if available
+    baseline_stress_index = 39.5
+    
+    if case_data:
+        personality_data = case_data.get("patient_personality") or case_data.get("personality", {})
+        from ai.patient_personality import PersonalityProfile
+        personality = PersonalityProfile.from_dict(personality_data)
+        
+        base_anxiety = min(100, personality.baseline_anxiety + 10)
+        base_fear = max(0, personality.baseline_anxiety - 15)
+        base_anger = 10
+        base_trust = max(20, 100 - personality.distrust_of_medical - 10)
+        
+        base_pain = 45
+        history_of_illness = case_data.get("clinical_facts", {}).get("history_of_illness", [])
+        for line in history_of_illness:
+            if "severity" in line.lower() or "pain" in line.lower():
+                match = re.search(r"(\d+)\s*/\s*10", line)
+                if match:
+                    base_pain = int(match.group(1)) * 10
+                    break
+        
+        baseline_stress_index = (base_anxiety * 0.35 + base_fear * 0.35 + base_anger * 0.15 + base_pain * 0.15 - (base_trust - 50) * 0.20)
     
     # Compute stress delta relative to baseline
     stress_delta = stress_index - baseline_stress_index
     
     # Map stress delta to vitals changes dynamically
-    dynamic_hr = int(hr_base + stress_delta * 0.8)
+    dynamic_hr = int(hr_base + stress_delta * 1.2)
     dynamic_hr = max(60, min(150, dynamic_hr))
     
     dynamic_sys = int(sys_base + stress_delta * 1.0)
@@ -100,7 +120,24 @@ def rebuild_workspace_state(
         f"for about 30 minutes now. I'm not sure what's going on..."
         if chief_complaint else "Hello doctor."
     )
-    chat_messages.append({"role": "patient", "text": greeting, "category": None})
+    
+    # Initialize state to extract the patient's starting emotion and cue
+    if session.patient_agent_state:
+        agent_state = PatientAgentState.from_dict(session.patient_agent_state, case_data)
+    else:
+        agent_state = PatientAgentState.initialize_from_case(case_data)
+    
+    g_label = agent_state.emotion.get_label()
+    g_cue = agent_state.emotion.get_behavioral_cue()
+    
+    chat_messages.append({
+        "role": "patient",
+        "text": greeting,
+        "category": None,
+        "emotion_label": g_label,
+        "emotional_cue": g_cue,
+        "communication_state": g_label.lower()
+    })
 
     has_patient_responses = any(a.action_type == "patient_response" for a in actions)
     chat_history: List[Dict[str, str]] = []
@@ -185,7 +222,7 @@ def get_session(
     case_detail = build_case_detail(case)
     if session.patient_agent_state:
         current_emotion = session.patient_agent_state.get("emotion", {})
-        case_detail["vitals"] = get_dynamic_vitals(case.data.get("patient", {}).get("vitals", {}), current_emotion)
+        case_detail["vitals"] = get_dynamic_vitals(case.data.get("patient", {}).get("vitals", {}), current_emotion, case.data)
 
     return {
         "session": session,
@@ -208,6 +245,7 @@ def start_simulation(
         )
         
     session_id = str(uuid.uuid4())
+    agent_state = PatientAgentState.initialize_from_case(case.data)
     session = models.SimulationSession(
         id=session_id,
         user_id=current_user.id,
@@ -215,7 +253,8 @@ def start_simulation(
         remaining_resources=1000,
         elapsed_seconds=0,
         status="in_progress",
-        differential_diagnoses=[]
+        differential_diagnoses=[],
+        patient_agent_state=agent_state.to_dict()
     )
     db.add(session)
     
@@ -360,6 +399,37 @@ def perform_examination(
             exam_name = ex.get("name")
             break
             
+    # Load or initialize patient agent state
+    import json
+    if session.patient_agent_state:
+        agent_state = PatientAgentState.from_dict(session.patient_agent_state, case.data)
+    else:
+        agent_state = PatientAgentState.initialize_from_case(case.data)
+
+    patient_reaction = None
+    if agent_state.emotion.anxiety > 40:
+        patient_reaction = f"Ouch... please be gentle, doctor. My chest feels really tight right now, doing {exam_name.lower()} is a bit uncomfortable."
+        agent_state.memory.add_event(f"examination_performed_{payload.examination_type}", importance=0.4, category="clinical")
+        
+        # Persist patient response for session resume
+        response_content = json.dumps({
+            "text": patient_reaction,
+            "emotion_label": agent_state.emotion.get_label(),
+            "emotional_cue": agent_state.emotion.get_behavioral_cue(),
+            "communication_state": agent_state.emotion.get_label().lower(),
+        })
+
+        response_action = models.StudentAction(
+            session_id=session_id,
+            action_type="patient_response",
+            content=response_content,
+            cost=0,
+            category=payload.examination_type
+        )
+        db.add(response_action)
+        
+    session.patient_agent_state = agent_state.to_dict()
+
     # Update time
     session.elapsed_seconds += 45 # +45 seconds for physical examination
     
@@ -378,7 +448,8 @@ def perform_examination(
     return {
         "result": result,
         "remaining_resources": session.remaining_resources,
-        "elapsed_seconds": session.elapsed_seconds
+        "elapsed_seconds": session.elapsed_seconds,
+        "patient_reaction": patient_reaction
     }
 
 @router.post("/{session_id}/investigation", response_model=schemas.InvestigationResponse)
@@ -416,14 +487,14 @@ def order_investigation(
     if session.remaining_resources < cost:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, 
-            detail=f"Insufficient resources. Wording this test requires {cost} credits, but you only have {session.remaining_resources} credits remaining."
+            detail=f"Insufficient resources. Ordering this test requires {cost} credits, but you only have {session.remaining_resources} credits remaining."
         )
         
     # Deduct cost and update time
     session.remaining_resources -= cost
     session.elapsed_seconds += 120 # +2 minutes (120 seconds) for ordering test
     
-    # Record action
+    # Record ordering action
     log_action = models.StudentAction(
         session_id=session_id,
         action_type="investigation",
@@ -432,6 +503,36 @@ def order_investigation(
         category=payload.investigation_id
     )
     db.add(log_action)
+
+    # Rebuild state and generate patient reaction
+    import json
+    if session.patient_agent_state:
+        agent_state = PatientAgentState.from_dict(session.patient_agent_state, case.data)
+    else:
+        agent_state = PatientAgentState.initialize_from_case(case.data)
+
+    agent = PatientAgent(case.data)
+    updated_state, patient_reaction = agent.generate_investigation_reaction(agent_state, selected_inv.get("name"))
+    
+    if patient_reaction:
+        # Record patient response log action so it appears in the chat
+        response_content = json.dumps({
+            "text": patient_reaction,
+            "emotion_label": updated_state.emotion.get_label(),
+            "emotional_cue": updated_state.emotion.get_behavioral_cue(),
+            "communication_state": updated_state.emotion.get_label().lower(),
+        })
+
+        response_action = models.StudentAction(
+            session_id=session_id,
+            action_type="patient_response",
+            content=response_content,
+            cost=0,
+            category=payload.investigation_id
+        )
+        db.add(response_action)
+        
+    session.patient_agent_state = updated_state.to_dict()
     db.commit()
     db.refresh(session)
     
@@ -442,7 +543,8 @@ def order_investigation(
         "result": selected_inv.get("result"),
         "interpretation": selected_inv.get("interpretation"),
         "remaining_resources": session.remaining_resources,
-        "elapsed_seconds": session.elapsed_seconds
+        "elapsed_seconds": session.elapsed_seconds,
+        "patient_reaction": patient_reaction
     }
 
 @router.post("/{session_id}/diagnosis", response_model=schemas.SimulationSessionOut)
@@ -570,4 +672,47 @@ def reset_history(
     ).delete(synchronize_session=False)
     db.commit()
     return {"message": "Simulation history reset successfully"}
+
+
+@router.get("/data-sources/status")
+def get_data_sources_status(current_user: models.User = Depends(get_current_user)):
+    from data.adapters import DialogueDatasetAdapter, ClinicalDatasetAdapter, DecisionMakingAdapter, SyntheticBehaviorAdapter
+    
+    dialogue = DialogueDatasetAdapter()
+    clinical = ClinicalDatasetAdapter()
+    decision = DecisionMakingAdapter()
+    synthetic = SyntheticBehaviorAdapter()
+    
+    return {
+        "sources": [
+            {
+                "id": "mimic_iv",
+                "name": "MIMIC-IV / MIMIC-IV-ED Vitals & Notes",
+                "category": "Clinical Grounding",
+                "status": clinical.get_status(),
+                "description": "De-identified clinical health data detailing patient demographics, admissions, and vitals."
+            },
+            {
+                "id": "meddialog",
+                "name": "MedDialog / NoteChat Medical Dialogue",
+                "category": "Dialogue Modeling",
+                "status": dialogue.get_status(),
+                "description": "Doctor-patient conversation transcripts for guiding conversational naturalness and patient phrasing."
+            },
+            {
+                "id": "decision_making",
+                "name": "MIMIC-IV-Ext Clinical Decisions",
+                "category": "Sequential Reasoning",
+                "status": decision.get_status(),
+                "description": "Structured pathway sequence logs to evaluate diagnostic workflow efficiency and timing."
+            },
+            {
+                "id": "synthetic_behavior",
+                "name": "Synthetic Patient-Behavior Log",
+                "category": "Emotional Reactions",
+                "status": synthetic.get_status(),
+                "description": "Local behavioral templates mapping doctor communication style to patient state transitions."
+            }
+        ]
+    }
 
