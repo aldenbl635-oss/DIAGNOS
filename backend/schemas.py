@@ -59,6 +59,7 @@ class InvestigationBriefOut(BaseModel):
     name: str
     cost: int
     category: str
+    available_at: List[str] = []
 
 class CaseDetailOut(CaseBriefOut):
     patient_name: str
@@ -71,10 +72,12 @@ class CaseDetailOut(CaseBriefOut):
 # Simulation schemas
 class SimulationStart(BaseModel):
     case_id: str
+    facility_tier: str = "tertiary"
 
 class SimulationSessionOut(BaseModel):
     id: str
     case_id: str
+    facility_tier: str = "tertiary"
     remaining_resources: int
     elapsed_seconds: int
     status: str
@@ -130,6 +133,7 @@ class FinalDiagnosisSubmit(BaseModel):
     final_diagnosis: str
     immediate_priority: str
     evidence_justification: str
+    disposition: str # "manage_locally" | "refer" | "treat_symptomatically"
 
 # Evaluation & dashboard schemas
 class ChatMessageOut(BaseModel):
@@ -175,6 +179,12 @@ class EvaluationOut(BaseModel):
     communication_score: float = 0.0
     empathy_score: float = 0.0
     patient_interaction_score: float = 0.0
+    
+    # New: Disposition
+    disposition_score: float = 0.0
+    disposition_correct: Optional[str] = None
+    disposition_expected: Optional[str] = None
+    
     emotional_timeline: List[Dict[str, Any]] = []
 
     model_config = ConfigDict(from_attributes=True)
@@ -192,6 +202,7 @@ class SimulationResultOut(BaseModel):
     session: SimulationSessionOut
     evaluation: EvaluationOut
     actions: List[ActionOut]
+    case_data: Dict[str, Any]
 
 class DashboardStatsOut(BaseModel):
     cases_completed: int

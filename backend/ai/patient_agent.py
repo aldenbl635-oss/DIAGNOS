@@ -1,7 +1,7 @@
 """
 Patient Agent — main orchestrator for the AI virtual patient.
-Reconstructs the virtual patient's reaction based on modular interactions:
-Student Message → InteractionAnalyzer → Transition Engine → RAG → LLM Response → Volun. Check
+Student Message → InteractionAnalyzer → Semantic Retrieval (Embeddings + VectorStore)
+              → Hybrid Intent Detection → Offline Responder / LLM → Emotion/State Update
 """
 
 import os
@@ -22,6 +22,20 @@ from ai.patient_reasoning import (
     parse_agent_response,
 )
 from config import settings
+
+# Semantic retrieval (lazy import — avoids model load cost until first message)
+_semantic_retriever = None
+
+def _get_semantic_retriever():
+    global _semantic_retriever
+    if _semantic_retriever is None:
+        try:
+            from ai.semantic_retriever import SemanticRetriever
+            _semantic_retriever = SemanticRetriever()
+        except Exception as e:
+            print(f"[PatientAgent] SemanticRetriever unavailable: {e}. Falling back to keyword-only.")
+            _semantic_retriever = None
+    return _semantic_retriever
 
 
 def _load_prompt(filename: str) -> str:
@@ -164,6 +178,7 @@ class PatientAgent:
 
     def __init__(self, case_data: Dict[str, Any]):
         self.case_data = case_data
+        self.case_id = case_data.get("id", "unknown")
         self.patient = case_data.get("patient", {})
         self.presentation = case_data.get("presentation", {})
         self.system_prompt_template = _load_prompt("patient_system.txt")
@@ -174,6 +189,39 @@ class PatientAgent:
         self.dialogue_retriever = DialogueRetriever()
         self.case_retriever = ClinicalCaseRetriever(case_data)
         self.interaction_analyzer = InteractionAnalyzer()
+
+        # Semantic retrieval — lazy (model loads on first message)
+        self._semantic = None
+
+        # Auto-index this case if not yet indexed
+        self._ensure_case_indexed()
+
+    _INDEXED_CASES = set()
+
+    def _ensure_case_indexed(self):
+        """Index this case into VectorStore if it hasn't been indexed yet."""
+        if self.case_id in self._INDEXED_CASES:
+            return
+            
+        try:
+            from ai.vector_store import VectorStore
+            from ai.index_cases import index_case
+            from ai.embedding_service import EmbeddingService
+
+            store = VectorStore()
+            if store.count_by_case(self.case_id) == 0:
+                emb = EmbeddingService()
+                n = index_case(self.case_data, emb, store)
+                print(f"[PatientAgent] Auto-indexed {n} facts for case {self.case_id}")
+            self._INDEXED_CASES.add(self.case_id)
+        except Exception as e:
+            print(f"[PatientAgent] Auto-index skipped: {e}")
+
+    def _get_semantic(self):
+        """Lazy-load the SemanticRetriever."""
+        if self._semantic is None:
+            self._semantic = _get_semantic_retriever()
+        return self._semantic
 
     def _build_system_prompt(self, state: PatientAgentState, dialogue_grounding: str, clinical_grounding: str) -> str:
         """Construct the full system prompt for this turn, embedding grounding resources."""
@@ -297,15 +345,28 @@ class PatientAgent:
         """
         Main logic E2E processing student input to yield modular response.
         """
+        import time
+        t_start = time.time()
+        
         try:
             # Record student question in short term logs
             state.memory.add_turn("student", student_message)
 
-            # 1. ANALYZE STUDENT MESSAGE (PART 1, PART 10)
+            # 1. ANALYZE STUDENT MESSAGE
+            t0 = time.time()
             com_analysis = self.interaction_analyzer.analyze(student_message)
+            t_com = time.time() - t0
             student_style = com_analysis["intent"]
+            
+            # 1b. Fast-Path Gating
+            msg_lower_stripped = student_message.lower().strip()
+            fast_path = False
+            fast_greetings = ["hello", "hi", "hey", "hello.", "hi.", "hi doctor", "hello doctor", "good morning", "good afternoon", "sorry"]
+            fast_questions = ["are you comfortable?", "are you okay?", "how are you feeling?", "how are you?", "how can i help you?", "what brought you here today?", "what can i do for you?"]
+            if msg_lower_stripped in fast_greetings or msg_lower_stripped in fast_questions:
+                fast_path = True
 
-            # Existential threat checks (Pre-calculations)
+            # Existential threat checks
             is_existential_threat = detect_existential_threat(student_message)
             if is_existential_threat:
                 spike = compute_existential_threat_emotion_spike(
@@ -316,89 +377,32 @@ class PatientAgent:
                 if spike.get("trust", 0) < 0:
                     state.emotion.apply_update({"trust": spike["trust"]})
 
-            # 2. TRANSITION EMOTIONS (PART 9)
+            # 2. TRANSITION EMOTIONS
+            t0 = time.time()
             emotion_delta = state.emotion.calculate_transitions(com_analysis, personality=state.personality, turn_count=state.turn_count)
             state.emotion.apply_update(emotion_delta)
+            t_emotion = time.time() - t0
 
-            # 3. RAG LAYER RETRIEVALS (PART 22 - RAG / RETRIEVAL)
-            dialogue_grounding = self.dialogue_retriever.get_conversational_grounding(student_message)
-            clinical_grounding = self.knowledge_retriever.retrieve_guidelines(
-                self.case_data.get("clinical_state", {}).get("symptoms", []) or self.case_data.get("clinical_facts", {}).get("symptoms", []),
-                self.case_data.get("history", {}).get("medications", []) or self.case_data.get("clinical_facts", {}).get("medications", [])
-            )
+            # 3. KNOWLEDGE RETRIEVAL (Only for LLM mode)
+            # We defer Semantic Vector retrieval exactly to where it's needed (OfflineResponder) to avoid duplicate ML calls!
 
-            # 4. CHOOSE RESOLUTION (LLM OR DEMO ACCORDING TO DEMO_MODE SETTINGS)
+            t0 = time.time()
+            # 4. CHOOSE RESOLUTION
             effective_message = student_message
             if event_context:
                 effective_message = f"[System event: {event_context}]\n\nStudent says: {student_message}"
 
-            if settings.DEMO_MODE:
+            if True: # Always use embedded AI architecture as requested
                 try:
-                    result = self._demo_response(state, student_message, student_style, conversation_history, com_analysis)
+                    result = self._demo_response(state, student_message, student_style, conversation_history, com_analysis, fast_path)
                 except Exception as ex_demo:
-                    print(f"Error executing _demo_response: {ex_demo}. Using default fallback.")
-                    result = {
-                        "response": "I'm not sure I understand that question, doctor. Let's focus on my chest discomfort.",
-                        "emotion_update": {},
-                        "revealed_information": [],
-                        "memory_event": {
-                            "event": "demo_fallback_recovery",
-                            "importance": 0.5,
-                            "category": "general"
-                        },
-                        "communication_state": state.emotion.get_label().lower() if hasattr(state, "emotion") else "guarded",
-                        "student_communication_classification": student_style,
-                    }
-            else:
-                try:
-                    # Build system prompt with RAG grounding attached
-                    system_prompt = self._build_system_prompt(state, dialogue_grounding, clinical_grounding)
-                    conversation_text = _build_conversation_text(conversation_history)
-                    grounding_examples = self._get_grounding_examples_text(student_style, student_message)
-                    user_prompt = (
-                        f"Recent conversation:\n{conversation_text}\n\n"
-                        f"Student's latest message: {student_message}\n\n"
-                        f"Student's communication pattern: {student_style} (severity: {com_analysis.get('severity', 50)}/100)\n"
-                        f"{grounding_examples}\n\n"
-                        f"Respond as {self.patient.get('name', 'the patient')}. "
-                        f"Return ONLY valid JSON matching the specified schema."
-                    )
+                    print(f"Error executing embedded AI response: {ex_demo}. Using default fallback.")
+                    result = self._emergency_fallback_result(state, student_style)
 
-                    raw = ai_client.generate_text(
-                        system_prompt=system_prompt,
-                        prompt=user_prompt,
-                        json_mode=True,
-                    )
-                    fallback_text = self._get_fallback_text(student_style)
-                    parsed = parse_agent_response(raw, fallback_text)
-                    parsed["student_communication_classification"] = student_style
+            t_resolver = time.time() - t0
 
-                    # Synchronize states
-                    new_emotions = parsed.get("emotion_update", {})
-                    if new_emotions:
-                        state.emotion.set_values(new_emotions)
-
-                    result = parsed
-                except Exception as e:
-                    print(f"PatientAgent LLM error: {e}. Falling back to demo engine.")
-                    try:
-                        result = self._demo_response(state, student_message, student_style, conversation_history, com_analysis)
-                    except Exception as ex_demo_inner:
-                        print(f"Inner demo response error during fallback: {ex_demo_inner}")
-                        result = {
-                            "response": "I'm not sure I understand that question, doctor. Let's focus on my chest discomfort.",
-                            "emotion_update": {},
-                            "revealed_information": [],
-                            "memory_event": {
-                                "event": "llm_fallback_recovery",
-                                "importance": 0.5,
-                                "category": "general"
-                            },
-                            "communication_state": state.emotion.get_label().lower() if hasattr(state, "emotion") else "guarded",
-                            "student_communication_classification": student_style,
-                        }
-
-            # 5. VOLUNTEERING VERIFICATION (PART 15)
+            # 5. VOLUNTEERING VERIFICATION
+            t0 = time.time()
             response_text = result.get("response", "")
             volunteered_text, extra_revealed = self._volunteer_information(state, response_text)
             result["response"] = volunteered_text
@@ -412,9 +416,8 @@ class PatientAgent:
 
             # Persist results to state object
             updated_state = self._apply_result_to_state(state, result, student_style)
-
-            # Add response trace to short term logs
             updated_state.memory.add_turn("patient", result["response"])
+            t_memory = time.time() - t0
 
             # Create structured output log
             label = updated_state.emotion.get_label()
@@ -465,6 +468,15 @@ class PatientAgent:
                 "revealed_information": result.get("revealed_information", []),
             }
 
+            # Print Profiling Log!
+            t_total = time.time() - t_start
+            print("\n[DIAGNOS PERF]")
+            print(f"CommunicationAnalyzer: {t_com * 1000:.2f} ms")
+            print(f"Emotion Transitions: {t_emotion * 1000:.2f} ms")
+            print(f"Resolver Engine (.respond + vector searches): {t_resolver * 1000:.2f} ms")
+            print(f"Memory/Volunteering Updates: {t_memory * 1000:.2f} ms")
+            print(f"Total backend agent processing: {t_total * 1000:.2f} ms\n")
+
             return updated_state, output
         except Exception as e_global:
             import traceback
@@ -472,7 +484,7 @@ class PatientAgent:
             traceback.print_exc()
             
             # Construct a safe emergency response dictionary
-            emergency_text = "I'm not sure how to respond to that, doctor. Let's focus on my chest discomfort."
+            emergency_text = "I'm not sure I understood that, doctor. Could you ask me another way?"
             
             try:
                 state.memory.add_turn("patient", emergency_text)
@@ -496,17 +508,110 @@ class PatientAgent:
         student_message: str,
         student_style: str,
         conversation_history: List[Dict[str, str]],
-        com_analysis: Dict[str, Any]
+        com_analysis: Dict[str, Any],
+        fast_path: bool = False
     ) -> Dict[str, Any]:
         """
-        Offline patient response engine — fully LLM-free.
-        Delegates to OfflinePatientResponder which uses semantic classification +
-        structured patient context to generate natural, human-like responses
-        for ANY student message without a generic fallback.
+        Hybrid RAG + LLM response engine.
+
+        Pipeline:
+          1. Topic extraction
+          2. Embedding + VectorStore retrieval (case-isolated)
+          3. If LLM_ENABLED → try LLMPatientResponder (facts → LLM → validate)
+          4. Fallback: OfflinePatientResponder (deterministic, always works)
         """
-        from ai.offline_responder import OfflinePatientResponder
+        import time
+        from ai.offline_responder import OfflinePatientResponder, extract_topic
+
+        t0_total = time.time()
+
+        # ── Step 1: Intent/topic ───────────────────────────────────────────
+        topic = extract_topic(student_message)
+
+        # ── Step 2: Semantic retrieval (one call, shared between LLM & offline)
+        semantic_facts = []
+        t0 = time.time()
+        if not fast_path:
+            sem = self._get_semantic()
+            if sem:
+                try:
+                    semantic_facts = sem.retrieve(
+                        question=student_message,
+                        case_id=self.case_id,
+                        top_k=5,          # fetch a few extra for LLM context
+                        threshold=0.28,
+                        topic=topic,
+                    )
+                except Exception as e:
+                    print(f"[PatientAgent] sem.retrieve error: {e}")
+        t_vec = (time.time() - t0) * 1000
+
+        top_score = semantic_facts[0]['score'] if semantic_facts else 0.0
+        print(f"\n[VECTOR SEARCH] case_id={self.case_id} | facts={len(semantic_facts)}"
+              f" | top_score={top_score:.3f}")
+
+        # ── Step 3: Attempt LLM tier (if enabled) ─────────────────────────
+        llm_result = None
+        t_llm_ms = 0.0
+        if not fast_path and settings.LLM_ENABLED:
+            try:
+                from ai.llm_patient_responder import LLMPatientResponder
+                t0 = time.time()
+                llm_result = LLMPatientResponder().respond(
+                    student_message=student_message,
+                    case_id=self.case_id,
+                    case_data=self.case_data,
+                    state=state,
+                    semantic_facts=semantic_facts,
+                    conversation_history=conversation_history,
+                )
+                t_llm_ms = (time.time() - t0) * 1000
+            except Exception as llm_exc:
+                print(f"[PatientAgent] LLM responder error: {llm_exc}")
+                llm_result = None
+
+        if llm_result is not None:
+            print(f"\n[AI TIMING]")
+            print(f"  [INTENT]     topic={topic}")
+            print(f"  [EMBEDDING]  generated=true")
+            print(f"  [RETRIEVAL]  {t_vec:.1f} ms")
+            print(f"  [LLM]        {t_llm_ms:.1f} ms  (provider={'gemini' if settings.GEMINI_API_KEY else 'openai'})")
+            print(f"  [TOTAL]      {(time.time() - t0_total)*1000:.1f} ms")
+            print(f"  [RESPONSE SOURCE] LLM")
+            return llm_result
+
+        # ── Step 4: OfflinePatientResponder fallback ───────────────────────
+        t0 = time.time()
         responder = OfflinePatientResponder(self.case_data)
-        return responder.respond(student_message, state, com_analysis)
+        offline_result = responder.respond(
+            student_message, state, com_analysis, semantic_facts=semantic_facts
+        )
+        t_offline_ms = (time.time() - t0) * 1000
+
+        print(f"\n[AI TIMING]")
+        print(f"  [INTENT]     topic={topic}")
+        print(f"  [EMBEDDING]  generated={'true' if not fast_path else 'skipped (fast-path)'}")
+        print(f"  [RETRIEVAL]  {t_vec:.1f} ms")
+        print(f"  [LLM]        skipped (enabled={settings.LLM_ENABLED})")
+        print(f"  [OFFLINE]    {t_offline_ms:.1f} ms")
+        print(f"  [TOTAL]      {(time.time() - t0_total)*1000:.1f} ms")
+        print(f"  [RESPONSE SOURCE] OfflineResponder")
+
+        return offline_result
+
+    def _emergency_fallback_result(self, state, style):
+        return {
+            "response": "I'm not sure I understood that, doctor. Could you ask me another way?",
+            "emotion_update": {},
+            "revealed_information": [],
+            "memory_event": {
+                "event": "emergency_recovery",
+                "importance": 0.5,
+                "category": "general"
+            },
+            "communication_state": state.emotion.get_label().lower() if hasattr(state, "emotion") else "guarded",
+            "student_communication_classification": style,
+        }
 
     def _apply_result_to_state(
         self,
@@ -563,7 +668,7 @@ class PatientAgent:
         elif student_style == "dismissive":
             return "I... I'll try to answer. I just need to know what's happening."
         elif student_style == "empathetic":
-            return "Thank you. I'm just really worried about this chest pressure."
+            return "Thank you. I'm just really worried about what's happening to me."
         return "I'm not sure I understand. Could you explain that?"
 
     def generate_investigation_reaction(

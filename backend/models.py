@@ -41,6 +41,7 @@ class SimulationSession(Base):
     remaining_resources = Column(Integer, default=1000)
     elapsed_seconds = Column(Integer, default=0)
     status = Column(String, default="in_progress")  # in_progress | completed
+    facility_tier = Column(String, default="tertiary")  # "tertiary" | "chc" | "phc"
 
     # JSON state: [{diagnosis: str, confidence: int}]
     differential_diagnoses = Column(JSON, default=list)
@@ -98,6 +99,11 @@ class Evaluation(Base):
     communication_score = Column(Float, default=0)
     empathy_score = Column(Float, default=0)
     patient_interaction_score = Column(Float, default=0)
+
+    # Disposition / Referral Triage score
+    disposition_score = Column(Float, default=0)
+    disposition_correct = Column(String, nullable=True)  # what the student chose
+    disposition_expected = Column(String, nullable=True)  # what was correct for this tier
 
     final_score = Column(Float, default=0)
 

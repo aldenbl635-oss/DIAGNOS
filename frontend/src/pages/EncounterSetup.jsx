@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../api/client';
+import { Hospital, Building, Home, CheckCircle2, HeartPulse } from 'lucide-react';
 
 /**
  * EncounterSetup — immersive pre-encounter briefing room.
@@ -13,6 +14,7 @@ export default function EncounterSetup({ onStartEncounter, onNavigate }) {
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState(null);
   const [phase, setPhase] = useState('loading'); // loading | ready | entering
+  const [facilityTier, setFacilityTier] = useState('tertiary');
 
   const loadCases = async () => {
     try {
@@ -52,7 +54,7 @@ export default function EncounterSetup({ onStartEncounter, onNavigate }) {
     setPhase('entering');
     setError(null);
     try {
-      const session = await api.startSimulation(selectedCase.id);
+      const session = await api.startSimulation(selectedCase.id, facilityTier);
       // Small dramatic pause before entering
       await new Promise(r => setTimeout(r, 800));
       onStartEncounter(session.id);
@@ -86,11 +88,14 @@ export default function EncounterSetup({ onStartEncounter, onNavigate }) {
       </button>
 
       {/* DiagnOS logo top right */}
-      <div className="absolute top-6 right-6 flex items-center gap-2 opacity-50">
-        <div className="w-6 h-6 bg-teal-500/20 border border-teal-500/30 rounded-lg flex items-center justify-center">
-          <span className="text-teal-400 text-xs font-black">D</span>
+      <div className="absolute top-6 right-6 flex items-center gap-2 opacity-60">
+        <div className="w-7 h-7 bg-sky-500 rounded-lg flex items-center justify-center text-white">
+          <HeartPulse className="w-4 h-4" strokeWidth={2.5} />
         </div>
-        <span className="text-xs font-bold text-slate-500 tracking-wide">DiagnOS</span>
+        <span className="font-sans font-black text-lg tracking-tight">
+          <span className="text-white">Diagn</span>
+          <span className="text-sky-500">OS</span>
+        </span>
       </div>
 
       {/* Main content card */}
@@ -185,6 +190,50 @@ export default function EncounterSetup({ onStartEncounter, onNavigate }) {
                   </p>
                 </div>
 
+                {/* Facility Tier Selection */}
+                <div className="space-y-4 pt-2">
+                  <div className="flex justify-between items-end border-b border-slate-700/50 pb-2">
+                    <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                      <Hospital className="w-3.5 h-3.5 text-teal-500" /> PRACTICE FACILITY TIER (RESOURCE SETTING)
+                    </h3>
+                    <span className="text-[10px] font-bold text-teal-400 tracking-wide">
+                      {facilityTier === 'tertiary' ? 'Full Diagnostic Suite' : facilityTier === 'chc' ? 'Secondary Tier' : 'Primary Tier Only'}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {[
+                      { id: 'tertiary', label: 'Tertiary Hospital', desc: 'Full suite: CT, Troponin, CXR, Cath Lab.', icon: Hospital },
+                      { id: 'chc', label: 'District CHC', desc: 'Secondary: ECG, basic labs, CXR. No CT.', icon: Building },
+                      { id: 'phc', label: 'Rural PHC', desc: 'Point-of-care only. Reason & triage referral.', icon: Home },
+                    ].map(tier => {
+                      const isActive = facilityTier === tier.id;
+                      const Icon = tier.icon;
+                      return (
+                        <button
+                          key={tier.id}
+                          onClick={() => setFacilityTier(tier.id)}
+                          className={`relative p-4 rounded-xl text-left transition-all border ${isActive
+                            ? 'border-teal-400 bg-teal-500/10 shadow-[0_0_15px_rgba(45,212,191,0.05)]'
+                            : 'border-slate-700 hover:border-slate-600 bg-slate-800/40 opacity-80 hover:opacity-100'
+                            }`}
+                        >
+                          <div className="flex justify-between items-start mb-2">
+                            <Icon className={`w-4 h-4 ${isActive ? 'text-teal-400' : 'text-slate-500'}`} />
+                            {isActive && <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 absolute top-3 right-3" />}
+                          </div>
+                          <div className={`font-bold text-xs ${isActive ? 'text-white' : 'text-slate-200'}`}>
+                            {tier.label}
+                          </div>
+                          <div className="text-[9px] mt-1 text-slate-400 leading-snug">
+                            {tier.desc}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
                 {/* Info boxes */}
                 <div className="grid grid-cols-3 gap-3">
                   {[
@@ -263,8 +312,8 @@ export default function EncounterSetup({ onStartEncounter, onNavigate }) {
                           key={c.id}
                           onClick={() => setSelectedCase(c)}
                           className={`text-[10px] font-bold px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${selectedCase?.id === c.id
-                              ? 'border-teal-500/40 bg-teal-500/10 text-teal-400'
-                              : 'border-slate-700 bg-slate-800/50 text-slate-500 hover:border-slate-600 hover:text-slate-400'
+                            ? 'border-teal-500/40 bg-teal-500/10 text-teal-400'
+                            : 'border-slate-700 bg-slate-800/50 text-slate-500 hover:border-slate-600 hover:text-slate-400'
                             }`}
                         >
                           {c.title}

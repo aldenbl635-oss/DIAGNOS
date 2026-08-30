@@ -5,7 +5,8 @@ import models
 def evaluate_session_rules(
     session: models.SimulationSession,
     case_data: Dict[str, Any],
-    actions: List[models.StudentAction]
+    actions: List[models.StudentAction],
+    student_disposition: str = None
 ) -> Tuple[Dict[str, float], List[str], List[str], List[str]]:
     """
     Computes rule-based scores (max 65 points) and flags.
@@ -42,15 +43,15 @@ def evaluate_session_rules(
             asked_categories.add(act.category)
             
     matched_critical = [c for c in critical_categories if c in asked_categories]
-    history_score = (len(matched_critical) / len(critical_categories)) * 20.0
+    history_score = (len(matched_critical) / len(critical_categories)) * 20.0 if critical_categories else 20.0
     
     if len(matched_critical) == len(critical_categories):
-        strengths.append("Systematic history taking; gathered all key cardiac risk factors and pain characteristics.")
+        strengths.append("Systematic history taking; gathered all key risk factors and symptoms.")
     else:
         missed = [c.replace("_", " ") for c in critical_categories if c not in asked_categories]
         weaknesses.append(f"Incomplete history taking; did not investigate: {', '.join(missed)}.")
-        if "lifestyle_risk_factors" not in asked_categories:
-            critical_mistakes.append("Failed to ask about cardiac lifestyle risk factors (smoking/diabetes).")
+        if len(missed) > 2:
+            critical_mistakes.append(f"Failed to systematically ask about critical history factors (missed {len(missed)}).")
 
     # 2. Evaluate Investigation Selection (Max 20)
     ordered_investigations = set()
@@ -59,15 +60,15 @@ def evaluate_session_rules(
             ordered_investigations.add(act.category.lower())
             
     matched_investigations = [i for i in required_investigations if i in ordered_investigations]
-    investigation_score = (len(matched_investigations) / len(required_investigations)) * 20.0
+    investigation_score = (len(matched_investigations) / len(required_investigations)) * 20.0 if required_investigations else 20.0
     
     if len(matched_investigations) == len(required_investigations):
-        strengths.append("Appropriately ordered all high-value cardiac investigations (ECG, Troponin).")
+        strengths.append("Appropriately ordered all high-value standard baseline investigations.")
     else:
-        missed_inv = [i.upper() for i in required_investigations if i not in ordered_investigations]
+        missed_inv = [i.replace("_", " ").upper() for i in required_investigations if i not in ordered_investigations]
         weaknesses.append(f"Missed essential diagnostic tests: {', '.join(missed_inv)}.")
-        if "ecg" not in ordered_investigations:
-            critical_mistakes.append("Failed to order a standard 12-lead ECG for acute chest pain.")
+        if missed_inv:
+            critical_mistakes.append(f"Failed to order crucial clinical workup tests ({', '.join(missed_inv)}).")
 
     # 3. Evaluate Resource Efficiency (Max 5)
     # Deduct 2.5 points for each unnecessary test ordered
@@ -75,8 +76,8 @@ def evaluate_session_rules(
     efficiency_score = max(0.0, 5.0 - (len(wasted_tests) * 2.5))
     
     if len(wasted_tests) > 0:
-        weaknesses.append(f"Ordered low-yield diagnostic imaging (CT Angiography) prior to basic screening.")
-        critical_mistakes.append("Incurred unnecessary delay and cost by ordering advanced chest CT without ECG validation.")
+        weaknesses.append(f"Ordered low-yield or unnecessary diagnostics ({', '.join(wasted_tests)}) before standard screening.")
+        critical_mistakes.append(f"Incurred unnecessary delay and cost by ordering advanced diagnostics ({', '.join(wasted_tests)}).")
     else:
         strengths.append("Excellent resource management; avoided high-cost unnecessary imaging tests.")
 
@@ -106,13 +107,38 @@ def evaluate_session_rules(
         strengths.append(f"Correctly identified final diagnosis: {session.final_diagnosis}.")
     else:
         decision_score = 0.0
-        weaknesses.append(f"Incorrect final diagnosis. Submitted: '{session.final_diagnosis}', expected: '{case_data.get('patient', {}).get('chief_complaint')}' related coronary syndrome.")
-        critical_mistakes.append("Failed to diagnose acute coronary syndrome / myocardial infarction.")
+        weaknesses.append(f"Incorrect final diagnosis. Submitted: '{session.final_diagnosis}', expected: '{correct_diagnosis}'.")
+        critical_mistakes.append(f"Failed to correctly diagnose the primary condition: {correct_diagnosis}.")
 
-    return {
+    # 6. Evaluate Disposition / Referral Triage (Max 5, but separate logic)
+    disposition_score = 0.0
+    correct_disposition = None
+    if session.facility_tier in ["phc", "chc"]:
+        referral_criteria = criteria.get("referral_criteria", {})
+        if referral_criteria:
+            correct_disposition = referral_criteria.get("correct_disposition_by_tier", {}).get(session.facility_tier)
+            if correct_disposition and student_disposition:
+                if student_disposition.lower() == correct_disposition.lower():
+                    disposition_score = 5.0
+                    if student_disposition.lower() == "refer":
+                        strengths.append(f"Correctly recognized the limits of {session.facility_tier.upper()} tier and made a safe disposition decision to refer.")
+                    else:
+                        strengths.append(f"Correctly decided to manage locally at {session.facility_tier.upper()} tier instead of over-referring.")
+                else:
+                    if correct_disposition.lower() == "refer":
+                        critical_mistakes.append(f"Attempted to manage a case requiring referral at a facility ({session.facility_tier.upper()}) without the resources to safely do so.")
+                    else:
+                        weaknesses.append(f"Referred a case that could have reasonably been managed locally at {session.facility_tier.upper()} tier.")
+
+    # Return new fields inside the dictionary alongside the existing tuples
+    scores = {
         "history_score": round(history_score, 1),
         "investigation_score": round(investigation_score, 1),
         "resource_efficiency_score": round(efficiency_score, 1),
         "differential_score": round(differential_score, 1),
         "decision_score": round(decision_score, 1),
-    }, strengths, weaknesses, critical_mistakes
+        "disposition_score": round(disposition_score, 1),
+        "disposition_correct": student_disposition or "",
+        "disposition_expected": correct_disposition or "",
+    }
+    return scores, strengths, weaknesses, critical_mistakes

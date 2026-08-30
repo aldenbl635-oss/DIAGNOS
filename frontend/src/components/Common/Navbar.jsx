@@ -9,15 +9,16 @@ export default function Navbar({ user, activePage, onNavigate, onLogout, theme, 
           <div className="flex items-center gap-8">
             {/* Logo */}
             <div
-              className="flex items-center gap-2.5 cursor-pointer"
+              className="flex items-center gap-2 cursor-pointer"
               onClick={() => user ? onNavigate('dashboard') : onNavigate('landing')}
               id="nav-logo"
             >
-              <div className="bg-medical-500 text-white p-2 rounded-xl shadow-md shadow-medical-100">
-                <HeartPulse className="w-5 h-5" />
+              <div className="flex items-center justify-center w-10 h-10 bg-sky-500 text-white rounded-2xl shadow-sm">
+                <HeartPulse className="w-6 h-6" strokeWidth={2.5} />
               </div>
-              <span className="font-sans font-extrabold text-xl tracking-tight text-slate-900">
-                Diagn<span className="text-medical-600">OS</span>
+              <span className="font-sans font-black text-[1.4rem] tracking-tight ml-1">
+                <span className="text-slate-900">Diagn</span>
+                <span className="text-sky-500">OS</span>
               </span>
             </div>
 
@@ -28,8 +29,8 @@ export default function Navbar({ user, activePage, onNavigate, onLogout, theme, 
                   id="nav-btn-dashboard"
                   onClick={() => onNavigate('dashboard')}
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${activePage === 'dashboard'
-                      ? 'bg-slate-100 text-slate-900'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                    ? 'bg-slate-100 text-slate-900'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                     }`}
                 >
                   <LayoutDashboard className="w-4 h-4" />
@@ -39,8 +40,8 @@ export default function Navbar({ user, activePage, onNavigate, onLogout, theme, 
                   id="nav-btn-encounter"
                   onClick={() => onNavigate('encounter-setup')}
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${activePage === 'encounter-setup' || activePage === 'simulation'
-                      ? 'bg-slate-100 text-slate-900'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                    ? 'bg-slate-100 text-slate-900'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                     }`}
                 >
                   <HeartPulse className="w-4 h-4 text-medical-600" />
@@ -50,8 +51,8 @@ export default function Navbar({ user, activePage, onNavigate, onLogout, theme, 
                   id="nav-btn-sources"
                   onClick={() => onNavigate('sources')}
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${activePage === 'sources'
-                      ? 'bg-slate-100 text-slate-900'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                    ? 'bg-slate-100 text-slate-900'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                     }`}
                 >
                   <BookOpen className="w-4 h-4 text-emerald-600" />

@@ -641,7 +641,10 @@ def generate_50_cases():
             "evaluation_criteria": {
                 "correct_diagnosis": diag_str,
                 "correct_subtypes": diag_subtypes,
-                "immediate_priority_keywords": [diag_str.lower(), "salvage", "aspirin", "tPA", "thrombolysis", "bronchodilator", "albuterol", "antibiotic", "heparin", "coagualtion", "fluid resuscitation"],
+                "immediate_priority_keywords": [diag_str.lower()] + ([
+                    "salvage", "aspirin", "tPA", "thrombolysis", "bronchodilator", "albuterol",
+                    "antibiotic", "heparin", "coagualtion", "fluid resuscitation"
+                ][:random.randint(2, 5)]),
                 "critical_questions": [
                     "pain_characteristics",
                     "lifestyle_risk_factors",
@@ -650,7 +653,15 @@ def generate_50_cases():
                     "family_history"
                 ],
                 "required_investigations": req_inv,
-                "unnecessary_investigations": unnec_inv
+                "unnecessary_investigations": unnec_inv,
+                "referral_criteria": {
+                    "red_flags": ["Severe acute presentation or unstable vitals"],
+                    "correct_disposition_by_tier": {
+                        "tertiary": "manage_locally",
+                        "chc": "manage_locally",
+                        "phc": "refer" if diag_choice not in ["GERD", "Migraine", "Panic Attack", "Asthma"] else "manage_locally"
+                    }
+                }
             }
         }
         

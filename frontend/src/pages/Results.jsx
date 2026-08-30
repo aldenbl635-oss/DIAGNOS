@@ -48,7 +48,7 @@ export default function Results({ sessionId, onNavigate }) {
     </div>
   );
 
-  const { session, evaluation, actions } = data;
+  const { session, evaluation, actions, case_data } = data;
 
   const scoreCategories = [
     { name: 'History Taking', score: evaluation.history_score, max: 20, desc: 'Question relevance and risk factors identification' },
@@ -57,7 +57,13 @@ export default function Results({ sessionId, onNavigate }) {
     { name: 'Evidence Interpretation', score: evaluation.evidence_interpretation_score, max: 20, desc: 'Lab & ECG findings comprehension' },
     { name: 'Clinical Reasoning', score: evaluation.reasoning_score, max: 15, desc: 'Hypothesis updates and diagnostics sequence flow' },
     { name: 'Decision Making', score: evaluation.decision_score, max: 5, desc: 'Final diagnosis accuracy' },
-    { name: 'Resource Efficiency', score: evaluation.resource_efficiency_score, max: 5, desc: 'Avoidance of unnecessary high-cost tests' }
+    { name: 'Resource Efficiency', score: evaluation.resource_efficiency_score, max: 5, desc: 'Avoidance of unnecessary high-cost tests' },
+    ...(session.facility_tier === 'phc' || session.facility_tier === 'chc' ? [{
+      name: 'Referral / Triage Disposition',
+      score: evaluation.disposition_score ?? 0,
+      max: 5,
+      desc: `Facility resources and protocol recognition (+Bonus points)`
+    }] : [])
   ];
 
   // Helper to format timestamps to relative duration
@@ -71,39 +77,71 @@ export default function Results({ sessionId, onNavigate }) {
     return `+${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Determine path nodes for comparison
-  const expectedPath = [
-    { label: "Meet Robert (Discomfort Brief)", type: "system" },
-    { label: "Interview Pain & Risk Factors", type: "question" },
-    { label: "Order 12-Lead ECG (Primary Screen)", type: "investigation" },
-    { label: "Order Cardiac Troponin (Injury Confirm)", type: "investigation" },
-    { label: "Diagnose Acute Coronary Syndrome", type: "decision" }
-  ];
+  // Determine expected path nodes dynamically from case_data
+  const buildExpectedPath = () => {
+    if (!case_data) return [];
+    const patientName = case_data.patient?.name?.split(' ')[0] || "Patient";
+    const reqInvs = case_data.evaluation_criteria?.required_investigations || [];
+    const expectedDia = case_data.evaluation_criteria?.correct_diagnosis || "Correct Diagnosis";
 
-  // Format student actions for pathway nodes
+    const nodes = [
+      { label: `Meet ${patientName} (Clinical Briefing)`, type: "system" },
+      { label: "Interview & Symptom Review", type: "question" }
+    ];
+
+    reqInvs.forEach(inv => {
+      // Clean up string like 'ecg' to 'ECG' or 'ct_angio' to 'CT Angio'
+      const cleanName = inv.replace(/_/g, ' ').toUpperCase();
+      nodes.push({ label: `Order ${cleanName}`, type: "investigation" });
+    });
+
+    nodes.push({ label: `Diagnose ${expectedDia}`, type: "decision" });
+    return nodes;
+  };
+  const expectedPath = buildExpectedPath();
+
+  // Format student actions for pathway nodes dynamically
   const getStudentPathNodes = () => {
     const nodes = [];
     nodes.push({ label: "Brief Review", type: "system" });
 
     let askedQuestions = false;
-    let orderedEcg = false;
-    let orderedTroponin = false;
-    let orderedCt = false;
+    const orderedInvs = new Set();
+    const unnecessaryInvs = new Set();
 
     actions.forEach(act => {
       if (act.action_type === 'question') askedQuestions = true;
       if (act.action_type === 'investigation') {
         const name = (act.content || '').toLowerCase();
-        if (name.includes('ecg') || name.includes('electrocardiogram')) orderedEcg = true;
-        if (name.includes('troponin')) orderedTroponin = true;
-        if (name.includes('ct') || name.includes('angio')) orderedCt = true;
+
+        const unInvs = case_data?.evaluation_criteria?.unnecessary_investigations || [];
+        let isUnnecessary = false;
+        unInvs.forEach(ui => {
+          const cleanUi = ui.replace(/_/g, ' ').toLowerCase();
+          if (name.includes(cleanUi) || name.includes(ui.toLowerCase())) {
+            isUnnecessary = true;
+          }
+        });
+
+        // Use act.content for display name
+        if (isUnnecessary) {
+          unnecessaryInvs.add(act.content);
+        } else {
+          orderedInvs.add(act.content);
+        }
       }
     });
 
     if (askedQuestions) nodes.push({ label: "Progressive Patient Interview", type: "question" });
-    if (orderedCt) nodes.push({ label: "Wasted Cost: ordered advanced CT Scan", type: "unnecessary" });
-    if (orderedEcg) nodes.push({ label: "Ordered 12-Lead ECG", type: "investigation" });
-    if (orderedTroponin) nodes.push({ label: "Ordered Cardiac Troponin", type: "investigation" });
+
+    Array.from(unnecessaryInvs).forEach(inv => {
+      nodes.push({ label: `Cost penalty: ordered ${inv}`, type: "unnecessary" });
+    });
+
+    Array.from(orderedInvs).forEach(inv => {
+      nodes.push({ label: `Ordered ${inv}`, type: "investigation" });
+    });
+
     nodes.push({ label: `Submit: ${session.final_diagnosis || "Incomplete"}`, type: "decision" });
 
     return nodes;

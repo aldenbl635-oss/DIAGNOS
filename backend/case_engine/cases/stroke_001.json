@@ -1,0 +1,48 @@
+{
+  "id": "stroke_001",
+  "scenario_type": "neurology",
+  "title": "Stroke",
+  "difficulty": "easy",
+  "presentation": {
+    "chief_complaint": "Slurred speech and arm weakness",
+    "initial_briefing": "I came in because of my Slurred speech and arm weakness."
+  },
+  "patient": {
+    "name": "Tom",
+    "chief_complaint": "Slurred speech and arm weakness",
+    "initial_statement": "Hello, doctor... I came in because of my Slurred speech and arm weakness."
+  },
+  "clinical_state": {
+    "symptoms": [
+      "Sudden weakness and motor deficit in LEFT ARM and LEFT LEG",
+      "Slurred speech"
+    ]
+  },
+  "history": {
+    "past_medical_history": [
+      "Hypertension",
+      "High cholesterol"
+    ],
+    "family_history": [
+      "Grandfather died of stroke"
+    ],
+    "medications": [
+      "Amlodipine",
+      "Atorvastatin",
+      "Aspirin"
+    ]
+  },
+  "evaluation_criteria": {
+    "referral_criteria": {
+      "red_flags": [
+        "Unstable vitals",
+        "Diagnostic uncertainty requiring advanced workup"
+      ],
+      "correct_disposition_by_tier": {
+        "tertiary": "manage_locally",
+        "chc": "manage_locally",
+        "phc": "refer"
+      }
+    }
+  }
+}

@@ -113,13 +113,9 @@ def rebuild_workspace_state(
     exam_lookup = {ex.get("type"): ex for ex in case_data.get("examinations", [])}
     inv_lookup = {inv.get("id"): inv for inv in case_data.get("investigations", [])}
 
-    patient = case_data.get("patient", {})
-    chief_complaint = patient.get("chief_complaint", "not feeling well")
-    greeting = (
-        f"Hello doctor. I've been feeling this really uncomfortable {chief_complaint.lower()} "
-        f"for about 30 minutes now. I'm not sure what's going on..."
-        if chief_complaint else "Hello doctor."
-    )
+    from ai.offline_responder import OfflinePatientResponder
+    responder = OfflinePatientResponder(case_data)
+    greeting = responder.generate_greeting()
     
     # Initialize state to extract the patient's starting emotion and cue
     if session.patient_agent_state:
@@ -250,6 +246,7 @@ def start_simulation(
         id=session_id,
         user_id=current_user.id,
         case_id=case.id,
+        facility_tier=payload.facility_tier,
         remaining_resources=1000,
         elapsed_seconds=0,
         status="in_progress",
@@ -258,7 +255,6 @@ def start_simulation(
     )
     db.add(session)
     
-    # Log starting action
     start_action = models.StudentAction(
         session_id=session_id,
         action_type="system",
@@ -267,6 +263,31 @@ def start_simulation(
         category="system"
     )
     db.add(start_action)
+
+    # 12. Fix the initial patient greeting: Generate it from case data immediately
+    patient_data = case.data.get("patient", {})
+    init_briefing = patient_data.get("initial_statement", "")
+    if not init_briefing:
+        init_briefing = case.data.get("presentation", {}).get("initial_briefing", "")
+    if not init_briefing:
+        init_briefing = f"Hello doctor... I came in because of my {patient_data.get('chief_complaint', 'condition')}."
+    elif not init_briefing.lower().startswith("hello"):
+        init_briefing = f"Hello doctor. {init_briefing}"
+        
+    import json
+    greeting_action = models.StudentAction(
+        session_id=session_id,
+        action_type="patient_response",
+        content=json.dumps({
+            "text": init_briefing,
+            "emotion_label": "Anxious",
+            "emotional_cue": "The patient shifts uncomfortably.",
+            "communication_state": "anxious"
+        }),
+        cost=0,
+        category="system"
+    )
+    db.add(greeting_action)
     db.commit()
     db.refresh(session)
     return session
@@ -481,6 +502,13 @@ def order_investigation(
     if not selected_inv:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Investigation not found in this case")
         
+    available_at = selected_inv.get("available_at", ["tertiary", "chc", "phc"])
+    if session.facility_tier not in available_at:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Investigation not available at {session.facility_tier.upper()} tier"
+        )
+        
     cost = selected_inv.get("cost", 0)
     
     # Check budget
@@ -602,10 +630,12 @@ def submit_and_evaluate(
         eval_record = db.query(models.Evaluation).filter(models.Evaluation.session_id == session_id).first()
         actions = db.query(models.StudentAction).filter(models.StudentAction.session_id == session_id).all()
         if eval_record:
+            case = db.query(models.Case).filter(models.Case.id == session.case_id).first()
             return {
                 "session": session,
                 "evaluation": eval_record,
-                "actions": actions
+                "actions": actions,
+                "case_data": case.data if case else {}
             }
             
     # Update final entries
@@ -621,7 +651,7 @@ def submit_and_evaluate(
     case = db.query(models.Case).filter(models.Case.id == session.case_id).first()
     
     # Perform scoring (rule-based + AI feedback integration)
-    evaluation = evaluate_clinical_reasoning(session, case.data, actions)
+    evaluation = evaluate_clinical_reasoning(session, case.data, actions, disposition=payload.disposition)
     
     db.add(evaluation)
     db.commit()
@@ -631,7 +661,8 @@ def submit_and_evaluate(
     return {
         "session": session,
         "evaluation": evaluation,
-        "actions": actions
+        "actions": actions,
+        "case_data": case.data if case else {}
     }
 
 @router.get("/{session_id}/results", response_model=schemas.SimulationResultOut)
@@ -654,10 +685,13 @@ def get_results(
         
     actions = db.query(models.StudentAction).filter(models.StudentAction.session_id == session_id).order_by(models.StudentAction.timestamp.asc()).all()
     
+    case = db.query(models.Case).filter(models.Case.id == session.case_id).first()
+    
     return {
         "session": session,
         "evaluation": evaluation,
-        "actions": actions
+        "actions": actions,
+        "case_data": case.data if case else {}
     }
 
 

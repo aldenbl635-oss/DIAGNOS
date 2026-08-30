@@ -19,71 +19,70 @@ def get_offline_ai_eval(
     case_data: Dict[str, Any],
     actions: List[models.StudentAction]
 ) -> Dict[str, Any]:
-    # Formulate a deterministic mock evaluation
-    has_ecg = False
-    has_troponin = False
-    ordered_ct = False
-    ecg_index = 999
-    troponin_index = 999
-    ct_index = 999
+    # Formulate a deterministic dynamic evaluation based on case criteria
+    criteria = case_data.get("evaluation_criteria", {})
+    required = [r.lower() for r in criteria.get("required_investigations", [])]
+    unnecessary = [u.lower() for u in criteria.get("unnecessary_investigations", [])]
+    correct_diag = criteria.get("correct_diagnosis", "the final diagnosis")
+    
+    ordered_req = 0
+    ordered_unnec = 0
     
     for i, act in enumerate(actions):
         if act.action_type == "investigation":
-            name = act.content.lower()
-            if "ecg" in name or "electrocardiogram" in name:
-                has_ecg = True
-                ecg_index = i
-            elif "troponin" in name:
-                has_troponin = True
-                troponin_index = i
-            elif "ct" in name:
-                ordered_ct = True
-                ct_index = i
+            name = act.content.lower().replace(" ", "_")
+            if any(r in name or name in r for r in required):
+                ordered_req += 1
+            if any(u in name or name in u for u in unnecessary):
+                ordered_unnec += 1
                 
     # Base scores out of 10
-    reasoning_base = 8.5
-    interpretation_base = 8.0
+    reasoning_base = 6.0
+    interpretation_base = 6.0
     
-    # Sequence checks
-    if has_ecg and has_troponin:
-        if ecg_index < troponin_index:
-            reasoning_base += 1.0 # Good diagnostic flow
-        else:
-            reasoning_base -= 1.0 # Troponin ordered before ECG
+    if len(required) > 0:
+        reasoning_base += (ordered_req / len(required)) * 4.0
     else:
-        reasoning_base -= 3.0
+        reasoning_base += 4.0
         
-    if ordered_ct:
-        if ct_index < ecg_index or ct_index < troponin_index:
-            reasoning_base -= 2.5 # CT ordered too early
-            interpretation_base -= 2.0
-            
+    reasoning_base -= ordered_unnec * 2.0
+    interpretation_base -= ordered_unnec * 1.5
+    
     # Justification text evaluation
     justification = (session.evidence_justification or "").lower()
-    justification_keywords = ["elevation", "stemi", "st-segment", "troponin", "inferior", "leads", "ecg", "ischemia"]
-    matched_justification = [kw for kw in justification_keywords if kw in justification]
     
-    interpretation_base += len(matched_justification) * 0.3
-    
+    # Very basic check: did they write a good length justification?
+    if len(justification.split()) > 20:
+        interpretation_base += 2.0
+    elif len(justification.split()) > 5:
+        interpretation_base += 1.0
+        
     # Cap between 1.0 and 10.0
     reasoning_base = max(1.0, min(10.0, reasoning_base))
     interpretation_base = max(1.0, min(10.0, interpretation_base))
     
     summary = (
         f"The student demonstrated a reasonable diagnostic workup. "
-        f"The final diagnosis of {session.final_diagnosis} was medically sound. "
+        f"The final diagnosis of {session.final_diagnosis} was evaluated. "
     )
-    if ordered_ct:
-        summary += "However, ordering a chest CT scan early on represented significant resource waste."
-    else:
-        summary += "The sequence of testing (ECG followed by Troponins) was highly efficient and aligned with clinical guidelines."
+    if ordered_unnec > 0:
+        summary += "However, ordering unnecessary advanced tests early on represented significant resource waste."
+    elif ordered_req > 0:
+        summary += "The sequence of testing was highly efficient and aligned with clinical guidelines."
         
+    is_correct = False
+    final_diag_str = (session.final_diagnosis or "").lower()
+    for subtype in criteria.get("correct_subtypes", []):
+        if subtype.lower() in final_diag_str:
+            is_correct = True
+            break
+            
     return {
         "reasoning_score": round(reasoning_base, 1),
         "evidence_interpretation_score": round(interpretation_base, 1),
-        "decision_score": 9.0 if (session.final_diagnosis and "coronary" in session.final_diagnosis.lower()) else 4.0,
-        "strengths": ["Logical prioritization of initial cardiac tests."],
-        "weaknesses": ["Consider explaining the specific leads involved in the ECG findings in your documentation." if not "lead" in justification else "No major weaknesses in baseline interpretation."],
+        "decision_score": 9.0 if is_correct else 4.0,
+        "strengths": ["Logical prioritization of initial tests."] if ordered_req > 0 else [],
+        "weaknesses": ["Consider explaining the clinical findings more thoroughly in your documentation."] if len(justification.split()) < 10 else ["No major weaknesses in baseline interpretation."],
         "critical_mistakes": [],
         "overall_reasoning_summary": summary
     }
@@ -91,10 +90,11 @@ def get_offline_ai_eval(
 def evaluate_clinical_reasoning(
     session: models.SimulationSession,
     case_data: Dict[str, Any],
-    actions: List[models.StudentAction]
+    actions: List[models.StudentAction],
+    disposition: str = None
 ) -> models.Evaluation:
     # 1. Compute rule-based metrics
-    rules_scores, rule_strengths, rule_weaknesses, rule_critical = evaluate_session_rules(session, case_data, actions)
+    rules_scores, rule_strengths, rule_weaknesses, rule_critical = evaluate_session_rules(session, case_data, actions, student_disposition=disposition)
     
     ai_eval_result = {}
     
@@ -171,6 +171,9 @@ def evaluate_clinical_reasoning(
     # Resource Efficiency: 5
     # Final Decision: 5
     # Total: 100
+    # Note: Disposition / Referral Triage is an additive score specifically for resource-constrained 
+    # PHC/CHC mode. It adds on top of the existing 100-point scale (max 105) rather than diluting 
+    # the existing rubric, so we can clearly grade referral competency separately in demos!
     final_score = (
         rules_scores["history_score"] +                  # Max 20
         rules_scores["differential_score"] +             # Max 15
@@ -178,7 +181,8 @@ def evaluate_clinical_reasoning(
         ai_interpretation_scaled +                       # Max 20
         ai_reasoning_scaled +                            # Max 15
         rules_scores["resource_efficiency_score"] +      # Max 5
-        rules_scores["decision_score"]                   # Max 5
+        rules_scores["decision_score"] +                 # Max 5
+        rules_scores.get("disposition_score", 0.0)       # Max 5 (Additive Bonus Category)
     )
     
     # 4. Compute communication and patient interaction metrics
@@ -327,6 +331,9 @@ def evaluate_clinical_reasoning(
         communication_score=round(comm_score, 1),
         empathy_score=round(empathy, 1),
         patient_interaction_score=round(interaction, 1),
+        disposition_score=rules_scores.get("disposition_score", 0.0),
+        disposition_correct=rules_scores.get("disposition_correct"),
+        disposition_expected=rules_scores.get("disposition_expected"),
         emotional_timeline=emotional_events,
         final_score=round(final_score, 1),
         strengths=merged_strengths,

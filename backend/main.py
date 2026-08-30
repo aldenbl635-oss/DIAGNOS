@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
+from contextlib import asynccontextmanager
 
 from config import settings
 from database import engine, Base, migrate_db
@@ -10,10 +11,22 @@ from routes import auth, cases, simulation, dashboard
 Base.metadata.create_all(bind=engine)
 migrate_db()
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Preload the embedding model into memory
+    try:
+        from ai.embedding_service import EmbeddingService
+        # Initialize singleton
+        EmbeddingService()
+    except Exception as e:
+        print("Failed to preload EmbeddingService:", e)
+    yield
+
 app = FastAPI(
     title="DiagnOS API",
     description="Backend API for DiagnOS - AI Clinical Reasoning Simulator",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
 
 # CORS configuration to support dev local requests

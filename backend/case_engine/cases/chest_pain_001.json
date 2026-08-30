@@ -1,6 +1,6 @@
 {
   "id": "chest_pain_001",
-  "title": "Chest Discomfort — Emergency Presentation",
+  "title": "Chest Discomfort \u00e2\u20ac\u201d Emergency Presentation",
   "specialty": "Emergency Medicine",
   "difficulty": "Intermediate",
   "duration_mins": 20,
@@ -13,17 +13,16 @@
       "bp": "150/90 mmHg",
       "hr": "102 bpm",
       "spo2": "96%",
-      "temp": "36.8°C"
+      "temp": "36.8\u00c2\u00b0C"
     },
     "chief_complaint": "Chest discomfort",
     "initial_statement": "I've been having this uncomfortable feeling in my chest for about half an hour. I thought it might pass but it hasn't."
   },
-
   "clinical_facts": {
     "symptoms": [
       "Pressure-like chest discomfort, central, described as a heavy weight on the chest",
       "Onset approximately 30-40 minutes ago",
-      "Triggered by exertion — was climbing stairs to his office when it started",
+      "Triggered by exertion \u00e2\u20ac\u201d was climbing stairs to his office when it started",
       "Pain radiates to the left arm and left shoulder (started about 15 minutes after onset)",
       "Associated diaphoresis (cold sweats, feels clammy)",
       "Associated nausea (no vomiting)",
@@ -32,14 +31,14 @@
       "Never experienced anything like this before"
     ],
     "history_of_illness": [
-      "Pain started while climbing office stairs — had to stop immediately",
+      "Pain started while climbing office stairs \u00e2\u20ac\u201d had to stop immediately",
       "Has been sitting in the waiting area since arriving",
       "Pain severity: approximately 7/10",
       "Pain is constant, not relieved by rest"
     ],
     "past_medical_history": [
-      "Type 2 Diabetes Mellitus — diagnosed 5 years ago",
-      "Hypertension — on treatment",
+      "Type 2 Diabetes Mellitus \u00e2\u20ac\u201d diagnosed 5 years ago",
+      "Hypertension \u00e2\u20ac\u201d on treatment",
       "Hypercholesterolaemia",
       "No prior cardiac history",
       "No prior hospitalizations for cardiac events"
@@ -53,14 +52,14 @@
       "No known drug or food allergies"
     ],
     "family_history": [
-      "Father had a myocardial infarction at age 54 — required coronary bypass surgery",
+      "Father had a myocardial infarction at age 54 \u00e2\u20ac\u201d required coronary bypass surgery",
       "No other significant family cardiac history known to patient"
     ],
     "social_history": [
       "Smokes approximately 10 cigarettes per day for the past 15 years",
-      "Occasional alcohol — 2-3 drinks per week",
+      "Occasional alcohol \u00e2\u20ac\u201d 2-3 drinks per week",
       "Sedentary desk job, minimal exercise",
-      "Married with two children — children are a significant concern for him",
+      "Married with two children \u00e2\u20ac\u201d children are a significant concern for him",
       "Works long hours under significant workplace stress"
     ],
     "review_of_systems": [
@@ -71,13 +70,12 @@
       "Musculoskeletal: no recent trauma, no musculoskeletal chest wall pain"
     ],
     "examination_findings": {
-      "NOTE": "These findings are available when the student performs examinations — not volunteered by patient in conversation"
+      "NOTE": "These findings are available when the student performs examinations \u00e2\u20ac\u201d not volunteered by patient in conversation"
     },
     "investigation_results": {
-      "NOTE": "These results are available when investigations are ordered — not volunteered by patient"
+      "NOTE": "These results are available when investigations are ordered \u00e2\u20ac\u201d not volunteered by patient"
     }
   },
-
   "patient_personality": {
     "baseline_anxiety": 65,
     "emotional_sensitivity": 75,
@@ -90,16 +88,14 @@
     "pain_tolerance": 40,
     "distrust_of_medical": 28
   },
-
   "patient_beliefs": [
     "I think this is probably bad indigestion or something I ate at lunch.",
-    "I've been under a lot of stress at work — maybe it's stress-related.",
+    "I've been under a lot of stress at work \u00e2\u20ac\u201d maybe it's stress-related.",
     "My father had heart problems, but I'm not sure this is the same thing.",
     "I don't want to cause a fuss if it turns out to be nothing serious.",
-    "I really need to get home to my family — my wife will be worried.",
+    "I really need to get home to my family \u00e2\u20ac\u201d my wife will be worried.",
     "I'm a bit worried it could be my heart given my father's history."
   ],
-
   "patient_goals": [
     "Primary: Understand what is causing this chest discomfort.",
     "Safety: Find out whether this is dangerous or life-threatening.",
@@ -108,7 +104,6 @@
     "Secondary: Avoid unnecessary procedures if possible.",
     "Communication: Have things explained to me clearly and simply."
   ],
-
   "examinations": [
     {
       "type": "general",
@@ -136,7 +131,6 @@
       "result": "Grossly intact. Pupil reflexes are normal. No focal motor or sensory deficits noted."
     }
   ],
-
   "investigations": [
     {
       "id": "ecg",
@@ -145,7 +139,12 @@
       "category": "CARDIAC",
       "turnaround": "Immediate",
       "result": "ST-segment elevation of 2mm noted in leads II, III, and aVF with reciprocal ST depression in leads I and aVL.",
-      "interpretation": "Abnormal ECG showing acute inferior ST-elevation myocardial infarction (STEMI)."
+      "interpretation": "Abnormal ECG showing acute inferior ST-elevation myocardial infarction (STEMI).",
+      "available_at": [
+        "tertiary",
+        "chc",
+        "phc"
+      ]
     },
     {
       "id": "troponin",
@@ -154,7 +153,10 @@
       "category": "BLOOD TESTS",
       "turnaround": "30 mins",
       "result": "Troponin I is elevated at 1.85 ng/mL (Normal < 0.04 ng/mL).",
-      "interpretation": "Significantly elevated troponin levels, confirming acute myocardial injury."
+      "interpretation": "Significantly elevated troponin levels, confirming acute myocardial injury.",
+      "available_at": [
+        "tertiary"
+      ]
     },
     {
       "id": "cbc",
@@ -163,7 +165,11 @@
       "category": "BLOOD TESTS",
       "turnaround": "30 mins",
       "result": "WBC: 9.8 x10^9/L, Hb: 14.2 g/dL, Platelets: 245 x10^9/L.",
-      "interpretation": "CBC is within normal reference limits."
+      "interpretation": "CBC is within normal reference limits.",
+      "available_at": [
+        "tertiary",
+        "chc"
+      ]
     },
     {
       "id": "glucose",
@@ -172,7 +178,12 @@
       "category": "BLOOD TESTS",
       "turnaround": "Immediate",
       "result": "Blood Glucose: 165 mg/dL.",
-      "interpretation": "Mild hyperglycemia, consistent with patient's history of diabetes and acute stress response."
+      "interpretation": "Mild hyperglycemia, consistent with patient's history of diabetes and acute stress response.",
+      "available_at": [
+        "tertiary",
+        "chc",
+        "phc"
+      ]
     },
     {
       "id": "electrolytes",
@@ -181,7 +192,11 @@
       "category": "BLOOD TESTS",
       "turnaround": "30 mins",
       "result": "Sodium: 138 mEq/L, Potassium: 4.1 mEq/L, Chloride: 102 mEq/L, Bicarbonate: 24 mEq/L.",
-      "interpretation": "Electrolytes are within normal limits."
+      "interpretation": "Electrolytes are within normal limits.",
+      "available_at": [
+        "tertiary",
+        "chc"
+      ]
     },
     {
       "id": "cxr",
@@ -190,7 +205,11 @@
       "category": "IMAGING",
       "turnaround": "15 mins",
       "result": "Lung fields are clear. No evidence of pneumonia, pneumothorax, or pleural effusion. Cardiothoracic ratio is normal. Mediastinum is normal width.",
-      "interpretation": "Normal chest X-ray. Rules out tension pneumothorax and wide mediastinum (which could suggest aortic dissection)."
+      "interpretation": "Normal chest X-ray. Rules out tension pneumothorax and wide mediastinum (which could suggest aortic dissection).",
+      "available_at": [
+        "tertiary",
+        "chc"
+      ]
     },
     {
       "id": "ct_angio",
@@ -199,10 +218,12 @@
       "category": "IMAGING",
       "turnaround": "45 mins",
       "result": "No evidence of pulmonary embolism. Aorta is of normal caliber with no dissection flap.",
-      "interpretation": "Normal CT scan. This test was clinically unnecessary given the ECG findings, resulting in resource inefficiency and dangerous delay."
+      "interpretation": "Normal CT scan. This test was clinically unnecessary given the ECG findings, resulting in resource inefficiency and dangerous delay.",
+      "available_at": [
+        "tertiary"
+      ]
     }
   ],
-
   "differential_diagnoses": [
     "Acute coronary syndrome",
     "Pulmonary embolism",
@@ -212,11 +233,26 @@
     "Aortic dissection",
     "Musculoskeletal chest pain"
   ],
-
   "evaluation_criteria": {
     "correct_diagnosis": "Acute coronary syndrome",
-    "correct_subtypes": ["acute coronary syndrome", "stemi", "myocardial infarction", "inferior stemi", "acs"],
-    "immediate_priority_keywords": ["reperfusion", "cath lab", "cardiology", "pci", "aspirin", "nitroglycerin", "heparin", "thrombolysis", "angioplasty"],
+    "correct_subtypes": [
+      "acute coronary syndrome",
+      "stemi",
+      "myocardial infarction",
+      "inferior stemi",
+      "acs"
+    ],
+    "immediate_priority_keywords": [
+      "reperfusion",
+      "cath lab",
+      "cardiology",
+      "pci",
+      "aspirin",
+      "nitroglycerin",
+      "heparin",
+      "thrombolysis",
+      "angioplasty"
+    ],
     "critical_questions": [
       "pain_characteristics",
       "lifestyle_risk_factors",
@@ -224,7 +260,23 @@
       "associated_symptoms",
       "family_history"
     ],
-    "required_investigations": ["ecg", "troponin"],
-    "unnecessary_investigations": ["ct_angio"]
+    "required_investigations": [
+      "ecg",
+      "troponin"
+    ],
+    "unnecessary_investigations": [
+      "ct_angio"
+    ],
+    "referral_criteria": {
+      "red_flags": [
+        "Severe acute presentation requiring advanced imaging or intervention",
+        "Hemodynamic instability"
+      ],
+      "correct_disposition_by_tier": {
+        "tertiary": "manage_locally",
+        "chc": "manage_locally",
+        "phc": "refer"
+      }
+    }
   }
 }

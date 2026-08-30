@@ -17,8 +17,8 @@ def seed_db():
             new_case = models.Case(
                 id=case_id,
                 title=case_data.get("title"),
-                specialty=case_data.get("specialty"),
-                difficulty=case_data.get("difficulty"),
+                specialty=case_data.get("specialty", "General Medicine"),
+                difficulty=case_data.get("difficulty", "Intermediate"),
                 duration_mins=case_data.get("duration_mins", 20),
                 data=case_data
             )

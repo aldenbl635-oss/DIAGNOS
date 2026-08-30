@@ -1,0 +1,43 @@
+{
+  "id": "migraine_001",
+  "scenario_type": "neurology",
+  "title": "Migraine",
+  "difficulty": "easy",
+  "presentation": {
+    "chief_complaint": "terrible headache",
+    "initial_briefing": "I've had this terrible headache for about 30 minutes, and the light is really bothering me."
+  },
+  "patient": {
+    "name": "Carol",
+    "chief_complaint": "terrible headache",
+    "initial_statement": "Hello doctor... I've had this terrible headache for about 30 minutes, and the light is really bothering me."
+  },
+  "clinical_state": {
+    "symptoms": [
+      "Right-sided headache / behind right eye and temple",
+      "Photophobia",
+      "Nausea"
+    ]
+  },
+  "history": {
+    "past_medical_history": [
+      "History of similar migraine headaches"
+    ],
+    "medications": [
+      "Sumatriptan 50mg as needed for migraine onset"
+    ]
+  },
+  "evaluation_criteria": {
+    "referral_criteria": {
+      "red_flags": [
+        "Unstable vitals",
+        "Diagnostic uncertainty requiring advanced workup"
+      ],
+      "correct_disposition_by_tier": {
+        "tertiary": "manage_locally",
+        "chc": "manage_locally",
+        "phc": "refer"
+      }
+    }
+  }
+}

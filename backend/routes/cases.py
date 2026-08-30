@@ -48,6 +48,7 @@ def build_case_detail(c: models.Case) -> dict:
                 "name": inv.get("name"),
                 "cost": inv.get("cost", 0),
                 "category": inv.get("category", "OTHER"),
+                "available_at": inv.get("available_at", ["tertiary", "chc", "phc"]),
             }
             for inv in c.data.get("investigations", [])
         ],

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import {
   Send, Plus, Trash2, Stethoscope, FileText, AlertCircle,
   HelpCircle, Clock, DollarSign, X, ChevronDown, Activity,
-  Mic, MessageSquare, FlaskConical, GitBranch, PenLine,
+  Mic, MessageSquare, FlaskConical, GitBranch, PenLine, HeartPulse
 } from 'lucide-react';
 import { api } from '../api/client';
 import PatientAvatar from '../components/Patient/PatientAvatar';
@@ -132,6 +132,7 @@ export default function PatientEncounter({ sessionId, onNavigate, onEncounterCom
   const [finalDiag, setFinalDiag] = useState('');
   const [immediatePriority, setImmediatePriority] = useState('');
   const [justification, setJustification] = useState('');
+  const [disposition, setDisposition] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
   const [showEndConfirm, setShowEndConfirm] = useState(false);
@@ -292,6 +293,7 @@ export default function PatientEncounter({ sessionId, onNavigate, onEncounterCom
         final_diagnosis: finalDiag,
         immediate_priority: immediatePriority,
         evidence_justification: justification,
+        disposition: disposition,
       });
       setShowSubmitModal(false);
       onEncounterComplete(sessionId);
@@ -346,12 +348,14 @@ export default function PatientEncounter({ sessionId, onNavigate, onEncounterCom
         style={{ background: 'rgba(8,13,23,0.95)', backdropFilter: 'blur(8px)' }}
       >
         <div className="flex items-center gap-3">
-          <div className="w-7 h-7 bg-teal-500/20 border border-teal-500/30 rounded-lg flex items-center justify-center">
-            <span className="text-teal-400 text-xs font-black">D</span>
+          <div className="flex items-center justify-center w-7 h-7 bg-sky-500 text-white rounded-lg shadow-md">
+            <HeartPulse className="w-4 h-4 text-white" strokeWidth={2.5} />
           </div>
-          <div>
-            <span className="text-xs font-bold text-slate-300">DiagnOS</span>
-            <span className="text-[10px] text-slate-600 ml-2 hidden sm:inline">Virtual Patient Encounter</span>
+          <div className="flex items-baseline">
+            <span className="text-xs font-black font-sans tracking-tight">
+              <span className="text-white">Diagn</span>
+              <span className="text-sky-500">OS</span>
+            </span>
           </div>
           <div className="hidden sm:flex items-center gap-1 ml-2 px-2 py-0.5 bg-green-500/10 border border-green-500/20 rounded-full">
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
@@ -640,16 +644,22 @@ export default function PatientEncounter({ sessionId, onNavigate, onEncounterCom
                 </div>
                 {investigationsList.length > 0 ? investigationsList.map(inv => {
                   const ordered = investigationsOrdered[inv.id];
+                  const sessionTier = session?.facility_tier || "tertiary";
+                  const isAvailable = !inv.available_at || inv.available_at.includes(sessionTier);
                   return (
-                    <div key={inv.id} className="encounter-surface rounded-xl p-3.5 space-y-2 border border-slate-700/30">
+                    <div key={inv.id} className={`encounter-surface rounded-xl p-3.5 space-y-2 border transition-all ${!isAvailable ? 'border-red-900/30 bg-red-950/20 opacity-75' : 'border-slate-700/30'}`}>
                       <div className="flex justify-between items-center">
                         <div>
-                          <p className="text-xs font-bold text-slate-300">{inv.name}</p>
-                          <p className="text-[9px] text-slate-600">{inv.category}</p>
+                          <p className={`text-xs font-bold ${!isAvailable ? 'text-slate-500 line-through' : 'text-slate-300'}`}>{inv.name}</p>
+                          <p className={`text-[9px] ${!isAvailable ? 'text-slate-600' : 'text-slate-600'}`}>{inv.category}</p>
                         </div>
-                        <span className="text-[10px] font-bold text-slate-500 bg-slate-800 px-2 py-0.5 rounded">{inv.cost} cr</span>
+                        {isAvailable && <span className="text-[10px] font-bold text-slate-500 bg-slate-800 px-2 py-0.5 rounded">{inv.cost} cr</span>}
                       </div>
-                      {!ordered ? (
+                      {!isAvailable ? (
+                        <div className="p-2.5 bg-red-950/40 border border-dashed border-red-900/50 rounded-lg text-center text-[10px] font-semibold text-red-400 tracking-wide">
+                          TEST UNAVAILABLE AT THIS FACILITY LEVEL
+                        </div>
+                      ) : !ordered ? (
                         <button
                           id={`inv-btn-${inv.id}`}
                           onClick={() => handleInvestigation(inv.id)}
@@ -805,6 +815,21 @@ export default function PatientEncounter({ sessionId, onNavigate, onEncounterCom
                     <option value="Gastroesophageal reflux disease">GERD</option>
                     <option value="Pericarditis">Pericarditis</option>
                     <option value="Musculoskeletal chest pain">Musculoskeletal chest pain</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Patient Disposition</label>
+                  <select
+                    required
+                    value={disposition}
+                    onChange={e => setDisposition(e.target.value)}
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500"
+                  >
+                    <option value="" disabled>Select disposition...</option>
+                    <option value="manage_locally">Manage locally (Admit/Treat)</option>
+                    <option value="refer">Refer to higher facility</option>
+                    <option value="treat_symptomatically">Treat symptomatically & Discharge</option>
                   </select>
                 </div>
 

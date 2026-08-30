@@ -67,11 +67,17 @@ export default function Login({ isRegisterInitial = false, onLoginSuccess, onNav
 
         {/* Header */}
         <div className="text-center space-y-2">
-          <div className="inline-flex bg-medical-50 text-medical-600 p-2.5 rounded-xl border border-medical-100/50 mb-2">
-            <HeartPulse className="w-6 h-6 animate-pulse-slow" />
+          <div className="flex flex-col items-center gap-3 mb-4">
+            <div className="flex items-center justify-center w-12 h-12 bg-sky-500 text-white rounded-[1.25rem] shadow-sm">
+              <HeartPulse className="w-7 h-7" strokeWidth={2.5} />
+            </div>
+            <span className="font-sans font-black text-3xl tracking-tight">
+              <span className="text-slate-900">Diagn</span>
+              <span className="text-sky-500">OS</span>
+            </span>
           </div>
-          <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
-            {isRegister ? 'Create your account' : 'Sign in to DiagnOS'}
+          <h2 className="text-xl font-bold text-slate-900 tracking-tight">
+            {isRegister ? 'Create your account' : 'Sign in to your account'}
           </h2>
           <p className="text-xs text-slate-500 max-w-xs mx-auto">
             Access the clinical reasoning workstation simulation for medical education.

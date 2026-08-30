@@ -69,8 +69,18 @@ class SemanticClassifier:
     CLINICAL_PATTERNS = re.compile(
         r"\b(where|when|how\s+long|how\s+bad|how\s+often|does\s+it|did\s+it|have\s+you|has\s+(anyone|anybody)|is\s+there\s+any|did\s+(anyone|your)|"
         r"tell\s+me\s+about|describe|what\s+(kind|type|does|is\s+your|are\s+your|medications?|pills?)|any\s+(other|previous|family|history)|"
-        r"do\s+you\s+(have|feel|take|smoke|drink|exercise|use)|are\s+you\s+(taking|on\s+any|allergic|a\s+smoker|a\s+(heavy\s+)?drinker|obese|overweight)|"
+        r"do\s+you\s+(have|feel|take|smoke|drink|exercise|use)|are\s+you\s+(taking|on\s+any|allergic|a\s+smoker|a\s+(heavy\s+)?drinker|obese|overweight|nauseated|nauseous|in\s+pain)|"
         r"your\s+(pain|symptom|medical|history|pressure|blood|heart|medication|allerg|glucose|weight|diet|sugar|level|family|parents|mother|father))\b",
+        re.I
+    )
+    # Symptom-specific patterns checked BEFORE EMOTIONAL_Q_PATTERNS to prevent misrouting
+    SYMPTOM_CLINICAL_PATTERNS = re.compile(
+        r"\b(nauseated|nauseous|vomit|throw\s*up|sick\s+to\s+(your\s+)?stomach|"
+        r"headache|migraine|photopho|sensitive\s+to\s+light|bright\s+light|"
+        r"weakness|numbness|tingling|swallowing|speech|vision|confused|confusion|"
+        r"shortness\s+of\s+breath|wheezing|palpitation|pounding|racing\s+heart|"
+        r"abdominal|stomach\s+pain|belly|cramp|diarrhea|constipation|"
+        r"fever|chills|sweat\w+|cough\w*|sneez)\b",
         re.I
     )
     EMOTIONAL_Q_PATTERNS = re.compile(
@@ -102,7 +112,7 @@ class SemanticClassifier:
     SYMPTOM_DETAIL_PATTERNS = re.compile(
         r"\b(pain|discomfort|pressure|burning|ache|hurt\w*|sore|tight\w*|"
         r"swell\w*|nausea|vomit\w*|dizziness|dizzy|faint\w*|"
-        r"breath\w*|short\s+of\s+breath|chest|heartburn|"
+        r"breath\w*|short\s+of\s+breath|chest|heartburn|symptom\w*|weak\w*|"
         r"radiat\w*|spread\w*|move|travel|shoot\w*)\b",
         re.I
     )
@@ -126,6 +136,10 @@ class SemanticClassifier:
             return "empathy"
         if SemanticClassifier.REASSURANCE_PATTERNS.search(m):
             return "reassurance"
+        # Check symptom-specific clinical questions BEFORE emotional pattern so that
+        # "are you feeling nauseated?" routes to symptom_question, not emotional_question
+        if SemanticClassifier.SYMPTOM_CLINICAL_PATTERNS.search(m):
+            return "symptom_question"
         if SemanticClassifier.EMOTIONAL_Q_PATTERNS.search(m):
             return "emotional_question"
         if SemanticClassifier.PERSONAL_Q_PATTERNS.search(m):
@@ -236,14 +250,7 @@ class PatientContext:
 # ─── 3. TOPIC EXTRACTOR ──────────────────────────────────────────────────────
 
 TOPIC_KEYWORD_MAP: Dict[str, List[str]] = {
-    "onset_trigger": ["when", "start", "begin", "onset", "trigger", "happen", "doing", "exert", "climb", "walk", "morning", "evening", "sudden", "gradual"],
-    "duration": ["how long", "duration", "since", "long", "minutes", "hours", "days", "weeks", "month"],
-    "location_site": ["where", "location", "site", "side", "which part"],
-    "character_quality": ["describe", "what kind", "type", "character", "sharp", "dull", "crushing", "squeezing", "burning", "aching", "throbbing", "pressure"],
-    "radiation": ["radiat", "spread", "go anywhere", "move", "travel", "shoot", "arm", "jaw", "shoulder", "neck", "back", "groin", "thigh", "leg"],
-    "severity": ["how bad", "scale", "out of 10", "rate the pain", "severity", "intense", "mild", "severe"],
-    "exacerbating": ["worse", "aggravate", "makes it worse", "exacerbat"],
-    "relieving": ["better", "reliev", "ease", "improv", "nitroglycerin", "rest"],
+    # ── HIGH-PRIORITY: Specific clinical domains ──────────────────────────
     "associated_symptoms": ["associated", "other symptoms", "anything else", "nausea", "sweat", "clammy", "diaphoresis", "vomit", "breathe", "sob", "dyspnea", "dizzy", "lightheaded"],
     "past_history": ["before", "previous", "prior", "ever had", "history", "first time", "episode"],
     "past_medical": ["medical history", "past medical", "condition", "illness", "diseases", "diabetes", "hypertension", "blood pressure", "cholesterol", "thyroid", "asthma", "kidney", "stroke", "epilepsy"],
@@ -260,6 +267,18 @@ TOPIC_KEYWORD_MAP: Dict[str, List[str]] = {
     "children": ["children", "kids", "children", "son", "daughter"],
     "living_situation": ["live with", "living", "alone", "roommate", "who lives"],
     "stress": ["stress", "stressful", "pressure at work", "anxiety", "mental health"],
+
+    # ── GENERIC: Pain characteristics and general questions ───────────────
+    "onset_trigger": ["when", "start", "begin", "onset", "trigger", "happen", "doing", "exert", "climb", "walk", "morning", "evening", "sudden", "gradual"],
+    "duration": ["how long", "duration", "since", "long", "minutes", "hours", "days", "weeks", "month"],
+    "location_site": ["where", "location", "site", "side", "which part"],
+    "character_quality": ["describe", "what kind", "type", "character", "sharp", "dull", "crushing", "squeezing", "burning", "aching", "throbbing", "pressure", "feels like", "feel like"],
+    "radiation": ["radiat", "spread", "go anywhere", "move", "travel", "shoot", "arm", "jaw", "shoulder", "neck", "back", "groin", "thigh", "leg"],
+    "severity": ["how bad", "scale", "out of 10", "rate the pain", "severity", "intense", "mild", "severe"],
+    "exacerbating": ["worse", "aggravate", "makes it worse", "exacerbat"],
+    "relieving": ["better", "reliev", "ease", "improv", "nitroglycerin", "rest"],
+    "symptoms": ["symptom", "complaint", "feel", "happening", "wrong"],
+    
     "trust": ["trust", "believe in me", "confident in"],
     "nervousness": ["nervous", "anxious", "scared", "afraid", "fear", "frightened", "worried", "terrified"],
     "pain_general": ["pain", "ache", "hurt", "discomfort", "pressure", "feel bad", "sore"],
@@ -294,16 +313,70 @@ class OfflinePatientResponder:
         self.ctx = PatientContext(case_data)
         self.case_data = case_data
 
+    def _is_compatible_fact(self, intent_category: str, topic: Optional[str], fact_type: str) -> bool:
+        """Relevance gate: Ensure the retrieved vector overlaps with the semantic intent."""
+        if not fact_type:
+            return True
+            
+        if topic == "past_medical":
+            return fact_type == "past_medical_history"
+        if topic == "medications":
+            return fact_type == "medications"
+        if topic == "family_history":
+            return fact_type == "family_history"
+        if topic == "allergies":
+            return fact_type == "allergies"
+        if topic in ("smoking", "alcohol", "drugs", "diet", "exercise", "occupation", "marital", "children", "living_situation", "stress"):
+            return fact_type in ("social_history", "smoking", "alcohol", "stress")
+        
+        if topic in ("onset_trigger", "duration"):
+            return fact_type in ("onset", "history_of_illness", "chief_complaint")
+            
+        if topic in ("location_site", "character_quality", "severity", "radiation", "exacerbating", "relieving", "associated_symptoms", "pain_general"):
+            not_symptoms = ["past_medical_history", "medications", "allergies", "family_history", "social_history", "smoking", "alcohol", "stress"]
+            return fact_type not in not_symptoms
+
+        if intent_category in ("clinical_question", "symptom_question"):
+            # Allow fallback if no specific topic extracted, but loosely protect against blatant mismatch
+            return True
+            
+        return False
+
+    def generate_greeting(self) -> str:
+        """Create a clinical case-aware initial patient greeting without leaking diagnosis."""
+        cc = self.ctx.chief_complaint
+        symptoms = self.ctx.symptoms
+        
+        if not symptoms and not cc:
+            return "Hello doctor. I'm not feeling well."
+            
+        symptom_str = ""
+        if symptoms:
+            first_sym = str(symptoms[0])
+            first_sym = first_sym.lower().replace("patient reports ", "").replace("complains of ", "").strip()
+            if first_sym.endswith("."):
+                first_sym = first_sym[:-1]
+            symptom_str = f" My {first_sym}."
+            
+        return f"Hello, doctor. I've been feeling really uncomfortable.{symptom_str}"
+
     def respond(
         self,
         student_message: str,
         state,  # PatientAgentState
         com_analysis: Dict[str, Any],
+        semantic_facts: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
         """
         Main entry point. Returns a complete response dict structurally identical
         to what the LLM would produce.
+
+        semantic_facts: list of high-confidence retrieved facts from VectorStore.
+        These take priority over keyword fallbacks for clinical questions,
+        preventing unrelated responses from mis-matched keyword patterns.
         """
+        if semantic_facts is None:
+            semantic_facts = []
         category = SemanticClassifier.classify(student_message)
         topic = extract_topic(student_message)
         msg_lower = student_message.lower()
@@ -455,9 +528,50 @@ class OfflinePatientResponder:
             memory_importance = 0.6
 
         elif category in ("clinical_question", "symptom_question"):
-            response_text, revealed = self._answer_clinical_question(
-                msg_lower, topic, preface, state, p_cc
-            )
+            # ── EMBEDDING-FIRST CLINICAL RETRIEVAL ──────────
+            # Replaced keyword engine with VectorStore truth
+            
+            best_fact = None
+            best_score = 0.0
+            if semantic_facts:
+                for candidate in semantic_facts:
+                    if isinstance(candidate, dict):
+                        f_text = candidate.get("text", "")
+                        f_score = candidate.get("score", 0.0)
+                        if f_text and f_score > best_score:
+                            best_score = f_score
+                            best_fact = f_text
+                    else:
+                        best_fact = candidate
+                        break
+                        
+            if best_fact and best_score >= 0.55:
+                # High-confidence semantic hit: speak directly from the retrieved fact
+                response_text = preface + self._fact_as_patient_voice(best_fact, p_cc, state)
+                revealed = ["clinical_fact"]
+            elif best_fact:
+                # Moderate-confidence: try keyword handler first, fall back to semantic
+                kw_text, kw_revealed = self._answer_clinical_question(msg_lower, topic, preface, state, p_cc)
+                if kw_text:
+                    response_text = kw_text
+                    revealed = kw_revealed
+                else:
+                    response_text = preface + self._fact_as_patient_voice(best_fact, p_cc, state)
+                    revealed = ["clinical_fact"]
+            else:
+                # No semantic fact passed threshold — try keyword handler
+                kw_text, kw_revealed = self._answer_clinical_question(msg_lower, topic, preface, state, p_cc)
+                if kw_text:
+                    response_text = kw_text
+                    revealed = kw_revealed
+                else:
+                    # User Request 7: Never invent a fact. Use case-aware safe fallback.
+                    response_text = (
+                        f"I'm not sure I understood that question, doctor. "
+                        f"Could you ask me something about my {p_cc}?"
+                    )
+                    revealed = []
+
 
         elif category == "confusion":
             response_text = (
@@ -490,6 +604,63 @@ class OfflinePatientResponder:
             "communication_state": state.emotion.get_label().lower(),
             "student_communication_classification": com_analysis.get("intent", "neutral"),
         }
+
+    # ── HELPER: SEMANTIC FACT → PATIENT VOICE ──────────────────────────────
+
+    def _fact_as_patient_voice(self, fact: str, p_cc: str, state) -> str:
+        """
+        Convert a raw case fact string into a natural first-person patient reply.
+        Called when semantic retrieval has high confidence in the matched fact.
+        """
+        fl = fact.lower().strip()
+
+        # Strip indexer NL-bridge prefixes so they don't appear in patient speech.
+        # These prefixes were added during indexing to improve retrieval recall.
+        bridge_prefixes = [
+            "symptom i am having:",
+            "symptom:",
+            "medical condition / past history:",
+            "taking medications:",
+            "medications:",
+            "family history:",
+            "allergies to:",
+            "allergies:",
+            "chief complaint:",
+            "photophobia:",
+            "onset (when it started):",
+            "onset:",
+            "history of illness:",
+            "past medical history:",
+            "social history:",
+            "smoking:",
+            "alcohol:",
+            "stress:",
+        ]
+        for prefix in bridge_prefixes:
+            if fl.startswith(prefix):
+                fact = fact[len(prefix):].strip()
+                fl = fact.lower()
+                break
+
+        # Handle specific synonym bridges mapped during indexing
+        if fl == "feeling nauseated, sick to my stomach, nausea, throwing up, vomiting":
+            return "I've been feeling really nauseated, like I'm sick to my stomach."
+        elif fl == "sensitive to light, bright light worsens symptoms, photophobia":
+            return "The bright light is really bothering my eyes, it makes it worse."
+        elif fl.startswith("headache:"):
+            fact = fact[9:].strip()
+        elif fl.startswith("weakness, unable to move:"):
+            fact = fact[25:].strip()
+        elif fl.startswith("speech difficulty, slurred speech:"):
+            fact = fact[34:].strip()
+
+        if not fact:
+            return f"I'm not sure how to describe it exactly."
+
+        # Already phrased as a fact sentence — wrap in patient voice
+        if fact.endswith("."):
+            return fact
+        return f"{fact}."
 
     # ── HELPER: PREFACE ────────────────────────────────────────────────────
 

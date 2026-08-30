@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.env
+backend/diagnos.db
+backend/data/
+*.log
+*.txt
+node_modules/
+dist/
+.DS_Store
